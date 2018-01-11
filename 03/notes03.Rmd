@@ -1,16 +1,20 @@
 ---
-title: "3. Stationarity, white noise, and some basic time series models"
+title: "3 Stationarity, white noise, and some basic time series models"
 author: "Edward Ionides"
 date: "1/9/2018"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: 2
   html_document:
+    number_sections: yes
+    pandoc_args: --number-offset=3
     theme: flatly
     toc: yes
     toc_depth: 2
-    number_sections: true
-    pandoc_args: [
-      "--number-offset=3"
-    ]
+  word_document:
+    toc: yes
+    toc_depth: '2'
 csl: ecology.csl
 ---
 
@@ -95,9 +99,9 @@ options(
     + For equally spaced observations, this becomes: for any collection of timepoints $n_1,\dots,n_K$, and for any lag $h$, the joint density function of $(Y_{n_1},Y_{n_2},\dots, Y_{n_K})$ is the same as the joint density function of $(Y_{n_1+h},Y_{n_2+h},\dots, Y_{n_K+h})$.
 
     + In our general notation for densities, this strict stationarity requirement can be written as
-$$\begin{eqnarray}&&f_{Y_{n_1},Y_{n_2},\dots, Y_{n_K}}(y_1,y_2,\dots,y_K)\\
+\begin{eqnarray}&&f_{Y_{n_1},Y_{n_2},\dots, Y_{n_K}}(y_1,y_2,\dots,y_K)\\
 &&\quad\quad = f_{Y_{n_1+h},Y_{n_2+h},\dots, Y_{n_K+h}}(y_1,y_2,\dots,y_K).
-\end{eqnarray}$$
+\end{eqnarray}
 
    + Strict stationarity implies weak stationarity (check this). Note that we only defined weak stationarity for equally spaced observations.
 
@@ -162,12 +166,12 @@ par(oldpars)
 ## White noise
 
 A time series model $\epsilon_{1:N}$ which is weakly stationary with 
-$$\begin{eqnarray}
+\begin{eqnarray}
 \E[\epsilon_n]&=& 0 \\
 \cov(\epsilon_m,\epsilon_n) &=& \left\{\begin{array}{ll}
   \sigma^2, & \mbox{if $m=n$} \\
    0, & \mbox{if $m\neq n$} \end{array}\right. ,
-\end{eqnarray}$$
+\end{eqnarray}
 is said to be **white noise** with variance $\sigma^2$.
 
 * The "noise" is because there's no pattern, just random variation. If you listened to a realization of white noise as an audio file, you would hear a static sound.
@@ -196,19 +200,19 @@ $$ \epsilon_{1:N} \sim \mbox{IID } N[0,\sigma^2].$$
 ### Example: Binary white noise
 
 Let $\epsilon_{1:N}$ be IID with
-$$\begin{eqnarray}
+\begin{eqnarray}
 \epsilon_n = \left\{\begin{array}{ll}
   1, & \mbox{with probability $1/2$} \\
   -1, & \mbox{with probability $1/2$} \end{array}\right. .
-\end{eqnarray}$$
+\end{eqnarray}
 We can check that $\E[\epsilon_n]=0$, $\var(\epsilon_n)=1$ and $\cov(\epsilon_m,\epsilon_n)=0$ for $m\neq n$. Therefore, $\epsilon_{1:N}$ is white noise. 
 
 Similarly, for any $p\in (0,1)$, we could have 
-$$\begin{eqnarray}
+\begin{eqnarray}
 \epsilon_n = \left\{\begin{array}{ll}
   (1-p)/p, & \mbox{with probability $p$} \\
   -1, & \mbox{with probability $1-p$} \end{array}\right. .
-\end{eqnarray}$$
+\end{eqnarray}
 
 <br>
 
