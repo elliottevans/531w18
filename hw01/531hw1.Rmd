@@ -1,0 +1,139 @@
+---
+title: "STATS 531 HW 1"
+author: "Elliott Evans"
+date: "1/17/2018"
+header-includes:
+   - \usepackage{amsmath}
+   - \usepackage{amssymb}
+   - \usepackage{amsthm}
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    theme: flatly
+    toc: yes
+csl: ecology.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\newcommand{\DEF}{\overset{\text{def}}{=}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\IND}{\mathbbm{1}}
+\newcommand{\var}{\text{Var}}
+\newcommand{\cov}{\text{Cov}}
+\newcommand{\logit}{\text{logit}}
+\newcommand{\n}{\newline}
+
+-----------
+
+## Question 1.1
+
+Let $X_{1:N}$ be a covariance stationary time series model with autocovariance function $\gamma_h=\cov(X_n,X_{n+h})$ and constant mean function $\mu_n=\mu$. Considering the sample mean as an estimator of $\mu$,
+$$\hat{\mu}(x_{1:N}) =\frac{1}{N}\sum_{n=1}^Nx_n,$$
+we derive the equation $\var(\hat{\mu}(X_{1:N})) = \frac{1}{N}\gamma_0 + \frac{2}{N^2}\sum_{h=1}^{N-1}(N-h)\gamma_h$.
+
+
+
+
+*Proof.* Noting that the time series is covariance stationary, we have
+
+$$\begin{aligned}
+\var(\hat{\mu}(X_{1:N}))&=\var\left(\frac{1}{N}\sum_{n=1}^NX_n\right)\\
+&=\frac{1}{N^2}\sum_{i,j=1}^N\cov\left(X_i,X_j\right)\\
+&=\frac{1}{N^2}\sum_{i=1}^N\var(X_i) + \frac{1}{N^2}\sum_{i\neq j}^N\cov(X_i,X_j).
+\end{aligned}$$
+Now, we observe that $$\gamma_0 = \cov(X_n,X_{n+0}) = \var(X_n)$$
+for all $n\in\{1,2,\dots ,N\}$. Thus,
+
+$$\begin{aligned}
+\var(\hat{\mu}(X_{1:N}))&=\frac{1}{N^2}(N\gamma_0) + \frac{1}{N^2}\sum_{i\neq j}^N\cov(X_i,X_j)\\
+&=\frac{1}{N}\gamma_0 + \frac{2}{N^2}\sum_{i<j}^N\cov(X_i,X_j)
+\end{aligned}$$
+
+Now, we may observe that
+$$\begin{aligned}
+\sum_{i<j}^N\cov(X_i,X_j) &=(\gamma_1 + \gamma_2 + \cdots + \gamma_{N-1}) + (\gamma_1 + \gamma_2 + \cdots + \gamma_{N-2}) + \cdots + (\gamma_1 + \gamma_2) + (\gamma_1)\\
+&=(N-1)\gamma_1 + (N-2)\gamma_2 + (N-3)\gamma_3 + \cdots + 2\gamma_{N-2} + \gamma_{N-1}\\
+&= \sum_{h=1}^{N-1}(N-h)\gamma_h
+\end{aligned}$$
+
+Thus, we have that 
+$$\var(\hat{\mu}(X_{1:N}))=\frac{1}{N}\gamma_0 + \frac{2}{N^2}\sum_{h=1}^{N-1}(N-h)\gamma_h.$$
+
+## Question 1.2 A
+
+Suppose the null hypothesis holds, i.e. that $X_{1:N}$ are iid random variables with mean 0 and variance $\sigma^2_X$. Now, we note that the sample autocovariance and sample variance functions are $\hat{\gamma}_h=\frac{1}{N}\sum_{n=1}^{N-h}(x_n-\hat{\mu}_n)(x_{n+h}-\hat{\mu}_{n+h})$ and $\hat{\gamma}_0=\frac{1}{N}\sum_{n=1}^N(x_n-\hat{\mu}_n)^2$. The sample autocorrelation is $\hat{\rho}_h = \frac{\hat{\gamma}_h}{\hat{\gamma}_0}$.
+
+Since $X_{1:N}$ are iid mean 0 random variables, we know $\hat{\mu}$ converges in distribution to 0. Thus, we use $\hat{\mu}\equiv 0$ as our mean estimator. We define define $U$ and $V$ in terms of the random sample autocorrelation:
+$$\hat{\rho}_h = \frac{\sum_{n=1}^{N-h}X_nX_{n+h}}{\sum_{n=1}^N X_n^2}=\frac{U}{V} $$
+where $U=\sum_{n=1}^{N-h}X_nX_{n+h}$ and $V=\sum_{n=1}^N X_n^2$. Now, we define a nonlinear function $g((U,V))=\frac{U}{V}$. Using the multivariate version of the delta method, we have that 
+$$\hat{\rho}_h = g\left(\begin{bmatrix}
+U \\ V
+\end{bmatrix}\right)\approx g\left(\begin{bmatrix}
+\mu_U\\\mu_V
+\end{bmatrix}\right) +\triangledown g\left(\begin{bmatrix}
+\mu_U \\ \mu_V
+\end{bmatrix}\right)^T\left(\begin{bmatrix}
+U \\ V
+\end{bmatrix} - \begin{bmatrix}
+\mu_U \\ \mu_V
+\end{bmatrix}\right) $$
+
+where $\mu_U=\EE(U)$ and $\mu_V=\EE(V)$. Expanding this, we have
+$$\begin{aligned}
+	\hat{\rho}_h&\approx\frac{\mu_U}{\mu_V} + \begin{bmatrix}
+	\frac{\partial}{\partial U}\frac{U}{V} & \frac{\partial}{\partial V}\frac{U}{V}
+	\end{bmatrix}_{\mu_V,\mu_U}\cdot \begin{bmatrix}
+	U-\mu_U \\ V-\mu_V
+	\end{bmatrix}\\
+	&=\frac{\mu_U}{\mu_V} + (U-\mu_U)\frac{\partial}{\partial U}\frac{U}{V}\biggr\rvert_{\mu_V,\mu_U} + (V-\mu_V)\frac{\partial}{\partial V}\frac{U}{V}\biggr\rvert_{\mu_V,\mu_U}\\
+	&=\frac{\mu_U}{\mu_V} + (U-\mu_U)\frac{1}{\mu_V} + (V-\mu_V)\left(-\frac{\mu_U}{\mu_V^2}\right)\\
+	&=\frac{U}{\mu_V}-(V-\mu_V)\left(\frac{\mu_U}{\mu_V^2}\right)
+\end{aligned}$$
+
+We observe that $\mu_V=\EE(V)=\EE\left(\sum_{n=1}^N X^2_n\right) = N\EE(X_i^2)=N\sigma^2_X$ since $\EE(X_i)=0$. Similarly, $\mu_U=\EE(U)=\EE\left(\sum_{n=1}^{N-h}X_nX_{n+h}\right)=\sum_{n=1}^{N-h}\EE(X_n)\EE(X_{n+h})=0$. Therefore,
+$$\hat{\rho}_h\approx \frac{U}{N\sigma^2_X}-(V-N\sigma^2_X)\cdot 0 = \frac{U}{N\sigma^2_X}. $$
+
+Then it follows that 
+$$\var(\hat{\rho}_h)\approx \var\left(\frac{U}{N\sigma^2_X}\right)=\frac{1}{N^2\sigma^4_X}\var(U). $$
+
+Now, it suffices to find $\var(U)$:
+$$\begin{aligned}
+\var(U)&=\var\left(\sum_{n=1}^{N-h}X_nX_{n+h}\right)\\
+&=\EE\left[\left(\sum_{n=1}^{N-h}X_nX_{n+h}\right)^2\right] - \underbrace{\EE^2\left[\sum_{n=1}^{N-h}X_nX_{n+h}\right]}_{=0}\\
+&=\EE\left[\sum_{n=1}^{N-h}X_n^2X_{n+h}^2 + 2\sum_{j=1}^{N-h}\sum_{i=1}^{j-1}X_jX_{j+h}X_iX_{i+h}\right]\\
+&=(N-h)\EE(X^2_n)\EE(X^2_{n+h}) + 0\\
+&=(N-h)\left[\EE(X^2_n)\right]^2\\
+&=(N-h)\sigma^4_X.
+\end{aligned}$$
+
+Then a reasonable estimate of the asymptotic variance of $\hat{\rho}_h$ is:
+$$\var(\hat{\rho}_h) \approx \frac{1}{N^2\sigma^4_X}(N-h)\sigma^4_X=\frac{N-h}{N^2}=\frac{1}{N}-\frac{h}{N^2}.$$
+
+Then for small $h$ relative to a large sample size $N$, $\var(\hat{\rho}_h)\approx \frac{1}{N}$ is a reasonable approximation of the asymptotic variance (and therefore $1/\sqrt{N}$ a reasonable approximation of the asymptotic standard deviation) of the sample autocorrelation under the null hypothesis.
+
+## Question 1.2 B
+
+For some random 95\% confidence interval (where randomness is inherent in the CI being a function of the data $X_1,X_2,\dots ,X_N$), there should be 0.95 probability of the true parameter falling in the random confidence interval. Once the data is observed, there is now either a probability of 0 or 1 that the interval covers the parameter.
+
+However, the interval $\left[-\frac{1}{N},\frac{1}{N}\right]$, determined from the previous problem, is not a function of the data. Therefore it always exhibits a coverage probability of 0 or 1 for any parameter before the data is observed. Therefore, the dashed lines are not a "typical" confidence interval.
+
+
+## Sources
+ - Wikipedia entries for [delta method](https://en.wikipedia.org/wiki/Delta_method) and [variance](https://en.wikipedia.org/wiki/Variance).
+ - Wolframalpha entry on [power sums](http://mathworld.wolfram.com/PowerSum.html).
+ - 531 W16 HW1 Solution for Q1.2 A Used to note that $\hat{\mu}\equiv 0$ and that multivariate delta method should be used to proceed. Then problem was solved without solutions and checked with solutions. Solutions also used to check Q1.2 B.
+ 
+## Please Explain
+ - If a time series model for $Y_{1:N}$ is covariance stationary, that implies that the covariance between two points only depends on the time between these two points. Does that always imply $\var(Y_1)=\var(Y_2)=\cdots =\var(Y_N)$?
+ - Is it mathematically rigorous to let $\hat{\mu}\equiv 0$ throughout problem 1.2 A? Clearly it converges in distribution to 0 since $X_{1:N}$ are iid with mean 0...
+ 
+
+
+
