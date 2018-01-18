@@ -1,16 +1,17 @@
 ---
-title: "4. Linear time series models and the algebra of ARMA models"
+title: "4 Linear time series models and the algebra of ARMA models"
 author: "Edward Ionides"
 date: "1/17/2018"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
   html_document:
+    number_sections: yes
+    pandoc_args: --number-offset=4
     theme: flatly
     toc: yes
     toc_depth: 2
-    number_sections: true
-    pandoc_args: [
-      "--number-offset=4"
-    ]
 csl: ecology.csl
 ---
 
@@ -117,12 +118,12 @@ where $\{\epsilon_n, n=\dots,-2,-1,0,1,2,\dots\}$ is a white noise process, defi
 * **linear** refers to linearity of $Y_n$ as a function of $\{\epsilon_n\}$. A linear modification of the noise process, replacing $\{\epsilon_n\}$ by $\{\alpha + \beta\epsilon_n\}$, results in a new linear process. 
 
 * The autocovariance function is,
-$$\begin{eqnarray}
+\begin{eqnarray}
 \gamma_h &=& \cov\big(Y_n,Y_{n+h}\big)\\
 &=& \cov\left(\sum_{j=0}^\infty g_j\epsilon_{n-j},\sum_{k=0}^\infty g_k\epsilon_{n+h-k}\right)\\
 &=& \sum_{j=0}^\infty \sum_{k=0}^\infty  g_j g_k\cov\big(\epsilon_{n-j},\epsilon_{n+h-k}\big)\\
 &=& \sum_{j=0}^\infty g_jg_{j+h} \sigma^2, \mbox{for $h\ge 0$}.
-\end{eqnarray}$$
+\end{eqnarray}
 
 * In order for this autocovariance function to exist, we need
 $$\sum_{j=0}^\infty g_j^2 < \infty.$$
@@ -202,10 +203,10 @@ $$ \Delta Y_n = (1-B)Y_n = Y_n - Y_{n-1}.$$
 $$ B^2 Y_n = B (BY_n) = B(Y_{n-1}) = Y_{n-2}.$$
 
 * We can also take a second difference,
-$$\begin{eqnarray}
+\begin{eqnarray}
 \Delta^2 Y_n &=& (1-B)(1-B) Y_n\\
 &=& (1-2B+B^2) Y_n = Y_n - 2Y_{n-1} + Y_{n-2}.
-\end{eqnarray}$$
+\end{eqnarray}
  
 * The backshift operator is linear, i.e., 
 $$(\alpha +\beta B)Y_n = \alpha Y_n + \beta BY_n = \alpha Y_n + \beta Y_{n-1}.$$
