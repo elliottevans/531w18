@@ -282,7 +282,7 @@ abline(v=c(1/4,1/2,3/4),lty="dotted")
 
 * The order $p$ autoregressive model,  abbreviated to AR(p), is
 <br><br>
-[M1] $\quad\quad \quad Y_n = \phi_1 Y_{n-1}+\phi_2Y_{n-2}+\dots+\phi_pY_{n-p} + \epsilon_n$,
+[M1] $$\quad\quad \quad Y_n = \phi_1 Y_{n-1}+\phi_2Y_{n-2}+\dots+\phi_pY_{n-p} + \epsilon_n,$$
 <br><br>
 where $\{\epsilon_n\}$ is a white noise process. 
 
