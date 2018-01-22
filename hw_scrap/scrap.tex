@@ -1,0 +1,134 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[left=0.7in,top=.5in,right=1in,bottom=0.7in,nohead]{geometry}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pdfpages}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{undertilde}
+\usepackage{enumerate}
+\usepackage{subfig} % for subfigures
+\usepackage{caption}
+\usepackage{amsfonts}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\usepackage{pgf}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{svg}
+\usepackage{fancyvrb}
+\usepackage{lipsum}
+\usepackage{listings}
+\usepackage{varwidth}
+\usepackage{algpseudocode} 
+\usepackage{pgfplots}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz/]
+\lstset{% 
+    basicstyle=\small\ttfamily\bfseries,
+    columns=flexible,
+    language=SAS,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green},
+    morecomment=[f]{*},
+    morecomment=[s]{/*}{*/},
+    morecomment=[n]{/*}{*/},  
+    escapechar=|,
+    otherkeywords={!,!=,~,$,,$\&,_,<,>=,=<,>},
+    stringstyle=\color[rgb]{0.639,0.082,0.082}\ttfamily,
+    showstringspaces=false,
+    keepspaces=true,
+    sensitive=false,
+}
+\newcommand{\DEF}{\overset{\text{def}}{=}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\IND}{\mathbbm{1}}
+\newcommand{\var}{\text{Var}}
+\newcommand{\cov}{\text{Cov}}
+\newcommand{\logit}{\text{logit}}
+\usepackage[labelfont=bf]{caption}
+\newcommand{\n}{\newline}
+\usepackage{listings}
+\definecolor{bluekeywords}{rgb}{0,0,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.64,0.08,0.08}
+\definecolor{xmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{types}{rgb}{0.17,0.57,0.68}
+\newenvironment{centerverbatim}{%
+  \par
+  \centering
+  \varwidth{\linewidth}%
+  \verbatim
+}{%
+  \endverbatim
+  \endvarwidth
+  \par
+}
+\newenvironment{solution}
+               {\let\oldqedsymbol=\qedsymbol
+                \renewcommand{\qedsymbol}{$\triangle$}
+                \begin{proof}[\emph\upshape Solution]}
+               {\end{proof}
+                \renewcommand{\qedsymbol}{\oldqedsymbol}}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+%\parindent=0pt
+\allowdisplaybreaks
+\begin{document}
+
+\begin{flushright}
+Elliott Evans\\ BIOSTAT 653\\ \today
+\end{flushright}
+
+\begin{center}
+\LARGE{\textbf{Homework}}
+\end{center}
+
+\begin{align*}
+\gamma_h &= \cov(X_n,X_{n+h})\\
+		 &=\cov(X_n,\phi X_{n+h-1} + \epsilon_{n+h})\\
+		 &=\cov(X_n,\phi X_{n+h-1}) + \cov(X_n,\epsilon_{n+h})\\
+		 &=\phi\gamma_{h-1} + \underbrace{\cov(X_n,\epsilon_{n+h})}_{=0}\\
+		 &=\phi\gamma_{h-1}
+\end{align*}
+
+\begin{align*}
+\gamma_0 &= \cov(X_n,X_n)\\
+		 &=\var(X_n)\\
+		 &=\var(\phi X_{n-1} + \epsilon_n)\\
+		 &=\phi^2\var(X_n) + \var(\epsilon_n)\\
+		 &=\phi^2\gamma_0 + \sigma^2
+\end{align*}
+
+\begin{align*}
+\gamma_h &= \phi\gamma_{h-1}\\
+		 &=\phi(\phi\gamma_{h-2})\\
+		 &=\phi^3\gamma_{h-3}\\
+		 &\qquad \vdots \\
+		 &=\phi^h\gamma_0\\
+		 &=\phi^h\frac{\sigma^2}{1-\phi^2}
+\end{align*}
+
+$$\gamma_h = \phi\gamma_{h-1}
+=\phi(\phi\gamma_{h-2})
+=\phi^3\gamma_{h-3}
+ \cdots 
+=\phi^h\gamma_0
+=\phi^h\frac{\sigma^2}{1-\phi^2}$$
+
+\end{document}
+
+
+
+
+
+
+

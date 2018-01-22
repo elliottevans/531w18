@@ -1,0 +1,79 @@
+---
+title: "STATS 531 HW 2"
+author: "Elliott Evans"
+date: "1/29/2018"
+header-includes:
+   - \usepackage{amsmath}
+   - \usepackage{amssymb}
+   - \usepackage{amsthm}
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    theme: flatly
+    toc: yes
+csl: ecology.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\newcommand{\DEF}{\overset{\text{def}}{=}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\IND}{\mathbbm{1}}
+\newcommand{\var}{\text{Var}}
+\newcommand{\cov}{\text{Cov}}
+\newcommand{\logit}{\text{logit}}
+\newcommand{\n}{\newline}
+
+-----------
+
+## Question 2.1
+
+Consider the AR(1) model, $X_n = \phi X_{n-1} +\epsilon_n$, where $\{\epsilon_n\}$ is white noise with variacen $\sigma^2$ and $-1 < \phi < 1$. We assume the process is stationary, i.e. it is initialized with a random draw from its stationary distibution.
+
+### A
+
+The autocovariance function is:
+\begin{align*}
+\gamma_h &= \cov(X_n,X_{n+h})\\
+		 &=\cov(X_n,\phi X_{n+h-1} + \epsilon_{n+h})\\
+		 &=\cov(X_n,\phi X_{n+h-1}) + \cov(X_n,\epsilon_{n+h})\\
+		 &=\phi\gamma_{h-1} + \underbrace{\cov(X_n,\epsilon_{n+h})}_{=0}\\
+		 &=\phi\gamma_{h-1}
+\end{align*}
+
+Because we want explicit $A$ and $\lambda$ such that $\gamma_h=A\lambda^h$, we derive the initial condition by finding $\gamma_0$:
+\begin{align*}
+\gamma_0 &= \cov(X_n,X_n)\\
+		 &=\var(X_n)\\
+		 &=\var(\phi X_{n-1} + \epsilon_n)\\
+		 &=\phi^2\var(X_n) + \var(\epsilon_n)\\
+		 &=\phi^2\gamma_0 + \sigma^2
+\end{align*}
+
+This implies that $\gamma_0(1-\phi^2)=\sigma^2$. Therefore, we have $\gamma_0=\frac{\sigma^2}{1-\phi^2}$. Now, we may solve the recurrence relation:
+$$\gamma_h = \phi\gamma_{h-1}
+=\phi(\phi\gamma_{h-2})
+=\phi^3\gamma_{h-3}=
+ \cdots 
+=\phi^h\gamma_0
+=\phi^h\frac{\sigma^2}{1-\phi^2}$$
+
+Therefore, we have $\gamma_h=A\lambda^h$ where $\lambda=\phi$ and $A=\frac{\sigma^2}{1-\phi^2}$.
+
+
+
+## Sources
+ - 531W16 HW2 Solution for 2.1 A used to confirm that white noise error terms are in fact independent of the random $X_{1:N}$, then used to check final answers.
+ 
+## Please Explain
+ - For question 2.1 A, clearly the white noise error terms $\epsilon_i$ are independent of $X_{1:N}$. Is that always the case for ARMA models? Or is this implied from the error terms being **white noise**?
+ 
+
+
+
