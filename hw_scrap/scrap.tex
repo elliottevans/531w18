@@ -124,6 +124,35 @@ $$\gamma_h = \phi\gamma_{h-1}
 =\phi^h\gamma_0
 =\phi^h\frac{\sigma^2}{1-\phi^2}$$
 
+
+\begin{align*}
+\epsilon_n &= X_n - \phi X_{n-1}=X_n\\
+		   &= X_n - \phi BX_n\\
+		   &=(1-\phi B)X_n.
+\end{align*}
+
+\begin{align*}
+X_n &= \left(\sum_{i=0}^\infty (\phi B)^i\right)\epsilon_n\\
+    &=(B^0 + \phi B + \phi^2 B^2 + \cdots)\epsilon_n\\
+    &=B^0\epsilon_n + \phi B\epsilon_n + \phi^2 B^2\epsilon_n + \cdots\\
+    &=\epsilon_n + \phi\epsilon_{n-1} + \phi^2\epsilon_{n-2} + \cdots\\
+    &=\sum_{k=0}^\infty \phi^k\epsilon_{n-k}
+\end{align*}
+
+
+\begin{align*}
+\gamma_h &= \cov\left(X_n,X_{n+h}\right)\\
+	     &= \cov\left(\sum_{j=0}^\infty \phi^j \epsilon_{n-j},\sum_{k=0}^{\infty}\phi^k\epsilon_{n+h-k}\right)\\
+	     &=\sum_{j=0}^\infty\sum_{k=0}^\infty\phi^j\phi^k\cdot\underbrace{\cov\left(\epsilon_{n-j},\epsilon_{n+h-k}\right)}_{\neq 0\text{ when }n-j=n+h-k,\text{ i.e. }k=j+h}\\
+	     &=\sum_{j=0}^\infty\sum_{k=j+h}^\infty \phi^j\phi^k \cov(\epsilon_{n-j},\epsilon_{n+h-k})\\
+	     &=\sum_{j=0}^\infty \phi^j\phi^{j+h}\cov(\epsilon_{n-j},\epsilon_{n-j})\\
+	     &=\sum_{j=0}^\infty \phi^j\phi^{j+h}\sigma^2\\
+	     &=\sigma^2\phi^h\sum_{j=0}^\infty (\phi^2)^j
+\end{align*}
+
+$$\gamma_{mn}=\cov\left(X_m,X_n\right)=\cov\left(\sum_{k=1}^n\epsilon_k,\sum_{j=1}^{m}\epsilon_j\right)=\sum_{k=1}^n\var(\epsilon_k)=n\sigma^2. $$
+
+
 \end{document}
 
 

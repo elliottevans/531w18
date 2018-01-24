@@ -66,13 +66,73 @@ $$\gamma_h = \phi\gamma_{h-1}
 
 Therefore, we have $\gamma_h=A\lambda^h$ where $\lambda=\phi$ and $A=\frac{\sigma^2}{1-\phi^2}$.
 
+### B
+
+From real analysis (or calculus) we know that a Taylor series representation of $\frac{1}{1-x}$ is $\sum_{n=0}^\infty x^n$, converging for $|x| < 1$. Therefore, we have
+$$ \frac{1}{1-\phi x} = \sum_{n=0}^\infty (\phi x)^n $$ for $|\phi x| < 1$.
+
+From the design of our AR(1) model, and using the backshift operator $B$, we have:
+\begin{align*}
+\epsilon_n &= X_n - \phi X_{n-1}=X_n\\
+		   &= X_n - \phi BX_n\\
+		   &=(1-\phi B)X_n.
+\end{align*}
+Therefore, we have $X_n = (1-\phi B)^{-1}\epsilon_n$. Using a Taylor series representation of $(1-\phi B)^{-1}$, we obtain the MA($\infty$) representation of the AR(1) model:
+\begin{align*}
+X_n &= \left(\sum_{i=0}^\infty (\phi B)^i\right)\epsilon_n\\
+    &=(B^0 + \phi B + \phi^2 B^2 + \cdots)\epsilon_n\\
+    &=B^0\epsilon_n + \phi B\epsilon_n + \phi^2 B^2\epsilon_n + \cdots\\
+    &=\epsilon_n + \phi\epsilon_{n-1} + \phi^2\epsilon_{n-2} + \cdots\\
+    &=\sum_{k=0}^\infty \phi^k\epsilon_{n-k}.
+\end{align*}
+
+Then we apply the general formula for the autocovariance function:
+\begin{align*}
+\gamma_h &= \cov\left(X_n,X_{n+h}\right)\\
+	     &= \cov\left(\sum_{j=0}^\infty \phi^j \epsilon_{n-j},\sum_{k=0}^{\infty}\phi^k\epsilon_{n+h-k}\right)\\
+	     &=\sum_{j=0}^\infty\sum_{k=0}^\infty\phi^j\phi^k\cdot\underbrace{\cov\left(\epsilon_{n-j},\epsilon_{n+h-k}\right)}_{\neq 0\text{ when }n-j=n+h-k,\text{ i.e. }k=j+h}\\
+	     &=\sum_{j=0}^\infty\sum_{k=j+h}^\infty \phi^j\phi^k \cov(\epsilon_{n-j},\epsilon_{n+h-k})\\
+	     &=\sum_{j=0}^\infty \phi^j\phi^{j+h}\cov(\epsilon_{n-j},\epsilon_{n-j})\\
+	     &=\sum_{j=0}^\infty \phi^j\phi^{j+h}\sigma^2\\
+	     &=\sigma^2\phi^h\sum_{j=0}^\infty (\phi^2)^j
+\end{align*}
+Since $|\phi| < 1$ by design, we have $|\phi^2|<1$. Then, it follows that 
+$$\gamma_h = \phi^h\frac{\sigma^2}{1-\phi^2}. $$
+
+### C
+
+From our previous work, we can derive our autocorrelation function:
+$$\rho_h = \frac{\gamma_h}{\gamma_0}=\frac{\phi^h\frac{\sigma^2}{1-\phi^2}}{\frac{\sigma^2}{1-\phi^2}}=\phi^h.$$
+
+In the code below, we compare our formula above with the `ARMAacf` function. We find that these produce the same autocorrelations.
+
+```{r ar_arima_sim,fig.width=7, fig.align="center"}
+set.seed(123456789)
+par(mfrow=c(1,2))
+barplot(ARMAacf(ar=c(0.6),lag.max=20),main='ACF using ARMAacf')
+barplot(.6^(0:20), main='Derived ACF',names.arg=c(0:20))
+
+#Number of autocorrelations that are different
+num_diff = sum(round(ARMAacf(ar=c(0.6),lag.max=20),5) != round(.6^(0:20),5)) 
+num_diff
+```
+
+## Question 2.2
+
+We compute the autocovariance function of the random walk model, i.e. $X_n = X_{n-1} + \epsilon_n$ where $\{\epsilon_n\}$ is white noise with variance $\sigma^2$ and $X_0=0$. If we suppose $m>n$, then we have:
+$$\gamma_{mn}=\cov\left(X_m,X_n\right)=\cov\left(\sum_{k=1}^n\epsilon_k,\sum_{j=1}^{m}\epsilon_j\right)=\sum_{k=1}^n\var(\epsilon_k)=n\sigma^2. $$
+
+If we let $m\leq n$ then we obtain
+$$\gamma_{mn}=\cov\left(X_m,X_n\right)=\cov\left(\sum_{k=1}^n\epsilon_k,\sum_{j=1}^{m}\epsilon_j\right)=\sum_{j=1}^m\var(\epsilon_j)=m\sigma^2. $$
+Then the autocovariance function is $\gamma_{mn} = \min(m,n)\sigma^2$.
 
 
 ## Sources
- - 531W16 HW2 Solution for 2.1 A used to confirm that white noise error terms are in fact independent of the random $X_{1:N}$, then used to check final answers.
+ - 531W16 HW2 Solutions for 2.1 A \& B used to check final answers. In addition, GSI Joonha Park helped elaborate on independence between $\epsilon_n$ and $X_1,X_2,\dots ,X_{n-1}$.
+ - 531W16 HW2 Solutions for 2.2 used to check final answer.
  
 ## Please Explain
- - For question 2.1 A, clearly the white noise error terms $\epsilon_i$ are independent of $X_{1:N}$. Is that always the case for ARMA models? Or is this implied from the error terms being **white noise**?
+ - For problem 2.1 B, we use a Taylor expansion for the function $(1-\phi B)^{-1}$. But isn't that only valid if $|\phi B| < 1$? I.e. doesn't this only work if we're guaranteed $|\phi B(X_i)|<1$ for all $i$ (where $B(\cdot)$ is the $B$ operator applied to $X_i$)?
  
 
 
