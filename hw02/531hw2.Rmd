@@ -34,7 +34,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Question 2.1
 
-Consider the AR(1) model, $X_n = \phi X_{n-1} +\epsilon_n$, where $\{\epsilon_n\}$ is white noise with variacen $\sigma^2$ and $-1 < \phi < 1$. We assume the process is stationary, i.e. it is initialized with a random draw from its stationary distibution.
+Consider the AR(1) model, $X_n = \phi X_{n-1} +\epsilon_n$, where $\{\epsilon_n\}$ is white noise with variance $\sigma^2$ and $-1 < \phi < 1$. We assume the process is stationary, i.e. it is initialized with a random draw from its stationary distibution.
 
 ### A
 
