@@ -1,19 +1,22 @@
 ---
-title: "5. Parameter estimation and model identification for ARMA models"
+title: "5 Parameter estimation and model identification for ARMA models"
 author: "Edward Ionides"
+header-includes:
+  - \usepackage{unicode-math}
 date: "1/23/2018"
 output:
+  pdf_document:
+    latex_engine: xelatex
+    toc: yes
+    toc_depth: 2
   html_document:
+    number_sections: yes
+    pandoc_args: --number-offset=5
     theme: flatly
     toc: yes
     toc_depth: 2
-    number_sections: true
-    pandoc_args: [
-      "--number-offset=5"
-    ]
 csl: ecology.csl
 ---
-
 
 \newcommand\prob{\mathbb{P}}
 \newcommand\E{\mathbb{E}}
@@ -27,7 +30,6 @@ csl: ecology.csl
 \newcommand\transpose{\scriptsize{T}}
 \newcommand\eqspace{\quad\quad\quad}
 \newcommand\lik{\mathscr{L}}
-\newcommand\loglik{\ell}
 \newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
 \newcommand\ar{\phi}
 \newcommand\ma{\psi}
@@ -130,13 +132,13 @@ where $\arg\max_\theta g(\theta)$ means a value of argument $\theta$ at which th
  
 
 * The maximum likelihood estimate (also known as the MLE) is
-$$\begin{eqnarray} \estimate{\hat\theta} &=& \hat\theta(\data{y_{1:N}})
+\begin{eqnarray} \estimate{\hat\theta} &=& \hat\theta(\data{y_{1:N}})
 \\
 &=& \arg\max_\theta \lik(\theta)
 \\
 &=& \arg\max_\theta \loglik(\theta).
 \end{eqnarray}
-$$
+
 
 <br>
 
@@ -212,7 +214,7 @@ where $\theta$ is the true parameter value.
 This asserts that the MLE is asymptotically unbiased, with variance asymptotically attaining the Cramer-Rao lower bound. Thus, we say the MLE is **asymptotically efficient**.
 
 * A corresponding approximate 95% confidence interval for $\theta_d$ is
-$$ \data{\theta_d} \pm 1.96 \big[{\estimate{\hat{I}}}^{-1}\big]_{dd}^{1/2}.$$
+$$ \data{\theta_d} \pm 1.96 \big[{\estimate{{}\hat{I}}}^{-1}\big]_{dd}^{1/2}.$$
 
 * The R function `arima` computes standard errors for the MLE of an ARMA model in this way.
 
@@ -309,19 +311,19 @@ Typically, we compute local coverage at $\theta=\estimate{\hat\theta}$.
 * The whole parameter space on which the model is defined is $\Theta\subset\R^D$. 
 
 * Suppose we have two **nested** hypotheses
-$$\begin{eqnarray}
+\begin{eqnarray}
 H^{\langle 0\rangle} &:& \theta\in \Theta^{\langle 0\rangle},
 \\
 H^{\langle 1\rangle} &=& \theta\in \Theta^{\langle 1\rangle},
-\end{eqnarray}$$
+\end{eqnarray}
 defined via two nested parameter subspaces, $\Theta^{\langle 0\rangle}\subset \Theta^{\langle 1\rangle}$, with respective dimensions $D^{\langle 0\rangle}< D^{\langle 1\rangle}\le D$.
 
 * We consider the log likelihood maximized over each of the hypotheses,
-$$\begin{eqnarray}
+\begin{eqnarray}
 \ell^{\langle 0\rangle} &=& \sup_{\theta\in \Theta^{\langle 0\rangle}} \ell(\theta),
 \\
 \ell^{\langle 1\rangle} &=& \sup_{\theta\in \Theta^{\langle 1\rangle}} \ell(\theta).
-\end{eqnarray}$$
+\end{eqnarray}
 <br>
 
 * A useful approximation asserts that, under the hypothesis $H^{\langle 0\rangle}$,
@@ -472,7 +474,7 @@ plot(huron_depth~year,type="l")
 * We seek to fit a stationary Gaussian ARMA(p,q) model with parameter vector $\theta=(\ar_{1:p},\ma_{1:q},\mu,\sigma^2)$ given by
 $$ \ar(B)(Y_n-\mu) = \ma(B) \epsilon_n,$$
 where 
-$$\begin{eqnarray}
+\begin{eqnarray}
 \mu &=& \E[Y_n]
 \\
 \ar(x)&=&1-\ar_1 x-\dots -\ar_px^p,
@@ -480,7 +482,7 @@ $$\begin{eqnarray}
 \ma(x)&=&1+\ma_1 x+\dots +\ma_qx^q, 
 \\
 \epsilon_n&\sim&\mathrm{ iid }\, N[0,\sigma^2].
-\end{eqnarray}$$
+\end{eqnarray}
 
 * We need to decide where to start in terms of values of $p$ and $q$. Let's tabulate some AIC values for a range of different choices of $p$ and $q$.
 
@@ -580,12 +582,12 @@ intercept <- params["intercept"]
 sigma <- sqrt(huron_arma21$sigma2)
 theta <- matrix(NA,nrow=J,ncol=length(params),dimnames=list(NULL,names(params)))
 for(j in 1:J){
-   Y_j <- arima.sim(
+   Yj <- arima.sim(
       list(ar=ar,ma=ma),
       n=length(huron_depth),
       sd=sigma
    )+intercept
-   theta[j,] <- coef(arima(Y_j,order=c(2,0,1)))
+   theta[j,] <- coef(arima(Yj,order=c(2,0,1),method="ML"))
 }
 hist(theta[,"ma1"],freq=FALSE) 
 ```
@@ -633,10 +635,11 @@ intercept <- params["intercept"]
 sigma <- sqrt(huron_ar1$sigma2)
 t1 <- system.time(
   huron_sim <- foreach(j=1:J) %dopar% {
-     Y_j <- arima.sim(list(ar=ar),n=length(huron_depth),sd=sigma)+intercept
-     try(coef(arima(Y_j,order=c(2,0,1))))
+     Yj <- arima.sim(list(ar=ar),n=length(huron_depth),sd=sigma)+intercept
+     try(coef(arima(Yj,order=c(2,0,1),method="ML")))
   }
 ) 
+#method = 'ML' not previously in code, added by me due to errors
 ```
 
 * Some of these `arima` calls did not successfully produce parameter estimates. The `try` function lets the simulation proceed despite these errors. Let's see how many of them fail:
