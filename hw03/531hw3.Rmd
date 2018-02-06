@@ -1,0 +1,180 @@
+---
+title: "STATS 531 HW 3"
+author: "Elliott Evans"
+date: "2/5/2018"
+header-includes:
+   - \usepackage{amsmath}
+   - \usepackage{amssymb}
+   - \usepackage{amsthm}
+output:
+  html_document:
+    theme: flatly
+    toc: yes
+  pdf_document:
+    toc: yes
+csl: ecology.csl
+---
+
+\newcommand{\DEF}{\overset{\text{def}}{=}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\IND}{\mathbbm{1}}
+\newcommand{\var}{\text{Var}}
+\newcommand{\cov}{\text{Cov}}
+\newcommand{\logit}{\text{logit}}
+\newcommand{\n}{\newline}
+\newcommand\loglik{\ell}
+\newcommand\R{\mathbb{R}}
+\newcommand\data[1]{#1^*}
+\newcommand\estimate[1]{\data{#1}}
+\newcommand\params{\, ; \,}
+\newcommand\transpose{\scriptsize{T}}
+\newcommand\eqspace{\quad\quad\quad}
+\newcommand\lik{\mathscr{L}}
+\newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
+\newcommand\ar{\phi}
+\newcommand\ma{\psi}
+
+-----------
+
+## Question 3.1
+
+We proceed to try several ARMA techniques discussed in class on the Ann Arbor January Low temperature time series data. 
+
+### Exploratory Analysis
+First, we utilize some exploratory data analysis to plot the time series data and the sample autocorrelation plot.
+
+```{r read_data, echo=FALSE, fig.align="center",fig.height=7}
+dat <- read.table(file="http://ionides.github.io/531w18/01/ann_arbor_weather.csv",header=TRUE)
+par(mfrow=c(2,1))
+plot(Low~Year,data=dat,type="l",main = 'Ann Arbor January Low Temperatures')
+acf(dat$Low,na.action = na.pass,main='Sample Autocorrelation Function',xlab = 'Lag (Years)')
+```
+
+We observe from the time plot that a stationary mean assumption for the time series model is reasonable. It also provides evidence that a stationary covariance assumption is reasonable, as we do not observe an increasing sample covariance across increasing subintervals of time.
+
+In the sample autocorrelation function, we observe that there is little-to-no sample correlation between temperature values as a function of the lag years. 
+
+### ARMA($p$, $q$) Model Selection
+
+We proceed to fit a Gaussian ARMA model with parameter vector $\theta=(\ar_{1:p},\ma_{1:q},\mu,\sigma^2)$ given by
+$$ \ar(B)(Y_n-\mu) = \ma(B) \epsilon_n,$$
+where 
+$$\begin{eqnarray}
+\mu &=& \EE[Y_n]
+\\
+\ar(x)&=&1-\ar_1 x-\dots -\ar_px^p,
+\\ 
+\ma(x)&=&1+\ma_1 x+\dots +\ma_qx^q, 
+\\
+\epsilon_n&\sim&\mathrm{ iid }\, N[0,\sigma^2].
+\end{eqnarray}$$
+
+Here, $Y_1,\dots ,Y_n$ are the random time series values at time points $1,\dots,n$ and $B$ is the backshift operator defined by $BY_n = Y_{n-1}$.
+
+We use AIC as our criteria for model selection (where a lower AIC indicates a better model fit). Below is a table of AIC values for several models.
+
+```{r aic_table, echo=FALSE, message=FALSE, warning=FALSE}
+#Fit many ARMA models, using AIC as model selection criteria
+aic_table <- function(data,P,Q){
+  table <- matrix(NA,(P+1),(Q+1))
+  for(p in 0:P) {
+    for(q in 0:Q) {
+      table[p+1,q+1] <- arima(data,order=c(p,0,q))$aic
+    }
+  }
+  dimnames(table) <- list(paste("<b> AR",0:P, "</b>", sep=""),paste("MA",0:Q,sep=""))
+  table
+}
+
+dat_aic_table <- aic_table(dat$Low,5,5)
+require(knitr)
+kable(dat_aic_table,digits=2)
+```
+
+While the models producing the smallest values of AIC are those that exclude the autoregressive and moving-average parameters altogether, we will use a working assumption that an ARMA model with at least one AR and MA term is appropriate to describe the time series. Based on this, we find that the ARMA(1,1), ARMA(2,1), ARMA(1,2), and ARMA(2,5) models are most likely appropriate. We prefer the model with fewer parameters and choose the ARMA(1,1) model for subsequent analysis. Thus, the model reduces to 
+$$Y_n = \mu + \phi(Y_{n-1} - \mu) + \epsilon_n + \psi\epsilon_{n-1}\qquad,\epsilon_n\sim\mathrm{ iid }\, N[0,\sigma^2]. $$
+
+### ARMA(1,1) Fitting and Invertibility
+
+Below, we fit an ARMA(1,1) model to the data:
+```{r arma_fit, message=FALSE, warning=FALSE}
+arma11 = arima(dat$Low,order = c(1,0,1))
+arma11
+```
+
+To assess if the model is causal, we observe the root of the estimated AR polynomial $\hat{\phi}(x)=1-0.84x$. Finding the root to be 1.19, we know the estimated model to be causal since this root lies *outside* of the unit circle in the complex plane.
+
+To assess if the model is invertible, we observe the root of the estimated MA polynomial $\hat{\psi}(x) = 1-0.7972x$, and find it to be 1.25. Since this is also outside the unit circle, the estimated model is invertible. 
+
+Thus, our estimated model is stationary, causal, and invertible.
+
+### Moving-Average Analysis
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+wald_low = round(arma11$coef['ma1'] -1.96*sqrt(arma11$var.coef[2,2]),4)
+wald_high = round(arma11$coef['ma1'] +1.96*sqrt(arma11$var.coef[2,2]),4)
+
+wald_low_ar = round(arma11$coef['ar1'] -1.96*sqrt(arma11$var.coef[2,2]),4)
+wald_high_ar = round(arma11$coef['ar1'] +1.96*sqrt(arma11$var.coef[2,2]),4)
+```
+
+The Wald 95\% confidence interval for $\psi$ is given by (`r wald_low`, `r wald_high`). Below, we view the histogram and density plot estimations for a simulation study that entailed simulating different ARMA(1,1) data one-thousand times.
+
+```{r sim_study, echo = FALSE, message=FALSE, warning=FALSE}
+set.seed(57892330)
+J <- 1000
+params <- coef(arma11)
+ar <- params[grep("^ar",names(params))]
+ma <- params[grep("^ma",names(params))]
+intercept <- params["intercept"]
+sigma <- sqrt(arma11$sigma2)
+theta <- matrix(NA,nrow=J,ncol=length(params),dimnames=list(NULL,names(params)))
+for(j in 1:J){
+  Yj <- arima.sim(
+    list(ar=ar,ma=ma),
+    n=length(dat$Low),
+    sd=sigma
+    )+intercept
+  theta[j,] <- coef(arima(Yj,order=c(1,0,1),method='ML'))
+}
+```
+
+```{r,echo=FALSE,figure.width=8}
+par(mfrow=c(1,2))
+hist(theta[,"ma1"],freq=FALSE,main='MA1 Histogram',xlab = 'MA1')
+plot(density(theta[,"ma1"],bw=0.05,na.rm = T),main='MA1 Density',xlab = 'MA1')
+
+```
+
+We notice from the histogram that the values are most concentrated about 0 and between -0.5 and -1. 
+
+### Autoregressive Analysis
+
+The Wald 95\% confidence interval for $\phi$ is given by (`r wald_low_ar`, `r wald_high_ar`). Below, we view the histogram and density plot estimations for the same simulation study referenced above.
+
+```{r,echo=FALSE,figure.width=8}
+par(mfrow=c(1,2))
+hist(theta[,"ar1"],freq=FALSE,main='AR1 Histogram',xlab = 'AR1')
+plot(density(theta[,"ar1"],bw=0.05,na.rm = T),main='AR1 Density',xlab = 'AR1')
+
+```
+
+Here, most concentration is at 0 and between 0.5 and 1.0.
+
+## Conclusions
+
+We found that among all ARMA models, an ARMA(1,1) model was most appropriate for the time series. However, we also noticed that a model without moving-average or autoregressive terms might be more appropriate based on our AIC criteria. Thus, further analysis should entail the fitting of an ARMA(0,0) model, i.e. a Gaussian white noise model.
+
+## Sources
+ - The W16 solutions were looked at after completing the assignment, and were the inspiration for including a **conclusions** section.
+ 
+## Please Explain
+ - Is the best way of assessing mean and covariance stationarity to simply oberve the sample plot of the values across time? Can we ever use the ACF plot to assess covariance stationarity? In the ACF plot for this data, obviously the correlation dies off after lag 0, but that doesn't necessarily mean a covariance stationary model is appropriate, right? If my understanding is correct, the ACF plot is simply assessing how many years it takes for the correlation b/t time series values to "die off".
+ - The notes say that `arima` "transforms" the model to invertibility, and therefore the value of $\theta_1$ can only fall in $(-1,1)$. What does this really mean? Is this true for *all* parameters estimated by `arima`? And if so, why does this transformation ensure invertibility?
+ - In the density plots above, do you have any idea what might account for the masses at 0? It seems like the second largest concentration is always at the estimated coefficient, but I would have suspected that to correspond to the largest peak of density. The simulation study was taken from the Lecture 5 Notes.
+
+
+
