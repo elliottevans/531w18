@@ -3,15 +3,15 @@ title: '6 Extending the ARMA model: Seasonality and trend'
 author: "Edward Ionides"
 date: "2018-01-30"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
   html_document:
     number_sections: yes
     pandoc_args: --number-offset=6
     theme: flatly
     toc: yes
     toc_depth: 2
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
 csl: ecology.csl
 ---
 
@@ -97,11 +97,11 @@ options(
 * A general SARMA$(p,q)\times(P,Q)_{12}$ model for monthly data is
 <br>
 <br>
-[S1] $\eqspace \ar(B)\AR(B^{12}) (Y_n-\mu) = \ma(B)\MA(B^{12}) \epsilon_n$,
+$$[S1] \eqspace \ar(B)\AR(B^{12}) (Y_n-\mu) = \ma(B)\MA(B^{12}) \epsilon_n,$$
 <br>
 <br>
 where $\{\epsilon_n\}$ is a white noise process and
-$$\begin{eqnarray}
+\begin{eqnarray}
 \mu &=& \E[Y_n]
 \\
 \ar(x)&=&1-\ar_1 x-\dots -\ar_px^p,
@@ -111,7 +111,7 @@ $$\begin{eqnarray}
 \AR(x)&=&1-\AR_1 x-\dots -\AR_px^P,
 \\ 
 \MA(x)&=&1+\MA_1 x+\dots +\MA_qx^Q.
-\end{eqnarray}$$
+\end{eqnarray}
 
 * We see that a SARMA model is a special case of an ARMA model, where the AR and MA polynomials are factored into a **monthly** polynomial in $B$ and an **annual** polynomial in $B^{12}$. The annual polynomial is also called the **seasonal** polynomial.
 
@@ -122,10 +122,10 @@ $$\begin{eqnarray}
 * Consider the following two models:
 <br>
 <br>
-[S2] $\eqspace Y_n = 0.5 Y_{n-1} + 0.25 Y_{n-12} + \epsilon_n$,
+$$[S2] \eqspace Y_n = 0.5 Y_{n-1} + 0.25 Y_{n-12} + \epsilon_n,$$
 <br>
 <br>
-[S3] $\eqspace Y_n = 0.5 Y_{n-1} + 0.25 Y_{n-12} - 0.125 Y_{n-13} + \epsilon_n$,
+$$[S3] \eqspace Y_n = 0.5 Y_{n-1} + 0.25 Y_{n-12} - 0.125 Y_{n-13} + \epsilon_n,$$
 <br>
 <br>
 
@@ -218,7 +218,7 @@ $$ \data{z_n} = \Delta \data{y_n} = \data{y_n}-\data{y_{n-1}}.$$
 * Formally, the ARIMA(p,d,q) model with intercept $\mu$ for $Y_{1:N}$ is
 <br>
 <br>
-[S4] $\eqspace \ar(B)\big( (1-B)^d Y_n-\mu) = \ma(B) \epsilon_n$,
+$$[S4] \eqspace \ar(B)\big( (1-B)^d Y_n-\mu) = \ma(B) \epsilon_n,$$
 <br>
 <br>
 where $\{\epsilon_n\}$ is a white noise process; $\ar(x)$ and $\ma(x)$ are the ARMA polynomials defined previously.
@@ -292,8 +292,7 @@ Now take expectations of both sides of the difference equation.
 * Combining integration of ARMA models with seasonality, we can write a general SARIMA$(p,d,q)\times(P,D,Q)_{12}$ model for nonstationary monthly data, given by 
 <br>
 <br>
-[S5] $\eqspace \ar(B)\AR(B^{12}) \big((1-B)^d(1-B^{12})^D Y_n-\mu)$<br>
-$\eqspace \hspace{2in} = \ma(B)\MA(B^{12}) \epsilon_n$,
+$$[S5] \eqspace \ar(B)\AR(B^{12}) \big((1-B)^d(1-B^{12})^D Y_n-\mu)= \ma(B)\MA(B^{12}) \epsilon_n,$$
 <br>
 <br>
 where $\{\epsilon_n\}$ is a white noise process, the intercept $\mu$ is the mean of the differenced process $\{(1-B)^d(1-B^{12})^D Y_n\}$, and we have ARMA polynomials $\ar(x)$, $\AR(x)$, $\ma(x)$, $\MA(x)$ as in model [S1].
@@ -312,7 +311,7 @@ where $\{\epsilon_n\}$ is a white noise process, the intercept $\mu$ is the mean
 * A general **signal plus noise** model is
 <br>
 <br>
-[S6] $\eqspace   Y_n = \mu_n + \eta_n$,
+$$[S6] \eqspace   Y_n = \mu_n + \eta_n,$$
 <br>
 <br>
 where $\{\eta_n\}$ is a stationary, mean zero stochastic process, and $\mu_n$ is the mean function. 
