@@ -1,16 +1,18 @@
 ---
-title: "7. Introduction to time series analysis in the frequency domain"
+title: "7 Introduction to time series analysis in the frequency domain"
 author: "Edward Ionides"
 date: "2/7/2018"
 output:
+  pdf_document:
+    keep_tex: yes
+    toc: yes
+    toc_depth: 2
   html_document:
+    number_sections: yes
+    pandoc_args: --number-offset=7
     theme: flatly
     toc: yes
     toc_depth: 2
-    number_sections: true
-    pandoc_args: [
-      "--number-offset=7"
-    ]
 csl: ecology.csl
 ---
 
@@ -23,10 +25,8 @@ csl: ecology.csl
 \newcommand\R{\mathbb{R}}
 \newcommand\data[1]{#1^*}
 \newcommand\params{\, ; \,}
-\newcommand\transpose{\scriptsize{T}}
 \newcommand\eqspace{\quad\quad\quad}
 \newcommand\lik{\mathscr{L}}
-\newcommand\loglik{\ell}
 \newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
 \newcommand\ar{\phi}
 \newcommand\ma{\psi}
@@ -34,9 +34,6 @@ csl: ecology.csl
 \newcommand\MA{\Psi}
 \newcommand\ev{u}
 
-Licensed under the Creative Commons attribution-noncommercial license, http://creativecommons.org/licenses/by-nc/3.0/.
-Please share and remix noncommercially, mentioning its origin.  
-![CC-BY_NC](cc-by-nc.png)
 
 ```{r knitr-opts,include=FALSE,cache=FALSE,purl=FALSE}
 library(pomp)
@@ -103,21 +100,21 @@ options(
 $$ V \ev_n = \lambda_n \ev_n.$$
 
 * A basic property of these eigenvectors is that they are orthogonal, i.e.,
-$$ \ev_m^\transpose \ev_n = 0 \mbox{ if $m\neq n$}.$$
+$$ \ev_m^T \ev_n = 0 \mbox{ if $m\neq n$}.$$
 
-* We may work with **normalized** eigenvectors that are scaled such that $\ev_n^\transpose \ev_n = 1$.
+* We may work with **normalized** eigenvectors that are scaled such that $\ev_n^T \ev_n = 1$.
 
-* We can also check that the components of $Y$ in the directions of different eigenvectors are uncorrelated. Since $\cov(AY,BY)=A\cov(Y,Y)B^\transpose$, we have
-$$\begin{eqnarray}
-\cov(\ev_m^\transpose Y, \ev_n^\transpose Y) &=& \ev_m^\transpose \cov(Y,Y) \ev_n
+* We can also check that the components of $Y$ in the directions of different eigenvectors are uncorrelated. Since $\cov(AY,BY)=A\cov(Y,Y)B^T$, we have
+\begin{eqnarray}
+\cov(\ev_m^T Y, \ev_n^T Y) &= \ev_m^T \cov(Y,Y) \ev_n
 \\
-&=& \ev_m^\transpose V \ev_n
+&= \ev_m^T V \ev_n
 \\
-&=&\lambda_n \ev_m^\transpose \ev_n 
-&=& \left\{\begin{array}{ll} 
+&=\lambda_n \ev_m^T \ev_n 
+&= \left\{\begin{array}{ll} 
 \lambda_n & \mbox{if $m=n$} \\ 0 & \mbox{if $m\neq n$}
 \end{array}\right.
-\end{eqnarray}$$
+\end{eqnarray}
 For the last equality, we have supposed that the eigenvectors are normalized.
 
 * Thus, if we knew $V$, we could convert the model to a representation where the observable random variables are uncorrelated. 
@@ -169,7 +166,7 @@ or, writing out the matrix multiplication explicitly,
 $$\sum_{n=-\infty}^\infty \Gamma_{m,n} \ev_n = \lambda \ev_m\quad \mbox{for all $m$}.$$
 
 * Now, let's look for a sinusoidal solution, $\ev_n = e^{i\omega n}$. Then,
-$$\begin{eqnarray}
+\begin{eqnarray}
 \sum_{n=-\infty}^\infty \Gamma_{m,n} \ev_n 
 &=& \sum_{n=-\infty}^\infty \gamma_{m-n} \ev_n 
 \\
@@ -180,7 +177,7 @@ $$\begin{eqnarray}
 &=& e^{i\omega m} \sum_{h=-\infty}^\infty \gamma_{h}  e^{-i\omega h}
 \\
 &=& \ev_m \lambda \mbox{ for } \lambda= \sum_{h=-\infty}^\infty \gamma_{h}  e^{-i\omega h}
-\end{eqnarray}$$
+\end{eqnarray}
 
 * This calculation shows that 
 $$\ev_n(\omega) = e^{i\omega n}$$ 
@@ -204,25 +201,25 @@ $$\omega_{(N/2)} = \pi.$$
 ## Frequency components of the data and their representation via the Fourier transform
 
 * The **frequency components** of $Y_{1:N}$ are the components in the directions of these eigenvectors. Equivalently, we could say they are the representation of $Y_{1:N}$ in the Fourier basis. Specifically, we write
-$$\begin{eqnarray}
+\begin{eqnarray}
 C_n &=& \frac{1}{\sqrt{N}}\sum_{k=1}^N Y_k\cos(\omega_n k) \mbox{ for $0\le n\le N/2$},
 \\
 S_n &=& \frac{1}{\sqrt{N}}\sum_{k=1}^N Y_k\sin(\omega_n k) \mbox{ for $1\le n\le N/2$}.
-\end{eqnarray}$$
+\end{eqnarray}
 
 * Similarly, the **frequency components** of data $\data{y_{1:N}}$ are 
-$$\begin{eqnarray}
+\begin{eqnarray}
 \data{c_n} &=& \frac{1}{\sqrt{N}}\sum_{k=1}^N \data{y_k}\cos(\omega_n k) \mbox{ for $0\le n\le N/2$},
 \\
 \data{s_n} &=& \frac{1}{\sqrt{N}}\sum_{k=1}^N \data{y_k}\sin(\omega_n k) \mbox{ for $1\le n\le N/2$}.
-\end{eqnarray}$$
+\end{eqnarray}
 
 * The frequency components of the data are often written as real and imaginary parts of the **discrete Fourier transform**,
-$$\begin{eqnarray}
+\begin{eqnarray}
 \data{d_n} &=& \frac{1}{\sqrt{N}} \sum_{k=1}^N \data{y_k} e^{2\pi i n/N}
 \\
 &=&\data{c_n} + i\data{s_n}
-\end{eqnarray}$$
+\end{eqnarray}
 
 * Here, we have made a decision to introduce a normalizing constant of $1/\sqrt{N}$. There are various choices about signs and factors of $2\pi$, $\sqrt{2\pi}$ and $\sqrt{N}$ that can---and are---made in the definition of the Fourier transform in various situations. One should try to be consistent, and also be careful: the `fft` command in R, for example, doesn't include this constant. 
 
@@ -259,7 +256,7 @@ where $\chi^2_2$ is a chi-squared random variable on two degrees of freedom.
 $$ \log\big(C_n^2 + S_n^2 \big) \approx \log \lambda(\omega_n) + \log(\chi^2_2/2).$$
 
 * These results motivate consideration of the **periodogram**,
-$$ I_n = \data{c_n}^2 + \data{s_n}^2 = \big|  \data{d_n}\big|^2$$
+$$ I_n = (\data{c_n})^2 + (\data{s_n})^2 = \big|  \data{d_n}\big|^2$$
 as an estimator of the spectral density. 
 
 * $\log I_n$ can be modeled as an estimator of the log spectral density with independent, identically distributed errors. 

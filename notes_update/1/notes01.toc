@@ -1,0 +1,20 @@
+\contentsline {subsection}{Overview}{1}{section*.2}
+\contentsline {subsubsection}{Looking for trends and relationships in dependent data}{1}{section*.3}
+\contentsline {subsubsection}{Modeling and statistical inference for dynamic systems}{2}{section*.4}
+\contentsline {subsection}{A simple example: Winter in Michigan}{2}{section*.5}
+\contentsline {subsubsection}{Question: How many of you already know R Markdown?}{2}{section*.6}
+\contentsline {subsubsection}{Question: What are the assumptions behind the resulting confidence interval, \(-2.72 \pm 1.32\).}{4}{section*.7}
+\contentsline {subsubsection}{Question: When, in practice, is it reasonable to present this confidence interval? Is it reasonable here?}{4}{section*.8}
+\contentsline {subsubsection}{Question: How would you proceed?}{4}{section*.9}
+\contentsline {subsubsection}{Some data analysis}{4}{section*.10}
+\contentsline {subsection}{Models dynamic systems: State-space models}{7}{section*.12}
+\contentsline {subsubsection}{Fitting a model for volatility of a stock market index}{8}{section*.13}
+\contentsline {subsubsection}{Relevant questions to be addressed using methodology covered later in the course}{8}{section*.14}
+\contentsline {subsubsection}{Outline of a solution}{9}{section*.15}
+\contentsline {subsection}{Internet repositories for collaboration and open-source research: git and github}{9}{section*.16}
+\contentsline {subsubsection}{Getting started with git and github}{9}{section*.17}
+\contentsline {subsubsection}{Basic git concepts}{10}{section*.18}
+\contentsline {subsubsection}{An elementary task: cloning a remote repository}{10}{section*.19}
+\contentsline {subsubsection}{A workflow to contribute to the 531w18 github repository: Forking a project and making a pull request}{11}{section*.20}
+\contentsline {paragraph}{Optional: upstream}{12}{section*.21}
+\contentsline {subsection}{References}{12}{section*.22}

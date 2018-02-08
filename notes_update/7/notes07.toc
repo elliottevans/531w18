@@ -1,0 +1,17 @@
+\contentsline {subsection}{What is the spectrum of a time series model?}{1}{section*.2}
+\contentsline {subsubsection}{The eigenvectors for a long stationary time series model}{3}{section*.3}
+\contentsline {subsection}{Frequency components of the data and their representation via the Fourier transform}{4}{section*.4}
+\contentsline {subsubsection}{Normal approximation for the frequency components}{5}{section*.5}
+\contentsline {subsubsection}{Interpreting the spectral density as a power spectrum}{6}{section*.6}
+\contentsline {subsubsection}{Question: compute the spectrum of an AR(1) model.}{6}{section*.7}
+\contentsline {subsubsection}{Question: compute the spectrum of the MA(q) moving mean,}{6}{section*.8}
+\contentsline {subsubsection}{Review question: how would you demonstrate the correctness of the identity,}{6}{section*.9}
+\contentsline {subsection}{Some data analysis using the frequency domain}{6}{section*.10}
+\contentsline {subsubsection}{Michigan winters revisited}{6}{section*.11}
+\contentsline {subsubsection}{Question: how does R smooth?}{8}{section*.12}
+\contentsline {subsubsection}{More details on computing and smoothing the periodogram}{8}{section*.13}
+\contentsline {subsubsection}{Spectral density estimation by fitting a model}{9}{section*.14}
+\contentsline {subsubsection}{Fitting a signal plus white noise model}{10}{section*.15}
+\contentsline {subsubsection}{Question: is a 2-sided test or a 1-sided test more reasonable here?}{12}{section*.16}
+\contentsline {subsubsection}{Question: Why might you expect the estimated coefficient to be statistically insignificant in this analysis, even if the model with global mean temperature plus trend is correct?}{12}{section*.17}
+\contentsline {subsection}{Units of frequency and period}{12}{section*.18}
