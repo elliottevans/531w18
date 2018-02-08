@@ -108,10 +108,15 @@ where $\{\epsilon_n\}$ is a white noise process and
 \\ 
 \ma(x)&=&1+\ma_1 x+\dots +\ma_qx^q, 
 \\
-\AR(x)&=&1-\AR_1 x-\dots -\AR_px^P,
+\AR(x)&=&1-\AR_1 x-\dots -\AR_Px^P,
 \\ 
+<<<<<<< HEAD
 \MA(x)&=&1+\MA_1 x+\dots +\MA_qx^Q.
 \end{eqnarray}
+=======
+\MA(x)&=&1+\MA_1 x+\dots +\MA_Qx^Q.
+\end{eqnarray}$$
+>>>>>>> aeaf1e1d7f48291a7fc4745d30361ce616ca8297
 
 * We see that a SARMA model is a special case of an ARMA model, where the AR and MA polynomials are factored into a **monthly** polynomial in $B$ and an **annual** polynomial in $B^{12}$. The annual polynomial is also called the **seasonal** polynomial.
 
@@ -218,7 +223,11 @@ $$ \data{z_n} = \Delta \data{y_n} = \data{y_n}-\data{y_{n-1}}.$$
 * Formally, the ARIMA(p,d,q) model with intercept $\mu$ for $Y_{1:N}$ is
 <br>
 <br>
+<<<<<<< HEAD
 $$[S4] \eqspace \ar(B)\big( (1-B)^d Y_n-\mu) = \ma(B) \epsilon_n,$$
+=======
+[S4] $\eqspace \ar(B)\big( (1-B)^d Y_n-\mu \big) = \ma(B) \epsilon_n$,
+>>>>>>> aeaf1e1d7f48291a7fc4745d30361ce616ca8297
 <br>
 <br>
 where $\{\epsilon_n\}$ is a white noise process; $\ar(x)$ and $\ma(x)$ are the ARMA polynomials defined previously.
@@ -292,7 +301,12 @@ Now take expectations of both sides of the difference equation.
 * Combining integration of ARMA models with seasonality, we can write a general SARIMA$(p,d,q)\times(P,D,Q)_{12}$ model for nonstationary monthly data, given by 
 <br>
 <br>
+<<<<<<< HEAD
 $$[S5] \eqspace \ar(B)\AR(B^{12}) \big((1-B)^d(1-B^{12})^D Y_n-\mu)= \ma(B)\MA(B^{12}) \epsilon_n,$$
+=======
+[S5] $\eqspace \ar(B)\AR(B^{12}) \big( (1-B)^d(1-B^{12})^D Y_n-\mu \big)$ <br>
+$\eqspace \hspace{2in} = \ma(B)\MA(B^{12}) \epsilon_n$,
+>>>>>>> aeaf1e1d7f48291a7fc4745d30361ce616ca8297
 <br>
 <br>
 where $\{\epsilon_n\}$ is a white noise process, the intercept $\mu$ is the mean of the differenced process $\{(1-B)^d(1-B^{12})^D Y_n\}$, and we have ARMA polynomials $\ar(x)$, $\AR(x)$, $\ma(x)$, $\MA(x)$ as in model [S1].
