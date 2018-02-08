@@ -1,0 +1,16 @@
+\contentsline {subsection}{Seasonal autoregressive moving average (SARMA) models}{1}{section*.2}
+\contentsline {subsubsection}{Question: Which of {[}S2{]} and/or {[}S3{]} is a SARMA model?}{2}{section*.4}
+\contentsline {subsubsection}{Question: Why do we assume a multiplicative structure in {[}S1{]}?}{2}{section*.6}
+\contentsline {subsubsection}{Fitting a SARMA model}{2}{section*.8}
+\contentsline {subsubsection}{Question: What do you conclude from this residual analysis? What would you do next?}{4}{section*.12}
+\contentsline {subsection}{ARMA models for differenced data}{4}{section*.14}
+\contentsline {subsubsection}{Question: why ``almost'' not ``exactly'' in the previous statement?}{5}{section*.15}
+\contentsline {subsubsection}{Why fit an ARIMA model?}{5}{section*.17}
+\contentsline {subsubsection}{Question: What is the trend of the ARIMA(p,1,q) model?}{6}{section*.18}
+\contentsline {subsubsection}{Question: What is the trend of the ARIMA(p,d,q) model, for general \(d\)?}{6}{section*.20}
+\contentsline {subsection}{The SARIMA\((p,d,q)\times (P,D,Q)\) model}{6}{section*.22}
+\contentsline {subsection}{Modeling trend with ARMA noise.}{6}{section*.23}
+\contentsline {subsubsection}{Linear regression with ARMA errors}{7}{section*.24}
+\contentsline {subsubsection}{Example: Looking for evidence of systematic trend in the depth of Lake Huron}{7}{section*.26}
+\contentsline {subsubsection}{Question: How do we test \(H^{\delimiter "426830A 0\delimiter "526930B }\) against \(H^{\delimiter "426830A 1\delimiter "526930B }\)?}{9}{section*.29}
+\contentsline {subsubsection}{Question: What other supplementary analysis could you do to strengthen your conclusions?}{9}{section*.31}

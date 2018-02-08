@@ -1,0 +1,15 @@
+\contentsline {subsection}{Definition: Stationary causal linear process.}{1}{section*.2}
+\contentsline {subsubsection}{Question: When does the ``stationary'' here mean weak stationarity, and when does it mean strict stationary?}{2}{section*.8}
+\contentsline {subsubsection}{A stationary causal linear solution to the AR(1) model, and a non-causal solution}{3}{section*.9}
+\contentsline {subsubsection}{Exercise: Work through the algebra to check that M8.1 and M8.2 both solve equation {[}M8{]}.}{3}{section*.10}
+\contentsline {subsubsection}{Question: Assess the convergence of the infinite sums in {[}M8.1{]} and {[}M8.2{]}.}{3}{section*.11}
+\contentsline {subsubsection}{Exercise: Using the MA(\(\infty \)) representation to compute the autocovariance of an ARMA model}{3}{section*.12}
+\contentsline {subsection}{The backshift operator and the difference operator}{3}{section*.13}
+\contentsline {subsection}{The general ARMA model}{5}{section*.15}
+\contentsline {subsubsection}{Exercise: Carry out the following steps to obtain the MA(\(\infty \)) representation and the autocovariance function of the ARMA(1,1) model,}{5}{section*.18}
+\contentsline {subsection}{Causal, invertible ARMA models}{6}{section*.20}
+\contentsline {subsubsection}{Question: It is undesirable to use a non-invertible model for data analysis. Why?}{7}{section*.21}
+\contentsline {subsection}{Reducible and irreducible ARMA models}{7}{section*.23}
+\contentsline {subsection}{Deterministic skeletons: Using differential equations to study ARMA models}{8}{section*.24}
+\contentsline {subsubsection}{Example: oscillatory behavior modeled using an AR(2) process}{8}{section*.25}
+\contentsline {subsubsection}{Question: What is the timescale on which the simulated model shows phase locked behavior?}{10}{section*.27}

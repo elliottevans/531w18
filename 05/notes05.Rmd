@@ -1,26 +1,15 @@
 ---
 title: "5 Parameter estimation and model identification for ARMA models"
 author: "Edward Ionides"
-<<<<<<< HEAD
-header-includes:
-  - \usepackage{unicode-math}
-date: "1/23/2018"
-=======
 date: "2018-01-23"
->>>>>>> 46d082a97f35556dbfe41d7843437eba9b0e1627
 output:
-  pdf_document:
-    latex_engine: xelatex
-    toc: yes
-    toc_depth: 2
-  html_document:
-    number_sections: yes
-    pandoc_args: --number-offset=5
-    theme: flatly
+  pdf_document: 
+    keep_tex: yes
     toc: yes
     toc_depth: 2
 csl: ecology.csl
 ---
+
 
 \newcommand\prob{\mathbb{P}}
 \newcommand\E{\mathbb{E}}
@@ -33,14 +22,10 @@ csl: ecology.csl
 \newcommand\params{\, ; \,}
 \newcommand\transpose{\scriptsize{T}}
 \newcommand\eqspace{\quad\quad\quad}
-\newcommand\lik{\mathscr{L}}
+\newcommand\lik{\mathcal{L}}
 \newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
 \newcommand\ar{\phi}
 \newcommand\ma{\psi}
-
-Licensed under the Creative Commons attribution-noncommercial license, http://creativecommons.org/licenses/by-nc/3.0/. 
-Please share and remix noncommercially, mentioning its origin.  
-![CC-BY_NC](cc-by-nc.png)
 
 ```{r knitr-opts,include=FALSE,cache=FALSE,purl=FALSE}
 library(pomp)
@@ -219,11 +204,7 @@ This asserts that the MLE is asymptotically unbiased, with variance asymptotical
 Here, we interpret $\approx$ to mean "one could write a limit statement formally justifying this approximation in a suitable limit."
 
 * A corresponding approximate 95% confidence interval for $\theta_d$ is
-<<<<<<< HEAD
-$$ \data{\theta_d} \pm 1.96 \big[{\estimate{{}\hat{I}}}^{-1}\big]_{dd}^{1/2}.$$
-=======
-$$ \estimate{\hat\theta_d} \pm 1.96 \big[{\estimate{\hat{I}}}^{-1}\big]_{dd}^{1/2}.$$
->>>>>>> 7934be39ef53a1da37e76cf552045831142648b0
+$$ \estimate{\hat\theta_d} \pm 1.96 \big[({\estimate{\hat{I}}})^{-1}\big]_{dd}^{1/2}.$$
 
 * The R function `arima` computes standard errors for the MLE of an ARMA model in this way.
 
@@ -323,13 +304,8 @@ Typically, we compute local coverage at $\theta=\estimate{\hat\theta}$.
 \begin{eqnarray}
 H^{\langle 0\rangle} &:& \theta\in \Theta^{\langle 0\rangle},
 \\
-<<<<<<< HEAD
-H^{\langle 1\rangle} &=& \theta\in \Theta^{\langle 1\rangle},
-\end{eqnarray}
-=======
 H^{\langle 1\rangle} &:& \theta\in \Theta^{\langle 1\rangle},
-\end{eqnarray}$$
->>>>>>> 46d082a97f35556dbfe41d7843437eba9b0e1627
+\end{eqnarray}
 defined via two nested parameter subspaces, $\Theta^{\langle 0\rangle}\subset \Theta^{\langle 1\rangle}$, with respective dimensions $D^{\langle 0\rangle}< D^{\langle 1\rangle}\le D$.
 
 * We consider the log likelihood maximized over each of the hypotheses,
@@ -608,12 +584,12 @@ intercept <- params["intercept"]
 sigma <- sqrt(huron_arma21$sigma2)
 theta <- matrix(NA,nrow=J,ncol=length(params),dimnames=list(NULL,names(params)))
 for(j in 1:J){
-   Yj <- arima.sim(
+   Y_j <- arima.sim(
       list(ar=ar,ma=ma),
       n=length(huron_depth),
       sd=sigma
    )+intercept
-   theta[j,] <- coef(arima(Yj,order=c(2,0,1),method="ML"))
+   theta[j,] <- coef(arima(Y_j,order=c(2,0,1)))
 }
 hist(theta[,"ma1"],freq=FALSE) 
 ```
@@ -654,18 +630,17 @@ registerDoParallel()
 
 ```{r simB}
 J <- 1000
-huron_ar1 <- arima(huron_depth,order=c(1,0,0))
+huron_ar1 <- arima(huron_depth,order=c(1,0,0),method='ML')
 params <- coef(huron_ar1)
 ar <- params[grep("^ar",names(params))]
 intercept <- params["intercept"]
 sigma <- sqrt(huron_ar1$sigma2)
 t1 <- system.time(
   huron_sim <- foreach(j=1:J) %dopar% {
-     Yj <- arima.sim(list(ar=ar),n=length(huron_depth),sd=sigma)+intercept
-     try(coef(arima(Yj,order=c(2,0,1),method="ML")))
+     Y_j <- arima.sim(list(ar=ar),n=length(huron_depth),sd=sigma)+intercept
+     try(coef(arima(Y_j,order=c(2,0,1),method='ML')))
   }
 ) 
-#method = 'ML' not previously in code, added by me due to errors
 ```
 
 * Some of these `arima` calls did not successfully produce parameter estimates. The `try` function lets the simulation proceed despite these errors. Let's see how many of them fail:

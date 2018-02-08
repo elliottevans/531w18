@@ -1,0 +1,25 @@
+\contentsline {subsection}{Definition: Weak stationarity and strict stationarity}{1}{section*.2}
+\contentsline {subsubsection}{Question: How could we assess whether a weak stationary model is appropriate for a time series dataset?}{2}{section*.4}
+\contentsline {subsubsection}{Question: How could we assess whether a strictly stationary model is appropriate for a time series dataset?}{2}{section*.6}
+\contentsline {subsubsection}{Question: Is it usual for time series to be well modeled as stationary (either weakly or strictly)?}{2}{section*.8}
+\contentsline {subsubsection}{Question: If data do not often show stationary behavior, why do many fundamental models have stationarity?}{2}{section*.9}
+\contentsline {subsubsection}{Question: Is a stationary model appropriate for either (or both) the time series below? Explain.}{3}{section*.11}
+\contentsline {subsection}{White noise}{3}{section*.13}
+\contentsline {subsubsection}{Example: Gaussian white noise}{4}{section*.14}
+\contentsline {subsubsection}{Example: Binary white noise}{4}{section*.15}
+\contentsline {subsubsection}{Example: Sinusoidal white noise}{4}{section*.16}
+\contentsline {subsubsection}{Reminder: why do we need time series models?}{5}{section*.17}
+\contentsline {subsection}{Autoregressive models}{6}{section*.18}
+\contentsline {subsubsection}{The AR(p) autoregressive model}{6}{section*.19}
+\contentsline {subsubsection}{Simulating an autoregressive model}{6}{section*.20}
+\contentsline {subsubsection}{What are the advantages and disadvantages of \texttt {arima.sim} over the direct simulation method?}{8}{section*.21}
+\contentsline {subsubsection}{Exercise: Compute the autcovariance function for model M2.}{8}{section*.22}
+\contentsline {subsection}{Moving average models}{8}{section*.23}
+\contentsline {subsubsection}{The MA(q) moving average model}{8}{section*.24}
+\contentsline {subsubsection}{Simulating a moving average model}{9}{section*.26}
+\contentsline {subsection}{A random walk model}{10}{section*.28}
+\contentsline {subsubsection}{Exercise: compute the mean and covariance functions for the random walk model with and without drift.}{11}{section*.32}
+\contentsline {subsubsection}{An example of a random walk: Modeling financial markets}{11}{section*.33}
+\contentsline {subsubsection}{Question: Why may the length of the time series be relevant when considering practical versus statistical significance?}{14}{section*.35}
+\contentsline {subsubsection}{Question: How should we interpret the following plot? To what extent does this plot refute the white noise model for the centered returns (or, equivalently, the random walk model for the log index value)?}{14}{section*.36}
+\contentsline {subsubsection}{Volatility and market inefficiencies}{15}{section*.39}
