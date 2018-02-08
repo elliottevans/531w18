@@ -857,7 +857,7 @@ Date, Average
 \NormalTok{  table <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{,(P}\OperatorTok{+}\DecValTok{1}\NormalTok{),(Q}\OperatorTok{+}\DecValTok{1}\NormalTok{))}
   \ControlFlowTok{for}\NormalTok{(p }\ControlFlowTok{in} \DecValTok{0}\OperatorTok{:}\NormalTok{P) \{}
     \ControlFlowTok{for}\NormalTok{(q }\ControlFlowTok{in} \DecValTok{0}\OperatorTok{:}\NormalTok{Q) \{}
-\NormalTok{       table[p}\OperatorTok{+}\DecValTok{1}\NormalTok{,q}\OperatorTok{+}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\KeywordTok{arima}\NormalTok{(data,}\DataTypeTok{order=}\KeywordTok{c}\NormalTok{(p,}\DecValTok{0}\NormalTok{,q))}\OperatorTok{$}\NormalTok{aic}
+\NormalTok{       table[p}\OperatorTok{+}\DecValTok{1}\NormalTok{,q}\OperatorTok{+}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\KeywordTok{arima}\NormalTok{(data,}\DataTypeTok{order=}\KeywordTok{c}\NormalTok{(p,}\DecValTok{0}\NormalTok{,q))}\OperatorTok{\$}\NormalTok{aic}
 \NormalTok{    \}}
 \NormalTok{  \}}
   \KeywordTok{dimnames}\NormalTok{(table) <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"<b> AR"}\NormalTok{,}\DecValTok{0}\OperatorTok{:}\NormalTok{P, }\StringTok{"</b>"}\NormalTok{, }\DataTypeTok{sep=}\StringTok{""}\NormalTok{),}\KeywordTok{paste}\NormalTok{(}\StringTok{"MA"}\NormalTok{,}\DecValTok{0}\OperatorTok{:}\NormalTok{Q,}\DataTypeTok{sep=}\StringTok{""}\NormalTok{))}
@@ -1020,7 +1020,7 @@ likelihood plot for
 \NormalTok{ar <-}\StringTok{ }\NormalTok{params[}\KeywordTok{grep}\NormalTok{(}\StringTok{"^ar"}\NormalTok{,}\KeywordTok{names}\NormalTok{(params))]}
 \NormalTok{ma <-}\StringTok{ }\NormalTok{params[}\KeywordTok{grep}\NormalTok{(}\StringTok{"^ma"}\NormalTok{,}\KeywordTok{names}\NormalTok{(params))]}
 \NormalTok{intercept <-}\StringTok{ }\NormalTok{params[}\StringTok{"intercept"}\NormalTok{]}
-\NormalTok{sigma <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(huron_arma21}\OperatorTok{$}\NormalTok{sigma2)}
+\NormalTok{sigma <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(huron_arma21}\OperatorTok{\$}\NormalTok{sigma2)}
 \NormalTok{theta <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\DataTypeTok{nrow=}\NormalTok{J,}\DataTypeTok{ncol=}\KeywordTok{length}\NormalTok{(params),}\DataTypeTok{dimnames=}\KeywordTok{list}\NormalTok{(}\OtherTok{NULL}\NormalTok{,}\KeywordTok{names}\NormalTok{(params)))}
 \ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{J)\{}
 \NormalTok{   Y_j <-}\StringTok{ }\KeywordTok{arima.sim}\NormalTok{(}
@@ -1071,13 +1071,9 @@ likelihood plot for
 ## [1] -1  1
 \end{verbatim}
 
-\begin{verbatim}
-+ Estimated densities outside $[-1,1]$ are artifacts of the density estimation procedure. 
-
-+ How would you refine this procedure to get a density estimate respecting the range of the parameter estimation procedure?
-\end{verbatim}
-
 \begin{itemize}
+\item Estimated densities outside $[-1,1]$ are artifacts of the density estimation procedure.
+\item \textbf{How would you refine this procedure to get a density estimate respecting the range of the parameter estimation procedure? }
 \item
   To understand what is going on better, it is helpful to do another
   simulation study for which we fit ARMA(2,1) when the true model is
@@ -1112,7 +1108,7 @@ likelihood plot for
 \NormalTok{params <-}\StringTok{ }\KeywordTok{coef}\NormalTok{(huron_ar1)}
 \NormalTok{ar <-}\StringTok{ }\NormalTok{params[}\KeywordTok{grep}\NormalTok{(}\StringTok{"^ar"}\NormalTok{,}\KeywordTok{names}\NormalTok{(params))]}
 \NormalTok{intercept <-}\StringTok{ }\NormalTok{params[}\StringTok{"intercept"}\NormalTok{]}
-\NormalTok{sigma <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(huron_ar1}\OperatorTok{$}\NormalTok{sigma2)}
+\NormalTok{sigma <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(huron_ar1}\OperatorTok{\$}\NormalTok{sigma2)}
 \NormalTok{t1 <-}\StringTok{ }\KeywordTok{system.time}\NormalTok{(}
 \NormalTok{  huron_sim <-}\StringTok{ }\KeywordTok{foreach}\NormalTok{(}\DataTypeTok{j=}\DecValTok{1}\OperatorTok{:}\NormalTok{J) }\OperatorTok{%dopar%}\StringTok{ }\NormalTok{\{}
 \NormalTok{     Y_j <-}\StringTok{ }\KeywordTok{arima.sim}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{ar=}\NormalTok{ar),}\DataTypeTok{n=}\KeywordTok{length}\NormalTok{(huron_depth),}\DataTypeTok{sd=}\NormalTok{sigma)}\OperatorTok{+}\NormalTok{intercept}
