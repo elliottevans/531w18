@@ -1,0 +1,14 @@
+\contentsline {subsection}{A motivating example}{1}{section*.2}
+\contentsline {subsubsection}{Question: What are the x-axis units?}{4}{section*.3}
+\contentsline {subsubsection}{Question: Comment on what you learn from comparing these smoothed periodograms.}{4}{section*.4}
+\contentsline {subsection}{The transfer function (or frequency response function) of a smoother}{5}{section*.5}
+\contentsline {subsubsection}{Question: What do you learn from this frequency response plot?}{6}{section*.6}
+\contentsline {subsubsection}{Loess smoothing}{6}{section*.7}
+\contentsline {subsubsection}{Question: Describe the frequency domain behavior of this filter.}{8}{section*.8}
+\contentsline {subsection}{Extracting business cycles: A band pass filter}{8}{section*.9}
+\contentsline {subsubsection}{Question: Describe the frequencies (and corresponding periods) that this decomposition identifies as business cycles}{10}{section*.10}
+\contentsline {subsubsection}{Question: So far as we have opinions on business cycles, use them to criticize this decomposition.}{11}{section*.11}
+\contentsline {subsubsection}{Question: Criticizing the construction of the blue dashed lines}{11}{section*.12}
+\contentsline {subsubsection}{Looking for business cycles}{11}{section*.13}
+\contentsline {subsubsection}{Question: Comment on the evidence for and against the concept of a business cycle in the above figure.}{12}{section*.14}
+\contentsline {subsection}{Common smoothers in R}{12}{section*.15}

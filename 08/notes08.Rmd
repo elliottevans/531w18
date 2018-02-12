@@ -1,8 +1,12 @@
 ---
-title: "8. Smoothing in the time and frequency domains"
+title: "8 Smoothing in the time and frequency domains"
 author: "Edward Ionides"
 date: "2/7/2018"
 output:
+  pdf_document: 
+    keep_tex: yes
+    toc: yes
+    toc_depth: 2
   html_document:
     theme: flatly
     toc: yes
@@ -10,7 +14,7 @@ output:
     number_sections: true
     pandoc_args: [
       "--number-offset=8"
-    ]
+      ]
 csl: ecology.csl
 ---
 
@@ -26,7 +30,6 @@ csl: ecology.csl
 \newcommand\transpose{\scriptsize{T}}
 \newcommand\eqspace{\quad\quad\quad}
 \newcommand\lik{\mathscr{L}}
-\newcommand\loglik{\ell}
 \newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
 \newcommand\ar{\phi}
 \newcommand\ma{\psi}
@@ -34,9 +37,6 @@ csl: ecology.csl
 \newcommand\MA{\Psi}
 \newcommand\ev{u}
 
-Licensed under the Creative Commons attribution-noncommercial license, http://creativecommons.org/licenses/by-nc/3.0/.
-Please share and remix noncommercially, mentioning its origin.  
-![CC-BY_NC](cc-by-nc.png)
 
 ```{r knitr-opts,include=FALSE,cache=FALSE,purl=FALSE}
 library(pomp)
