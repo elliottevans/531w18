@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.12.9)  8 FEB 2018 16:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.12.9)  8 FEB 2018 15:15
 entering extended mode
-**./notes05.tex
-(notes05.tex
+**./notes08.tex
+(notes08.tex
 LaTeX2e <2016/03/31> patch level 3
 Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -1220,8 +1220,8 @@ Package: titling 2009/09/04 v2.1d maketitle typesetting
 \thanksmarkwidth=\skip57
 \thanksmargin=\skip58
 \droptitle=\skip59
-) (notes05.aux)
-\openout1 = `notes05.aux'.
+) (notes08.aux)
+\openout1 = `notes08.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 131.
 LaTeX Font Info:    ... okay on input line 131.
@@ -1342,11 +1342,11 @@ LaTeX Info: Redefining \ref on input line 131.
 LaTeX Info: Redefining \pageref on input line 131.
 LaTeX Info: Redefining \nameref on input line 131.
 
-(notes05.out) (notes05.out)
+(notes08.out) (notes08.out)
 \@outlinefile=\write5
-\openout5 = `notes05.out'.
+\openout5 = `notes08.out'.
 
- (notes05.toc
+ (notes08.toc
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 1.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
@@ -1390,112 +1390,134 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ))
 \tf@toc=\write6
-\openout6 = `notes05.toc'.
+\openout6 = `notes08.toc'.
 
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 187.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 168.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ts1lmr.fd"
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [1
-
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 273.
- [2] [3]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 394.
+)
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 209.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [4] [5] [6]
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 635.
- [7] [8]
-<figure/intro-select_annual-1.png, id=129, 493.6041pt x 289.08pt>
-File: figure/intro-select_annual-1.png Graphic file (type png)
-
-<use figure/intro-select_annual-1.png>
-Package pdftex.def Info: figure/intro-select_annual-1.png used on input line 82
-0.
-(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
- [9 <./figure/intro-select_annual-1.png>] [10] <figure/intro-huron_profile-1.pn
-g, id=144, 493.6041pt x 289.08pt>
-File: figure/intro-huron_profile-1.png Graphic file (type png)
-
-<use figure/intro-huron_profile-1.png>
-Package pdftex.def Info: figure/intro-huron_profile-1.png used on input line 99
-5.
-(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
- [11 <./figure/intro-huron_profile-1.png>] <figure/intro-simA-1.png, id=150, 49
-3.6041pt x 289.08pt>
-File: figure/intro-simA-1.png Graphic file (type png)
-
-<use figure/intro-simA-1.png>
-Package pdftex.def Info: figure/intro-simA-1.png used on input line 1045.
-(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
- [12 <./figure/intro-simA-1.png>]
-<figure/intro-density-1.png, id=157, 493.6041pt x 289.08pt>
-File: figure/intro-density-1.png Graphic file (type png)
-
-<use figure/intro-density-1.png>
-Package pdftex.def Info: figure/intro-density-1.png used on input line 1060.
-(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
- [13 <./figure/intro-density-1.png>]
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 111
-5.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ts1lmtt.fd"
-File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-<figure/intro-histB-1.png, id=164, 493.6041pt x 289.08pt>
-File: figure/intro-histB-1.png Graphic file (type png)
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 210.
+ [1
 
-<use figure/intro-histB-1.png>
-Package pdftex.def Info: figure/intro-histB-1.png used on input line 1161.
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+<figure/intro-reshape-1.png, id=40, 493.6041pt x 289.08pt>
+File: figure/intro-reshape-1.png Graphic file (type png)
+
+<use figure/intro-reshape-1.png>
+Package pdftex.def Info: figure/intro-reshape-1.png used on input line 260.
 (pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
- [14 <./figure/intro-histB-1.png>] [15] [16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1284.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1284.
+ [2 <./figure/intro-reshape-1.png>]
+<figure/intro-data_adj-1.png, id=48, 493.6041pt x 289.08pt>
+File: figure/intro-data_adj-1.png Graphic file (type png)
 
-(notes05.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1284.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1284.
+<use figure/intro-data_adj-1.png>
+Package pdftex.def Info: figure/intro-data_adj-1.png used on input line 286.
+(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
 
-Package rerunfilecheck Info: File `notes05.out' has not changed.
-(rerunfilecheck)             Checksum: D63F935BE40020DB29C0E8DF51C779F9;1941.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1284.
+<figure/intro-adjustment_spectrum-1.png, id=49, 493.6041pt x 289.08pt>
+File: figure/intro-adjustment_spectrum-1.png Graphic file (type png)
+
+<use figure/intro-adjustment_spectrum-1.png>
+Package pdftex.def Info: figure/intro-adjustment_spectrum-1.png used on input l
+ine 308.
+(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
+ [3 <./figure/intro-data_adj-1.png>] <figure/intro-plot.ts-1.png, id=55, 493.60
+41pt x 289.08pt>
+File: figure/intro-plot.ts-1.png Graphic file (type png)
+
+<use figure/intro-plot.ts-1.png>
+Package pdftex.def Info: figure/intro-plot.ts-1.png used on input line 342.
+(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
+ [4 <./figure/intro-adjustment_spectrum-1.png>] <figure/intro-s_transfer-1.png,
+ id=64, 493.6041pt x 289.08pt>
+File: figure/intro-s_transfer-1.png Graphic file (type png)
+
+<use figure/intro-s_transfer-1.png>
+Package pdftex.def Info: figure/intro-s_transfer-1.png used on input line 409.
+(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
+ [5 <./figure/intro-plot.ts-1.png>]
+<figure/intro-loess-1.png, id=70, 493.6041pt x 289.08pt>
+File: figure/intro-loess-1.png Graphic file (type png)
+
+<use figure/intro-loess-1.png>
+Package pdftex.def Info: figure/intro-loess-1.png used on input line 450.
+(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
+ [6 <./figure/intro-s_transfer-1.png>]
+<figure/intro-loess_transfer-1.png, id=78, 493.6041pt x 289.08pt>
+File: figure/intro-loess_transfer-1.png Graphic file (type png)
+
+<use figure/intro-loess_transfer-1.png>
+Package pdftex.def Info: figure/intro-loess_transfer-1.png used on input line 4
+71.
+(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
+ [7 <./figure/intro-loess-1.png>]
+<figure/intro-cycles-1.png, id=85, 493.6041pt x 433.62pt>
+File: figure/intro-cycles-1.png Graphic file (type png)
+
+<use figure/intro-cycles-1.png>
+Package pdftex.def Info: figure/intro-cycles-1.png used on input line 510.
+(pdftex.def)             Requested size: 469.75725pt x 412.6711pt.
+ [8 <./figure/intro-loess_transfer-1.png>]
+<figure/intro-freq_response-1.png, id=92, 493.6041pt x 289.08pt>
+File: figure/intro-freq_response-1.png Graphic file (type png)
+
+<use figure/intro-freq_response-1.png>
+Package pdftex.def Info: figure/intro-freq_response-1.png used on input line 52
+6.
+(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
+ [9 <./figure/intro-cycles-1.png>]
+<figure/intro-show_range-1.png, id=98, 493.6041pt x 289.08pt>
+File: figure/intro-show_range-1.png Graphic file (type png)
+
+<use figure/intro-show_range-1.png>
+Package pdftex.def Info: figure/intro-show_range-1.png used on input line 559.
+(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
+ [10 <./figure/intro-freq_response-1.png>]
+[11 <./figure/intro-show_range-1.png>]
+<figure/intro-zoomed_spectrum-1.png, id=114, 493.6041pt x 289.08pt>
+File: figure/intro-zoomed_spectrum-1.png Graphic file (type png)
+
+<use figure/intro-zoomed_spectrum-1.png>
+Package pdftex.def Info: figure/intro-zoomed_spectrum-1.png used on input line 
+626.
+(pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
+ [12 <./figure/intro-zoomed_spectrum-1.png>] [13]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 684.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 684.
+ (notes08.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 684.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 684.
+Package rerunfilecheck Info: File `notes08.out' has not changed.
+(rerunfilecheck)             Checksum: F81BC41F958D60120DD41A7388C4E991;1022.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 684.
  ) 
 Here is how much of TeX's memory you used:
- 23797 strings out of 493334
- 415198 string characters out of 3139246
- 507806 words of memory out of 72000000
- 26746 multiletter control sequences out of 15000+200000
- 57502 words of font info for 90 fonts, out of 3000000 for 9000
+ 23654 strings out of 493334
+ 412890 string characters out of 3139246
+ 496488 words of memory out of 72000000
+ 26680 multiletter control sequences out of 15000+200000
+ 55620 words of font info for 70 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,11n,80p,604b,775s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Program Files/
-MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/
-dvips/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathe
-x.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Fil
-es/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}<C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/l
-m/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmex10.pfb><C:/
-Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi10.pfb><C:/Program Files/MiK
-TeX 2.9/fonts/type1/public/lm/lmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
-1/public/lm/lmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.
-pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/lm/lmr5.pfb><C:/Program Files/MiKTeX 2.9/font
-s/type1/public/lm/lmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/l
-mri12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy5.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
-blic/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pf
-b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb><
-C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on notes05.pdf (16 pages, 558411 bytes).
+ 62i,5n,68p,467b,450s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/M
+iKTeX 2.9/fonts/enc/dvips/lm/lm-ts1.enc}<C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx1
+2.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/f
+onts/type1/public/lm/lmri12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
+/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb>
+Output written on notes08.pdf (13 pages, 888604 bytes).
 PDF statistics:
- 263 PDF objects out of 1000 (max. 8388607)
- 65 named destinations out of 1000 (max. 500000)
- 8278 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 162 PDF objects out of 1000 (max. 8388607)
+ 30 named destinations out of 1000 (max. 500000)
+ 8292 words of extra memory for PDF output out of 10000 (max. 10000000)
 
