@@ -1,10 +1,10 @@
-\contentsline {subsection}{Definition: Time series data and time series models}{1}{section*.2}
-\contentsline {subsubsection}{Review questions}{2}{section*.3}
-\contentsline {subsection}{Definition: The mean function, or trend}{2}{section*.4}
-\contentsline {subsubsection}{Review question}{2}{section*.5}
-\contentsline {subsubsection}{Question: properties of models vs properties of data}{3}{section*.8}
-\contentsline {subsection}{Definition: The autocovariance and autocorrelation functions, and some estimators of them}{4}{section*.9}
-\contentsline {subsection}{Estimating a trend by least squares}{5}{section*.10}
-\contentsline {subsubsection}{Fitting a least squares model with a quadratic trend}{6}{section*.11}
-\contentsline {subsubsection}{Question: How does R construct these horizontal dashed lines?}{9}{section*.13}
-\contentsline {subsubsection}{Generalized least squares}{9}{section*.14}
+\contentsline {subsection}{\numberline {2.1}Definition: Time series data and time series models}{1}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Review questions}{2}{subsubsection.2.1.1}
+\contentsline {subsection}{\numberline {2.2}Definition: The mean function, or trend}{2}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Review question}{2}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Question: properties of models vs properties of data}{3}{subsubsection.2.2.2}
+\contentsline {subsection}{\numberline {2.3}Definition: The autocovariance and autocorrelation functions, and some estimators of them}{4}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Estimating a trend by least squares}{5}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Fitting a least squares model with a quadratic trend}{6}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Question: How does R construct these horizontal dashed lines?}{9}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}Generalized least squares}{9}{subsubsection.2.4.3}

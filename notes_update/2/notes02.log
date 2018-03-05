@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.12.9)  8 FEB 2018 12:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.12.9)  15 FEB 2018 12:13
 entering extended mode
 **./notes02.tex
 (notes02.tex
@@ -1185,31 +1185,31 @@ Package: titling 2009/09/04 v2.1d maketitle typesetting
 ) (notes02.aux)
 \openout1 = `notes02.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 130.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 130.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 131.
+LaTeX Font Info:    ... okay on input line 131.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 131.
+LaTeX Font Info:    ... okay on input line 131.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 131.
+LaTeX Font Info:    ... okay on input line 131.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 131.
+LaTeX Font Info:    ... okay on input line 131.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 131.
+LaTeX Font Info:    ... okay on input line 131.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 131.
+LaTeX Font Info:    ... okay on input line 131.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 131.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 131.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 130.
+LaTeX Font Info:    ... okay on input line 131.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 131.
+LaTeX Font Info:    ... okay on input line 131.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 131.
+LaTeX Font Info:    ... okay on input line 131.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 131.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1241,7 +1241,7 @@ G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
 ABD: EveryShipout initializing macros
-LaTeX Info: Redefining \microtypecontext on input line 130.
+LaTeX Info: Redefining \microtypecontext on input line 131.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
@@ -1291,7 +1291,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box41
-Package hyperref Info: Link coloring OFF on input line 130.
+Package hyperref Info: Link coloring OFF on input line 131.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -1300,9 +1300,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count148
 )
-LaTeX Info: Redefining \ref on input line 130.
-LaTeX Info: Redefining \pageref on input line 130.
-LaTeX Info: Redefining \nameref on input line 130.
+LaTeX Info: Redefining \ref on input line 131.
+LaTeX Info: Redefining \pageref on input line 131.
+LaTeX Info: Redefining \nameref on input line 131.
 
 (notes02.out) (notes02.out)
 \@outlinefile=\write5
@@ -1354,7 +1354,7 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 \tf@toc=\write6
 \openout6 = `notes02.toc'.
 
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 182.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 183.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ts1lmr.fd"
@@ -1363,23 +1363,23 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 321.
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 370.
+ine 322.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 371.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 374
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 375
 .
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ts1lmtt.fd"
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [3] [4]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 456.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 457.
 
-Overfull \hbox (13.24358pt too wide) in paragraph at lines 466--466
+Overfull \hbox (13.24358pt too wide) in paragraph at lines 467--467
 []\T1/lmtt/m/n/10 ##  $ Moving5yrAverage: num  -0.13 -0.16 -0.19 -0.21 -0.24 -0
 .26 -0.27 -0.27 -0.27 -0.26 ...[] 
  []
@@ -1388,19 +1388,15 @@ Overfull \hbox (13.24358pt too wide) in paragraph at lines 466--466
 File: figure/intro-data_plot-1.png Graphic file (type png)
 
 <use figure/intro-data_plot-1.png>
-Package pdftex.def Info: figure/intro-data_plot-1.png used on input line 474.
+Package pdftex.def Info: figure/intro-data_plot-1.png used on input line 475.
 (pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
  [5 <./figure/intro-data_plot-1.png>]
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 508.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 509.
 
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 510.
-
-
-
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 521.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 511.
 
 
 
@@ -1408,19 +1404,23 @@ LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 522.
 
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 526.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 523.
 
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 526.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 527.
 
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 528.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 527.
 
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 528.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 529.
+
+
+
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 529.
 
 
 [6] <figure/intro-glob_temp_lm_plot-1.png, id=90, 493.6041pt x 289.08pt>
@@ -1428,19 +1428,11 @@ File: figure/intro-glob_temp_lm_plot-1.png Graphic file (type png)
 
 <use figure/intro-glob_temp_lm_plot-1.png>
 Package pdftex.def Info: figure/intro-glob_temp_lm_plot-1.png used on input lin
-e 577.
+e 578.
 (pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 586.
-
-
-
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 600.
-
-
-
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 600.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 587.
 
 
 
@@ -1465,15 +1457,23 @@ LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 603.
 
 
 LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 603.
+
+
+
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 604.
+
+
+
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 604.
 
 
 [7 <./figure/intro-glob_temp_lm_plot-1.png>]
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 612.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 613.
 
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 614.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 615.
 
 
 <figure/intro-acf_global_temp-1.png, id=97, 493.6041pt x 289.08pt>
@@ -1481,48 +1481,48 @@ File: figure/intro-acf_global_temp-1.png Graphic file (type png)
 
 <use figure/intro-acf_global_temp-1.png>
 Package pdftex.def Info: figure/intro-acf_global_temp-1.png used on input line 
-629.
+630.
 (pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
  [8 <./figure/intro-acf_global_temp-1.png>]
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 718.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 719.
 
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 718.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 719.
 
 
 [9]
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 729.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 730.
 
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 729.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 730.
 
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 729.
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 730.
 
 
 [10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 749.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 749.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 750.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 750.
  (notes02.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 749.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 749.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 750.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 750.
 Package rerunfilecheck Info: File `notes02.out' has not changed.
-(rerunfilecheck)             Checksum: B200564D89D207BD6C9EF8E9B91860DA;1332.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 749.
+(rerunfilecheck)             Checksum: 10B86AA2B7A98DF666E78DB01DC31B04;1347.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 750.
  ) 
 Here is how much of TeX's memory you used:
  23628 strings out of 493334
- 412406 string characters out of 3139246
- 501644 words of memory out of 72000000
+ 412485 string characters out of 3139246
+ 501752 words of memory out of 72000000
  26595 multiletter control sequences out of 15000+200000
  65479 words of font info for 99 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,11n,80p,564b,806s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,11n,80p,572b,802s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/M
 iKTeX 2.9/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/
 dvips/lm/lm-mathex.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathi
@@ -1542,7 +1542,7 @@ gram Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX
 ublic/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.p
 fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 
-Output written on notes02.pdf (10 pages, 450154 bytes).
+Output written on notes02.pdf (10 pages, 451622 bytes).
 PDF statistics:
  193 PDF objects out of 1000 (max. 8388607)
  38 named destinations out of 1000 (max. 500000)

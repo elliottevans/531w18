@@ -91,7 +91,8 @@
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
+%\setcounter{secnumdepth}{0}
+\setcounter{section}{8}
 % Redefines (sub)paragraphs to behave more like sections
 \ifx\paragraph\undefined\else
 \let\oldparagraph\paragraph
@@ -165,8 +166,8 @@ Objectives
 
 \begin{itemize}
 \item
-  Estimating a nonparametric trend from a time series is known as
-  smoothing. We will review some standard smoothing methods.
+  \hl{Estimating a nonparametric trend from a time series is known as
+  smoothing}. We will review some standard smoothing methods.
 \item
   We can also smooth the periodogram to estimate a spectral density.
 \item
@@ -307,12 +308,16 @@ Objectives
 
 \begin{center}\includegraphics{figure/intro-adjustment_spectrum-1} \end{center}
 
+\todo[inline]{Why peaks at 2, 3, 4, 5, 6 cycles per year? A peak at only 1 cycle per year is sinusoidal seasonality. The 2-cycle might be the idea that there's less unemployment during summer and winter (Christmas time).}
+
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \subsubsection{Question: What are the x-axis
 units?}\label{question-what-are-the-x-axis-units}
+
+\todo[inline]{Cycles-per-year (rather than cycles-per-month). This more natural unit of frequency came about from the \textit{ts} function in \textit{R}, and setting the frequency to 12.}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -354,9 +359,9 @@ smoother}\label{the-transfer-function-or-frequency-response-function-of-a-smooth
 
 \begin{itemize}
 \item
-  The ratio of the periodograms of the smoothed and unsmoothed time
+  The \hl{ratio of the periodograms of the smoothed and unsmoothed time
   series is called the \textbf{transfer function} or \textbf{frequency
-  response function} of the smoother.
+  response function} of the smoother}.
 \item
   We can infer the frequency response of the smoother used by Bureau of
   Labor Statistics to deseasonalize the unemployment data.
@@ -423,7 +428,7 @@ plot?}\label{question-what-do-you-learn-from-this-frequency-response-plot}
 
 \begin{itemize}
 \item
-  Loess is a \textbf{Local linear regression} approach (perhaps an
+  \hl{Loess is a \textbf{Local linear regression} approach} (perhaps an
   acronym for LOcal Estimation by Smoothing?)
 \item
   The basic idea is quite simple: at each point in time, we carry out a
