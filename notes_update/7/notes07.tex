@@ -2,6 +2,9 @@
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
+\usepackage{bm}
+\usepackage{soul}
+\usepackage[color=yellow]{todonotes}
 \usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
@@ -88,7 +91,8 @@
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
+%\setcounter{secnumdepth}{0}
+\setcounter{section}{7}
 % Redefines (sub)paragraphs to behave more like sections
 \ifx\paragraph\undefined\else
 \let\oldparagraph\paragraph
@@ -326,11 +330,11 @@ model}\label{the-eigenvectors-for-a-long-stationary-time-series-model}
 \item
   This calculation shows that \[\ev_n(\omega) = e^{i\omega n}\] is an
   eigenvector for \(\Gamma\) for any choice of \(\omega\). The
-  corresponding eigenvalue function,
+  corresponding \hl{eigenvalue function},
   \[\lambda(\omega)= \sum_{h=-\infty}^\infty \gamma_{h}  e^{-i\omega h},\]
-  is called the \textbf{spectral density function}. It is calculated as
-  the \textbf{Fourier transform} of \(\gamma_h\) at \emph{frequency}
-  \(\omega\).
+  is called the \hl{\textbf{spectral density function}. It is calculated as
+  the \textbf{Fourier transform} of $\gamma_h$ at \emph{frequency}
+  $\omega$.}
 \item
   It was convenient to do this calculation with complex exponentials.
   However, writing
@@ -343,12 +347,12 @@ model}\label{the-eigenvectors-for-a-long-stationary-time-series-model}
   eigenfunctions for any long, stationary time series model are
   approximately sinusoidal.
 \item
-  For the finite time series situation, we only expect \(N\)
-  eigenvectors for a time series of length \(N\). We have one
+  \hl{For the finite time series situation, we only expect $N$
+  eigenvectors for a time series of length $N$}. We have one
   eigenvector for \(\omega=0\), two eigenvectors corresponding to sine
   and cosine functions with frequency
   \[\omega_{n} = 2\pi n/N, \mbox{ for $0<n<N/2$},\] and, if \(N\) is
-  even, a final eigenvector with frequency \[\omega_{(N/2)} = \pi.\]
+  even, a final eigenvector with \hl{frequency} \[\omega_{(N/2)} = \pi.\]
 \item
   These sine and cosine vectors are called the \textbf{Fourier basis}.
 \end{itemize}
@@ -359,9 +363,9 @@ transform}\label{frequency-components-of-the-data-and-their-representation-via-t
 
 \begin{itemize}
 \item
-  The \textbf{frequency components} of \(Y_{1:N}\) are the components in
-  the directions of these eigenvectors. Equivalently, we could say they
-  are the representation of \(Y_{1:N}\) in the Fourier basis.
+  The \hl{\textbf{frequency components} of $Y_{1:N}$} are the components in
+  the directions of these eigenvectors. Equivalently, we could say \hl{they
+  are the representation of $Y_{1:N}$ in the Fourier basis.}
   Specifically, we write
 
   \begin{eqnarray}
@@ -395,16 +399,16 @@ transform}\label{frequency-components-of-the-data-and-their-representation-via-t
   should try to be consistent, and also be careful: the \texttt{fft}
   command in R, for example, doesn't include this constant.
 \item
-  \texttt{fft} is an implementation of the fast Fourier transform
-  algorithm, which enables computation of all the frequency components
+  \hl{\texttt{fft} is an implementation of the fast Fourier transform
+  algorithm}, which enables computation of all the frequency components
   with order \(N\log(N)\) computation. At first consideration, computing
   the frequency components appears to require a matrix multiplication
   involving order \(N^2\) additions and multiplications. When \(N=10^5\)
   or \(N=10^6\) this difference becomes important!
 \item
-  The first frequency component, \(C_0\), is something of a special
-  case, since it has mean \(\mu=\E[Y_n]\) whereas the other components
-  have mean zero.
+  \hl{The first frequency component, $C_0$, is something of a special
+  case, since it has mean $\mu=\E[Y_n]$ whereas the other components
+  have mean zero.}
 \item
   In practice, we subtract a mean before computing the periodogram,
   which is equivalent to removing the frequency component for frequency
@@ -435,9 +439,12 @@ components}\label{normal-approximation-for-the-frequency-components}
   independent of \((C_{1:N/2},S_{1:N/2})\), with
   \[\var(C_0\big/ \sqrt{N}) \approx \lambda(0)\big/ N.\]
 \item
-  Moving to the frequency domain (i.e., transforming the data to its
-  frequency components) has \textbf{decorrelated} the data. Statistical
+  \hl{Moving to the frequency domain (i.e., transforming the data to its
+  frequency components) has \textbf{decorrelated} the data}. Statistical
   techniques based on assumptions of independence become applicable.
+  
+  \todo[inline]{Converting data to its frequency components and looking at the periodogram (frequency domain analysis) decorrelates the data}
+  
 \item
   It follows from the normal approximation that, for \(1\le n\le N/2\),
   \[ C_n^2 + S_n^2 \approx \lambda(\omega_n) \frac{\chi^2_2}{2},\] where
@@ -447,7 +454,7 @@ components}\label{normal-approximation-for-the-frequency-components}
   Taking logs, we have
   \[ \log\big(C_n^2 + S_n^2 \big) \approx \log \lambda(\omega_n) + \log(\chi^2_2/2).\]
 \item
-  These results motivate consideration of the \textbf{periodogram},
+  These results motivate consideration of the \hl{\textbf{periodogram}},
   \[ I_n = (\data{c_n})^2 + (\data{s_n})^2 = \big|  \data{d_n}\big|^2\]
   as an estimator of the spectral density.
 \item
@@ -484,6 +491,18 @@ spectrum}\label{interpreting-the-spectral-density-as-a-power-spectrum}
 \subsubsection{Question: compute the spectrum of an AR(1)
 model.}\label{question-compute-the-spectrum-of-an-ar1-model.}
 
+From the book:
+\begin{center}\includegraphics{figure/spec_density} \end{center}
+
+\hl{\textbf{ANS.}} 
+\begin{align*}
+\lambda(\omega) 
+	&=\sum_{h=-\infty}^{\infty}\gamma_h e^{-i\omega h}\\
+	&=\sum_{h=-\infty}^{\infty}\frac{\sigma^2 \rho ^{|h|}}{1-\rho^2}e^{-i\omega h}\\
+	&=\frac{\sigma^2}{1-\rho^2} + \underbrace{\sum_{h=1}^{\infty}\frac{\sigma^2}{1-\rho^2}\rho^h\left[e^{-i\omega h} + e^{i\omega h}\right]}_{\text{use geometric sum formula}}\\
+	&=\frac{\sigma^2}{1-\rho^2}\left[1 + \sum_{h=1}^{\infty}\left(\rho e^{-i\omega}\right)^h + \sum_{h=1}^{\infty}\left(\rho e^{i\omega}\right)^h\right]	
+\end{align*}
+
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -502,6 +521,8 @@ correctness of the
 identity,}\label{review-question-how-would-you-demonstrate-the-correctness-of-the-identity}
 
 \[ e^{i\omega} = \cos(\omega)+i\,\sin(\omega).\]
+
+\todo[inline]{Use Taylor series expansion}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -577,6 +598,7 @@ revisited}\label{michigan-winters-revisited}
   \item
     What other approaches can you think of for dealing with this missing
     observation?
+    \todo[inline]{Can fit it with a suitable mean, can remove it.}
   \item
     What are the strengths and weaknesses of these approaches?
   \end{itemize}
@@ -595,6 +617,8 @@ revisited}\label{michigan-winters-revisited}
 \end{Shaded}
 
 \begin{center}\includegraphics{figure/intro-periodogram-1} \end{center}
+
+\todo[inline]{Here, ``frequency'' is $\omega_{n} = 2\pi n/N$, for $0<n<N/2$. Frequency in ``cycles per data point''}
 
 \begin{itemize}
 \tightlist
@@ -644,8 +668,9 @@ periodogram}\label{more-details-on-computing-and-smoothing-the-periodogram}
 \item
   This will lead you to type \texttt{?spec.pgram}.
 \item
-  You will see that, by default, R removes a linear trend, fitted by
-  least squares. This may often be a sensible thing to do. Why?
+  You will see that, by default, \hl{R removes a linear trend, fitted by
+  least squares. This may often be a sensible thing to do. Why?}
+  
 \item
   You will see that R then multiplies the data by a quantity called a
   \href{https://en.wikipedia.org/wiki/Window_function}{\textbf{taper}},
@@ -784,9 +809,9 @@ AIC & 780.9 & 781.6 & 783.6 & 783.8\tabularnewline
 \tightlist
 \item
   Got it! We have an explantion of the trend that makes scientific
-  sense. However, the model is prefered by AIC but is not quite
+  sense. However, the model is prefered by AIC but is \hl{not quite
   statistically significant viewed as a 2-sided test against a null of
-  white noise via a t-statistic for the estimated coefficient:
+  white noise via a t-statistic for the estimated coefficient}:
 \end{itemize}
 
 \begin{Shaded}
@@ -816,6 +841,8 @@ AIC & 780.9 & 781.6 & 783.6 & 783.8\tabularnewline
 ## Multiple R-squared:  0.02623,    Adjusted R-squared:  0.01754 
 ## F-statistic: 3.017 on 1 and 112 DF,  p-value: 0.08515
 \end{verbatim}
+
+\todo[inline]{1-sided p-value is $0.043 < 0.05$, 2--sided p-value is 0.085}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -860,6 +887,8 @@ correct?}\label{question-why-might-you-expect-the-estimated-coefficient-to-be-st
 Hint: notice the standard error on the coefficient, together with
 consideration of possible values of the coefficient in a scientifically
 plausible model.
+
+
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 

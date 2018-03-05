@@ -91,7 +91,8 @@
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
+%\setcounter{secnumdepth}{1}
+\setcounter{section}{5}
 % Redefines (sub)paragraphs to behave more like sections
 \ifx\paragraph\undefined\else
 \let\oldparagraph\paragraph
@@ -426,7 +427,7 @@ likelihood}\label{confidence-intervals-via-the-profile-likelihood}
   An \hl{approximate 95\% confidence interval} for \(\theta_d\) is given by
   \[ \big\{\theta_d : \loglik(\estimate{\hat\theta}) - \profileloglik{d}(\theta_d)< 1.92\big\}.\]
   
-  \todo[inline]{Profile likelihood gives the same parameter estimate, but the CI it generates is better when the likelihood is multimodal or isn't perfectly smooth.}
+  \todo[inline]{Profile likelihood gives the same parameter estimate, but the CI it generates is better when the likelihood is multimodal or isn't perfectly smooth. Here, $\hat{\theta}^*$ is the MLE. This contains all the $\theta_d$ such that the log-likelihood evaluated at the MLE is within 1.92 of the profile log-likelihood at $\theta_d$.}
 \item
   This is known as a profile likelihood confidence interval. The cutoff
   \(1.92\) is derived using
@@ -440,6 +441,7 @@ likelihood}\label{confidence-intervals-via-the-profile-likelihood}
   information confidence intervals when $N$ is not so
   large---particularly when the log likelihood function is not close to
   quadratic near its maximum.}
+\todo[inline]{This is because Fisher information is based on quadratic approximation. Thus, profile likelihood CIs are good for flat likelihood.}
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -686,6 +688,8 @@ intervals}\label{exercise-using-a-likelihood-ratio-test-to-construct-profile-lik
   predictive skill from a range of possibilities, it is often useful.
 \end{itemize}
 
+\todo[inline]{Use likelihood-ratio test for smaller v. larger model. Use AIC to pick the better predictive model.}
+
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -901,9 +905,13 @@ Date, Average
 the above table of AIC
 values?}\label{question-what-do-we-learn-by-interpreting-the-results-in-the-above-table-of-aic-values}
 
+\todo[inline]{Lowest AIC: ARMA(2,1) and ARMA(1,0). Can't necessarily say one of these is better (they both seem reasonable). We can suggest that models with no AR (autoregressive term) are bad (have higher AICs).}
+
 \subsubsection{Question: In what ways might we have to be careful not to
 over-interpret the results of this
 table?}\label{question-in-what-ways-might-we-have-to-be-careful-not-to-over-interpret-the-results-of-this-table}
+
+\todo[inline]{AIC is not a hypothesis test - it's not that formal. Only tries to compare predictive skill of models.}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -1009,6 +1017,8 @@ likelihood plot for
   Is this profile likelihood plot, and its statistical interpretation,
   reliable? How do you support your opinion on this?
 \end{itemize}
+
+\todo[inline]{The vertical distance in the plot is much less than 1.92, so profile likelihood tells us that we don't know where on the curve the estimate should be. This suggests there is an identifiability issue and the SE should be larger than the Fisher information estimate. Next thing to do is a simulation study - this seems to match with the profile likelihood.}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -1184,6 +1194,8 @@ likelihood plot for
 and understand, this kind of model fitting
 problem?}\label{question-what-else-could-we-look-for-to-help-diagnose-and-understand-this-kind-of-model-fitting-problem}
 
+\todo[inline]{Look at the AR and MA roots to check for approximate canceling - if the roots are numerically close. Use the simpler model unless there is compelling evidence to use a more complex model.}
+
 \begin{itemize}
 \tightlist
 \item
@@ -1275,6 +1287,8 @@ maximization?}\label{question-how-is-this-table-inconsistent-with-perfect-maximi
     likelihood \(+\) 2\(\times\) number of parameters
   \end{itemize}
 \end{itemize}
+
+\todo[inline]{For ARMA(2,1) and ARMA(3,1), the AIC is different by more than 2 $\implies$ ARMA(3,1) is too large to be possible.}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 

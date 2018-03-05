@@ -1,0 +1,165 @@
+---
+title: "STATS 531 HW 5"
+author: "Elliott Evans"
+date: "2/19/2018"
+header-includes:
+   - \usepackage{amsmath}
+   - \usepackage{amssymb}
+   - \usepackage{amsthm}
+output:
+  html_document:
+    theme: flatly
+    toc: yes
+  pdf_document:
+    toc: yes
+csl: ecology.csl
+---
+
+\newcommand{\DEF}{\overset{\text{def}}{=}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\IND}{\mathbbm{1}}
+\newcommand{\var}{\text{Var}}
+\newcommand{\cov}{\text{Cov}}
+\newcommand{\logit}{\text{logit}}
+\newcommand{\n}{\newline}
+\newcommand\loglik{\ell}
+\newcommand\R{\mathbb{R}}
+\newcommand\data[1]{#1^*}
+\newcommand\estimate[1]{\data{#1}}
+\newcommand\params{\, ; \,}
+\newcommand\transpose{\scriptsize{T}}
+\newcommand\eqspace{\quad\quad\quad}
+\newcommand\lik{\mathscr{L}}
+\newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
+\newcommand\ar{\phi}
+\newcommand\ma{\psi}
+
+-----------
+
+## Question 5.1 A
+
+First, we compute and plot the **spectral density function** of a stationary AR(2) model:
+$$X_n = 1.5 X_{n-1} - 0.8X_{n-2} + \epsilon_n $$
+
+where $\{\epsilon_n\}$ is white noise with $\var(\epsilon_n)=\sigma^2$. For now, let $\phi_1 = 1.5$ and $\phi_2 = -0.8$
+
+From **Property 4.4** of the textbook, we know the spectral density function is:
+\begin{align*}
+\lambda(\omega) &= \frac{\sigma^2}{|1 - \phi_1e^{-2\pi i\omega} - \phi_2\left(e^{-2\pi i\omega}\right)^2|^2}.
+\end{align*}
+Noting $|z|^2 = z\bar{z}$ for complex $z\in\CC$, we have:
+\begin{align*}
+|1 - \phi_1e^{-2\pi i\omega} - \phi_2\left(e^{-2\pi i\omega}\right)^2|^2 &=\left( 1 - \phi_1e^{-2\pi i\omega} - \phi_2\left(e^{-4\pi i\omega}\right)\right)\left( 1 - \phi_1e^{2\pi i\omega} - \phi_2\left(e^{4\pi i\omega}\right)\right)\\
+	&= (1 + \phi_1^2 + \phi^2_2) + (\phi_1\phi_2 - \phi_1)e^{2\pi i\omega} \\
+	&\qquad\qquad + (\phi_1\phi_2 - \phi_1)e^{-2\pi i\omega} - \phi_2 e^{4\pi i\omega} - \phi_2 e^{-4\pi i\omega}\\
+	&=(1 + \phi_1^2 + \phi_2^2) + (\phi_1\phi_2 - \phi_1)\left[e^{2\pi i\omega} + e^{-2\pi i\omega}\right] - \phi_2\left[e^{4\pi i\omega} + e^{-4\pi i\omega}\right]
+\end{align*}
+From Euler's formula, $e^{ix}=\cos(x) + i\sin(x)$ for all $x\in\RR$, in conjunction with the identities $\sin(-x) = -\sin(x)$ and $\cos(-x) = \cos(x)$, we observe that
+$$e^{ix} + e^{-ix} = \cos(x) + i\sin(x) + \cos(-x) + i\sin(-x) = 2\cos(x). $$
+
+Then we find that 
+\begin{align*}
+|1 - \phi_1e^{-2\pi i\omega} - \phi_2\left(e^{-2\pi i\omega}\right)^2|^2 &=  (1 + \phi_1^2 + \phi_2^2) + (\phi_1\phi_2 - \phi_1)2\cos(2\pi\omega) - \phi_22\cos(4\pi\omega)\\
+&=(1 + 1.5^2 + 0.8^2) + 2(1.5(-0.8) - 1.5)\cos(2\pi\omega) + 2(0.8)\cos(4\pi\omega)\\
+&=3.89 - 5.4\cos(2\pi\omega) + 1.6\cos(4\pi\omega).
+\end{align*}
+
+Then the final spectral density function is
+$$\lambda(\omega) = \frac{\sigma^2}{3.89 - 5.4\cos(2\pi\omega) + 1.6\cos(4\pi\omega)}.$$
+
+Next, we plot the **spectral density function**:
+```{r spec_dens, message=FALSE, warning=FALSE, fig.align="center"}
+library('TSA')
+ARMAspec(model = list(ar = c(1.5, -0.8)),main='Spectral Density Function of AR(2)')
+```
+
+Finally, we plot the **autocovariance function** for the AR(2) model:
+
+```{r ar2, message=FALSE, warning=FALSE, fig.align="center"}
+ar1 = arima.sim(list(ar = c(1.5,-0.8)),n=500,sd=1)
+acf(ar1,type="covariance",main='ACF of AR(2)')
+```
+
+## Question 5.1 B
+
+Now, we find the spectral density function for the MA(2) model:
+$$X_n = \epsilon_n + \epsilon_{n-1} + \epsilon_{n-2}. $$
+
+where $\{\epsilon_n\}$ is white noise with $\var(\epsilon_n)=\sigma^2$. We proceed as we did above:
+\begin{align*}
+\lambda(\omega) &= \sigma^2|\psi\left(e^{-2\pi i\omega}\right)|^2\\
+	&= \sigma^2|1 + e^{-2\pi i\omega} + e^{-4\pi i \omega}|^2\\
+	&=\sigma^2(1 + e^{-2\pi i\omega} + e^{-4\pi i \omega})(1 + e^{2\pi i\omega} + e^{4\pi i \omega})\\
+	&=\sigma^2\left[3 + 2(e^{2\pi i\omega} + e^{-2\pi i\omega}) + (e^{4\pi i\omega} + e^{-4\pi i \omega})\right]\\
+	&=\sigma^2\left[3 + 4\cos(2\pi\omega) + 2\cos(4\pi\omega)\right].
+\end{align*}
+
+Next, we plot the **spectral density function**:
+```{r spec_dens_ma, message=FALSE, warning=FALSE, fig.align="center"}
+library('TSA')
+ARMAspec(model = list(ma = c(1, 1)),main='Spectral Density Function of MA(2)')
+```
+
+Finally, we plot the **autocovariance function** for the MA(2) model:
+
+```{r ma2, message=FALSE, warning=FALSE, fig.align="center"}
+ar1 = arima.sim(list(ma = c(1,1)),n=500,sd=1)
+acf(ar1,type="covariance",main='ACF of MA(2)')
+```
+
+## Question 5.1 C
+
+The spectral density function for the AR(2) model shows a sharp peak at around 0.09. Thus, the ``dominant'' frequency is 0.1 cycles per unit time or, rather, the dominant period is about $1/0.09 \approx 11$ units time per cycle. This agrees with the corresponding ACF, where we see an oscillating autocovariance function, with periods lasting for approximately 11 units time.
+
+The spectral density function for the MA(2) time series model does not appear to have a ``dominant" frequency as the AR(2) model did. This is noticeable in the autocovariance plot, which does not convey the oscillating behavior of the AR(2) model.
+
+## Question 5.2
+
+First, we perform exploratory data analysis and plot the time series and the sample AutoCorrelation function:
+
+```{r read_data, echo=FALSE, fig.align="center",fig.height=7}
+dat <- read.table(file="http://ionides.github.io/531w18/hw05/sunspots.txt",
+                  header=TRUE)
+
+par(mfrow=c(2,1))
+plot(dat$Time,dat$Number,type='l',
+     main = 'Sunspot Time Series',
+     xlab = 'Year',
+     ylab = 'Sunspot Number')
+acf(dat$Number,main = 'Sample AutoCorrelation Function',
+    xlab = 'Lag (Months)')
+```
+
+We observe steady rises and falls in the sunspots across decades. In addition, it takes about $35/12\approx 2.9$ years between observations for them to be reasonably uncorrelated. We observe that the time between peaks is *about* eleven years.
+
+Below, we observe the empirical unsmoothed and smoothed periodograms:
+
+```{r periodogram, echo=FALSE, fig.align="center",fig.height=7}
+par(mfrow=c(2,1))
+spectrum(dat$Number,main='Unsmoothed Periodogram')
+smooth_period = spectrum(dat$Number,spans=c(30,30),main='Smoothed Periodogram')
+dom_freq = smooth_period$freq[which.max(smooth_period$spec)]
+```
+
+We find that the dominant frequency is 0.0074 cycles per month, or 135 months per cycle (11.25 years).
+
+Now, we present the estimated spectral density using an AR($p$) model with $p$ selected by AIC:
+```{r spectral, echo=FALSE, fig.align="center",fig.height=7}
+est_spec = spectrum(dat$Number,method='ar',main='Spectrum Estimated via AR model\n Picked by AIC')
+est_spec$freq[which.max(est_spec$spec)]
+```
+While our previous dominant frequency was 0.0074 (11.25 years), we actually find the dominant frequency in the estimated spectral density to be 0.008 (125 months, or 10.4 years). This dominant period of 10.4 years/cycle was quite close to the previous estimated dominant period of 11.25 years/cycle. 
+
+## Sources
+ - The W16 solutions were used to guide me through 5.1 A. However, the textbook was utilized mostly as I continued to solve A and B.
+ - The W16 solutions were used to set the `spans` argument of the `spectrum` function. In addition, the W16 solutions were used to check the accuracy of the dominant frequencies and periods.
+ 
+## Please Explain
+ - Do you know how the `spans` parameters should be chosen in the `spectrum` function when constructing the smoothed periodogram? In lecture, the Professor used $(3,5,3)$ but I wasn't sure why (the code above uses $(30,30)$).
+
+
+

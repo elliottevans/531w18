@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.12.9)  8 FEB 2018 13:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.12.9)  15 FEB 2018 12:18
 entering extended mode
 **./notes06.tex
 (notes06.tex
@@ -1185,31 +1185,31 @@ Package: titling 2009/09/04 v2.1d maketitle typesetting
 ) (notes06.aux)
 \openout1 = `notes06.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 135.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 135.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 136.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 136.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 135.
-LaTeX Font Info:    ... okay on input line 135.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 135.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 136.
+LaTeX Font Info:    ... okay on input line 136.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 136.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1241,7 +1241,7 @@ G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
 ABD: EveryShipout initializing macros
-LaTeX Info: Redefining \microtypecontext on input line 135.
+LaTeX Info: Redefining \microtypecontext on input line 136.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
@@ -1291,7 +1291,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box41
-Package hyperref Info: Link coloring OFF on input line 135.
+Package hyperref Info: Link coloring OFF on input line 136.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -1300,9 +1300,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count148
 )
-LaTeX Info: Redefining \ref on input line 135.
-LaTeX Info: Redefining \pageref on input line 135.
-LaTeX Info: Redefining \nameref on input line 135.
+LaTeX Info: Redefining \ref on input line 136.
+LaTeX Info: Redefining \pageref on input line 136.
+LaTeX Info: Redefining \nameref on input line 136.
 
 (notes06.out) (notes06.out)
 \@outlinefile=\write5
@@ -1354,72 +1354,72 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 \tf@toc=\write6
 \openout6 = `notes06.toc'.
 
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 171.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 172.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ts1lmr.fd"
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 191.
+ine 192.
  [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 266.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 267.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 271.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 272.
 
 <figure/intro-plot_data-1.png, id=47, 493.6041pt x 289.08pt>
 File: figure/intro-plot_data-1.png Graphic file (type png)
 
 <use figure/intro-plot_data-1.png>
-Package pdftex.def Info: figure/intro-plot_data-1.png used on input line 293.
+Package pdftex.def Info: figure/intro-plot_data-1.png used on input line 294.
 (pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
  [2] [3 <./figure/intro-plot_data-1.png>]
 <figure/intro-residuals-1.png, id=70, 493.6041pt x 289.08pt>
 File: figure/intro-residuals-1.png Graphic file (type png)
 
 <use figure/intro-residuals-1.png>
-Package pdftex.def Info: figure/intro-residuals-1.png used on input line 348.
+Package pdftex.def Info: figure/intro-residuals-1.png used on input line 349.
 (pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
  [4 <./figure/intro-residuals-1.png>]
 [5]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 494.
+(Font)              <12> on input line 495.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 494.
+(Font)              <8> on input line 495.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 494.
+(Font)              <6> on input line 495.
  [6] <figure/intro-data_subset-1.png, id=102, 493.6041pt x 289.08pt>
 File: figure/intro-data_subset-1.png Graphic file (type png)
 
 <use figure/intro-data_subset-1.png>
-Package pdftex.def Info: figure/intro-data_subset-1.png used on input line 612.
+Package pdftex.def Info: figure/intro-data_subset-1.png used on input line 613.
 
 (pdftex.def)             Requested size: 469.75725pt x 275.11404pt.
  [7] [8 <./figure/intro-data_subset-1.png>] [9]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 717.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 717.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 718.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 718.
  (notes06.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 717.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 717.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 718.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 718.
 Package rerunfilecheck Info: File `notes06.out' has not changed.
-(rerunfilecheck)             Checksum: 1CBB16088B8F200320DE3A52022258F9;1009.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 717.
+(rerunfilecheck)             Checksum: F7186AC7E7C6B8BAFE8949A64EB828DF;1022.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 718.
  ) 
 Here is how much of TeX's memory you used:
  23688 strings out of 493334
- 413620 string characters out of 3139246
- 502078 words of memory out of 72000000
+ 413741 string characters out of 3139246
+ 502262 words of memory out of 72000000
  26654 multiletter control sequences out of 15000+200000
  84632 words of font info for 114 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,11n,80p,749b,785s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,11n,80p,749b,782s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Fil
 es/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/e
 nc/dvips/lm/lm-mathex.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec
@@ -1439,7 +1439,7 @@ eX 2.9/fonts/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
 /public/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10
 .pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtti10.pfb><C:/Program
  Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on notes06.pdf (9 pages, 464737 bytes).
+Output written on notes06.pdf (9 pages, 466480 bytes).
 PDF statistics:
  203 PDF objects out of 1000 (max. 8388607)
  48 named destinations out of 1000 (max. 500000)
