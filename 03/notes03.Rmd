@@ -113,6 +113,10 @@ options(
 
 ### Question: How could we assess whether a weak stationary model is appropriate for a time series dataset?
 
+Supposed they are equally spaced, we can
+1. calculate average in chunks (for mean stationary)
+2. calculate sample ACF in chunks (for covariance stationary)
+
 <br>
 
 -----------

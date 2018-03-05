@@ -160,7 +160,7 @@ $$[S3] \eqspace Y_n = 0.5 Y_{n-1} + 0.25 Y_{n-12} - 0.125 Y_{n-13} + \epsilon_n,
 
 * Let's do this for the full, monthly, version of the Lake Huron depth data described in [Section 5.5](../05/notes05.html#implementing-likelihood-based-inference-for-arma-models-in-r).
 
-* The data were read into a dataframe calles `dat`
+* The data were read into a dataframe called `dat`
 
 ```{r read_data,echo=F}
 dat <- read.table(file="huron_depth.csv",sep=",",header=TRUE)
