@@ -1,8 +1,12 @@
 ---
-title: "9. Introduction to partially observed Markov process models"
+title: "9 Introduction to partially observed Markov process models"
 author: "Edward Ionides"
 date: "2/27/2018"
 output:
+  pdf_document: 
+    keep_tex: yes
+    toc: yes
+    toc_depth: 2
   html_document:
     theme: flatly
     toc: yes
@@ -10,7 +14,7 @@ output:
     number_sections: true
     pandoc_args: [
       "--number-offset=9"
-    ]
+      ]
 csl: ecology.csl
 ---
 
@@ -27,7 +31,6 @@ csl: ecology.csl
 \newcommand\eqspace{\quad\quad}
 \newcommand\myeq[1]{\eqspace \displaystyle #1}
 \newcommand\lik{\mathscr{L}}
-\newcommand\loglik{\ell}
 \newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
 \newcommand\ar{\phi}
 \newcommand\ma{\psi}
@@ -42,11 +45,6 @@ csl: ecology.csl
 \newcommand\covmatX{\mathbb{U}}
 \newcommand\covmatY{\mathbb{V}}
 
-
-
-Licensed under the Creative Commons attribution-noncommercial license, http://creativecommons.org/licenses/by-nc/3.0/.
-Please share and remix noncommercially, mentioning its origin.  
-![CC-BY_NC](cc-by-nc.png)
 
 ```{r knitr-opts,include=FALSE,cache=FALSE,purl=FALSE}
 library(pomp)
@@ -613,7 +611,7 @@ $$
 \ar_{r} & 0 \ldots & 0
 \end{array}\right).$$
 This is in the form of a time-homogenous LG-POMP, with $\matA$, $\matB$ and $\covmatY$ defined above, and
-$$\covmatX_n = \covmatX = \sigma^2 (1, \ma_1,\ma_2,\dots,\ma_{r-1})^\transpose(1, \ma_1,\ma_2,\dots,\ma_{r-1}).$$
+$$\covmatX_n = \covmatX = \sigma^2 (1, \ma_1,\ma_2,\dots,\ma_{r-1})^{\transpose}(1, \ma_1,\ma_2,\dots,\ma_{r-1}).$$
 
 * There are other LG-POMP representations giving rise to the same ARMA model.
 
@@ -665,7 +663,7 @@ $\begin{array}{lrcl}
 
 <br>
 
-[BSM5] $\eqspace X_n = (L_n,T_n,S_n, S_{n-1}, S_{n-2}, \dots,S_{n-10})^\transpose$.
+[BSM5] $\eqspace X_n = (L_n,T_n,S_n, S_{n-1}, S_{n-2}, \dots,S_{n-10})^{\transpose}$.
 
 <br>
 
@@ -808,7 +806,7 @@ $$ \log f_{X_{1:N}Y_{1:N}}(x_{1:N},y_{1:N})= \log f_{X_{1:N}}(x_{1:N}) + \log f_
 
 * For a Gaussian density, the mode (i.e., the maximum of the density) is equal to the expected value. Therefore, we have
 
-$$\begin{eqnarray}
+\begin{eqnarray}
 \arg\min_{x_{1:N}} \mathrm{PSS}(x_{1:N}\params\lambda),
 &=& 
 \arg\max_{x_{1:N}} f_{X_{1:N}Y_{1:N}}(x_{1:N},\data{y_{1:N}}\params \sigma,\lambda),
@@ -824,7 +822,7 @@ $$\begin{eqnarray}
 \arg\max_{x_{1:N}} f_{X_{1:N}|Y_{1:N}}(x_{1:N}\given \data{y_{1:N}}\params \sigma,\lambda),
 \\
 &=& \E\big[X_{1:N}\given Y_{1:N}=\data{y_{1:N}} \params  \sigma,\lambda\big].
-\end{eqnarray}$$
+\end{eqnarray}
 
 * The smoothing calculation for an LG-POMP model involves finding the mean and variance of $X_{n}$ given $Y_{1:N}=\data{y_{1:N}}$.
 
@@ -874,7 +872,7 @@ $$\begin{eqnarray}
 * A random variable $X$ taking values in $\R^{d_X}$ is **multivariate normal** with mean $\mu_X$ and variance $\Sigma_X$ if we can write
 $$X = \matH Z + \mu_X,$$
 where $Z$ is a vector of $d_X$ independent identically distributed $N[0,1]$ random variables and $\matH$ is a $d_X\times d_X$ matrix square root of $\Sigma_X$, i.e.,
-$$\matH\matH^\transpose = \Sigma_X.$$
+$$\matH\matH^{\transpose} = \Sigma_X.$$
 
 
 * The choice of $\matH$ is not unique, and a matrix square root of this type exists for any covariance matrix. Mathematically, this is true because covariance matrices are [positive semi-definite](https://en.wikipedia.org/wiki/Positive-definite_matrix#Positive-semidefinite).
@@ -885,7 +883,7 @@ $$\matH\matH^\transpose = \Sigma_X.$$
 $$f_X(x) = \frac{1}{(2\pi)^{d_X/2}|\Sigma_X|}
 \exp
   \left\{-
-     \frac{ (x - \mu_X)\, \big[\Sigma_X\big]^{-1} \, (x - \mu_X)^\transpose}{2}
+     \frac{ (x - \mu_X)\, \big[\Sigma_X\big]^{-1} \, (x - \mu_X)^{\transpose}}{2}
   \right\}.
 $$
 
@@ -906,17 +904,17 @@ $$
 \Sigma_{YX} & \Sigma_Y
 \end{array}\right),$$
 where 
-$$\Sigma_{XY}= \cov(X,Y) = \E\big[(X-\mu_X)(Y-\mu_Y)^\transpose\big].$$
+$$\Sigma_{XY}= \cov(X,Y) = \E\big[(X-\mu_X)(Y-\mu_Y)^{\transpose}\big].$$
 
 * For jointly multivariate normal random variables $X$ and $Y$, we have the useful property that the conditional distribution of $X$ given $Y=y$ is multivariate normal, with conditional mean and variance
 
 <br>
 
-[KF1] $\eqspace \begin{eqnarray}
+[KF1] \begin{eqnarray}
 \mu_{X|Y}(y) &=& \mu_X + \Sigma_{XY}\Sigma_Y^{-1}\big(y-\mu_Y\big),
 \\
 \Sigma_{X|Y} &=& \Sigma_X - \Sigma_{XY}\Sigma_Y^{-1}\Sigma_{YX}.
-\end{eqnarray}$
+\end{eqnarray}
 
 <br>
 
@@ -987,20 +985,20 @@ $\Sigma_n^S(\data{y_{1:N}})=\var\big(X_n\given Y_{1:N}\equals \data{y_{1:N}}\big
 <br>
 
 [KF4] $\myeq{
-  \Sigma_{n+1}^P = \matA_{n+1} \Sigma_{n}^F \matA_{n+1}^\transpose + \covmatX_{n+1}
+  \Sigma_{n+1}^P = \matA_{n+1} \Sigma_{n}^F \matA_{n+1}^{\transpose} + \covmatX_{n+1}
 }$.
 
 
 <br>
 
 [KF5] $\myeq{
-  \Sigma_{n}^F = \big([\Sigma_n^P]^{-1} + \matB_n^\transpose\covmatY_n^{-1}\matB_n\big)^{-1}
+  \Sigma_{n}^F = \big([\Sigma_n^P]^{-1} + \matB_n^{\transpose}\covmatY_n^{-1}\matB_n\big)^{-1}
 }$.
 
 <br>
 
 [KF6] $\myeq{
-  \mu_{n}^F(y_{1:n}) = \mu_{n}^P(y_{1:n-1}) + \Sigma_n^F \matB^\transpose_n\covmatY_n^{-1}\big\{y_n - \matB_n\mu_n^P(y_{1:n-1})\big\}
+  \mu_{n}^F(y_{1:n}) = \mu_{n}^P(y_{1:n-1}) + \Sigma_n^F \matB^{\transpose}_n\covmatY_n^{-1}\big\{y_n - \matB_n\mu_n^P(y_{1:n-1})\big\}
 }$.
 
 <br>

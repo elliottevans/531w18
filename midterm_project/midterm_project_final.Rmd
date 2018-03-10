@@ -8,12 +8,13 @@ header-includes:
    - \usepackage{amssymb}
    - \usepackage{amsthm}
 output:
+  pdf_document:
+    keep_tex: yes
+    toc: yes
   html_document:
     theme: flatly
     toc: yes
     number_sections: true
-  pdf_document:
-    toc: yes
 csl: ecology.csl
 ---
 
@@ -57,21 +58,21 @@ The historical results of this question have had an important association with a
 
 Due to its importance, we use the generic ballot question to **address the following questions**:
 
-1. What time kind of time series model is appropriate for modeling Democratic support in the 2018 midterms?
+1. What kind of time series model is appropriate for modeling Democratic support in the 2018 midterms?
 2. Can we discern any useful information about patterns or cycles with regards to Democratic support?
 3. Is there a relationship between Democratic midterm support and President Trump's national approval ratings?
 
 # Data and Notation
 
-To address our questions, we use generic ballot polling from the market research company **Ipsos**, which was given an A-- grade by FiveThirtyEight's pollster ratings [2]. Polls are conducted and issued everyday by Ipsos on a rolling basis, with each poll consisting of online interviews from Democrats, Republicans, and Independents. Each poll represents a sample across five days. For our purposes the date associated with each poll is the poll's final day of its five-day span. In our analysis, poll dates range from May 23, 2017 to February 26, 2018.
+To address our questions, we use generic ballot polling [2] from the market research company **Ipsos**, which was given an A-- grade by FiveThirtyEight's pollster ratings [3]. Polls are conducted and issued everyday by Ipsos on a rolling basis, with each poll consisting of online interviews from Democrats, Republicans, and Independents. Each poll represents a sample across five days. For our purposes, the date associated with each poll is the poll's final day of its five-day span. In our analysis, poll dates range from May 23, 2017 to February 26, 2018.
 
-Generic ballot polls were obtained from FiveThirtyEight's Generic Ballot Tracker [3]
+Generic ballot polls were obtained from FiveThirtyEight's Generic Ballot Tracker [4]
 . To model democratic midterm support, we use the percentage of voters who responded "Democrat'' to the generic ballot question minus the percentage of voters who responded "Republican'' (thus, excluding those voters who claimed they were not voting or were undecided). Throughout the analysis, we will let the *random* democratic midterm margin for each time point $1,2,\dots,N$ be denoted by $DEM_1,DEM_2,\dots ,DEM_N$. Similarly, the corresponding observed values will be $dem_1,dem_2,\dots ,dem_N$
 
-The national approval ratings for President Trump are also from Ipsos; pulled from FiveThirtyEight's presidential approval tracker [4]. For our purposes, we focus on his *disapproval* rating (for more direct comparison to the Democratic midterm margin). Here, we use the percentage of voters who responded "disapprove'' to the question of Donald Trump's performance in office minus the percentage of voters who responded "approve.'' We will denote his disapproval ratings as $TRUMP_1,TRUMP_2,\dots ,TRUMP_N$ with corresponding observed values of $trump_1,trump_2,\dots ,trump_N$.
+The national approval ratings for President Trump are also from Ipsos; pulled from FiveThirtyEight's presidential approval tracker [5]. For our purposes, we focus on his *disapproval* rating (for more direct comparison to the Democratic midterm margin). Here, we use the percentage of voters who responded "disapprove'' to the question of Donald Trump's performance in office minus the percentage of voters who responded "approve.'' We will denote his disapproval ratings as $TRUMP_1,TRUMP_2,\dots ,TRUMP_N$ with corresponding observed values of $trump_1,trump_2,\dots ,trump_N$.
 
 # Exploratory Analysis
-Here, we perform some exploratory data analysis on the Democratic midterm polling data (we will use the presidential disapproval ratings in a later analysis to address our third question). Below, we find the time series plots for the unaltered and differenced data (e.g. using $dem_i - dem_{i-1}$). A trend is difficult to notice, but the mean appears to increase from December to January but decrease from January to March. We also notice that the time series plot of the differenced data indicates a possible process that is more "stable'' then the undifferenced process. This will be our main motivation for using an *integrated* autoregressive moving-average model, i.e. and ARIMA model, in subsequent analysis. Finally, we observe from the sample autocorrelation plot that the sample values are strongly correlated for day-lags one to four, and that the autocorrelation exhibits an oscillatory pattern. Thus, these data are clearly not independent across time, another motivation for using an ARIMA model.
+Here, we perform some exploratory data analysis on the Democratic midterm polling data (we will use the presidential disapproval ratings in a later analysis to address our third question). Below, we find the time series plots for the unaltered and differenced data (i.e. using $dem_i - dem_{i-1}$). A trend in the unaltered data is difficult to notice, but the mean appears to decrease from January to March. We also notice that the time series plot of the differenced data indicates a possible process that is more "stable'' then the undifferenced process. This will be our main motivation for using an *integrated* autoregressive moving-average model, i.e. an ARIMA model, in subsequent analysis. Finally, we observe from the sample autocorrelation plot that the sample values are fairly correlated for day-lags one to four, and that the autocorrelation exhibits an oscillatory pattern. Thus, these data are clearly not independent across time, another motivation for using an ARIMA model.
 
 ```{r data_clean, echo=FALSE, include=FALSE}
 library(boot)
@@ -120,7 +121,7 @@ acf(genbal_sub$dem_margin,main = 'Sample AutoCorrelation Plot')
 # Creating the ARIMA Model
 
 ## Selection
-We are determined to fit an ARIMA($p,1,q$) model to the democratic midterm support data and we use AIC as our model selection criteria. Below we find the AIC values of several ARIMA models of varying numbers of autoregressive and moving-average terms.
+We are determined to fit an ARIMA($p,1,q$) model to the democratic midterm support data and we use AIC as our model selection criteria. Below we find the AIC values of several ARIMA models with varying numbers of autoregressive and moving-average terms.
 
 ```{r aic_table, echo=FALSE, message=FALSE, warning=FALSE}
 #Fit many ARIMA models, using AIC as model selection criteria
@@ -140,7 +141,7 @@ require(knitr)
 kable(dat_aic_table,digits=2)
 ```
 
-Since we desire to choose an ARIMA model with low AIC value, we find that ARIMA($0,1,5$) and ARIMA($1,1,5$) should suffice. Because we desire the Democratic midterm support to be, at least partially, driven by the previous day's margin, we **choose to include one autoregressive term**, i.e. the **ARIMA($\boldsymbol{1,1,5}$)** model. Because the difference in AIC values for these models is relatively small, this should be a sensible decision. Thus, our time series model for Democratic midterm report is as follows:
+Since we desire to choose an ARIMA model with low AIC value, we find that ARIMA($0,1,5$) and ARIMA($1,1,5$) should suffice. Because we desire the Democratic midterm support to be, at least partially, driven by the previous day's margin, we **choose to include one autoregressive term**, i.e. the **ARIMA($\boldsymbol{1,1,5}$)** model. Because the difference in AIC values for these models is relatively small, this should be a sensible decision. Thus, our time series model for Democratic midterm support is as follows:
 $$(1-\phi_1B)(DEM_n-DEM_{n-1} - \mu) = (1+\psi_1B + \psi_2B^2 + \cdots +\psi_5B^5)\epsilon_n $$
 where $\epsilon_1,\epsilon_2,\dots ,\epsilon_N$ are IID Gaussian white noise terms and $B$ is the *backshift operator*.
 
@@ -153,13 +154,13 @@ fit = arima(genbal_sub$dem_margin,order=c(1,1,5),include.mean=T)
 fit
 ```
 
-We find that the roots of the AR polynomial is far outside the unit circle in the complex plane, indicating a **causal model**:
+We find that the root of the AR polynomial is far outside the unit circle in the complex plane, indicating a **causal model**:
 ```{r ar_roots, echo=FALSE ,include=TRUE}
 paste('Roots of the AR Poly:',round(polyroot(c(1,-coef(fit)['ar1'])),3))
 paste('Modulus of the AR Poly:',round(abs(polyroot(c(1,-coef(fit)['ar1']))),3))
 ```
 
-We also find that the roots of the MA polynomial are outside of the complex unit circle, indicating an **invertible model**. However, the roots are far closer than those of the AR polynomial to the boundary of the unit circle (a future study may study the model's potential for invertibility problems):
+We also find that the roots of the MA polynomial are outside of the complex unit circle, indicating an **invertible model**. However, the roots are far closer than those of the AR polynomial to the boundary of the unit circle (as seen below). A future analysis may study the model's potential for invertibility problems.
 ```{r ma_roots, echo=FALSE ,include=TRUE}
 paste('Roots of the MA Poly:',round(polyroot(c(1,-coef(fit)[c('ma1','ma2','ma3','ma4','ma5')])),3))
 paste('Modulus of the MA Poly:',round(abs(polyroot(c(1,-coef(fit)[c('ma1','ma2','ma3','ma4','ma5')]))),3))
@@ -167,7 +168,7 @@ paste('Modulus of the MA Poly:',round(abs(polyroot(c(1,-coef(fit)[c('ma1','ma2',
 
 ## Diagnostics
 
-The model diagnostics for the residuals appear to indicate that the **residuals are generated from an IID Gaussian white noise process**. The ACF plot shows most of the autocorrelations falling within the 95% confidence bounds, indicating independence across lags, the QQ-plot shows that the normality assumption on the $\epsilon_i$ terms is most likely valid, and the residual v. fitted plot does not hint at any heteroskedasticity.
+The model diagnostics for the residuals appear to indicate that the **residuals are generated from an IID Gaussian white noise process**. The ACF plot shows most of the autocorrelations falling within the 95% confidence bounds, indicating independence across lags, the QQ-plot shows that the normality assumption on the $\epsilon_i$ terms is most likely valid, and the residual v. fitted plot does not hint at any major heteroskedasticity.
 
 ```{r diagnostics, echo=FALSE, fig.align="center",fig.height=6}
 genbal_sub$fitted = fitted(fit)
@@ -183,7 +184,7 @@ plot(genbal_sub$fitted,fit$residuals,pch=16,
      ylab = 'Residuals')
 ```
 
-# Notes on Question (1)
+# Response to Question One
 
 As our first desire was to generate a model appropriate for the Democratic midterm support data, we take a moment to explicitly address this. By choosing an ARIMA time series model with relatively low AIC, we have generated a model with more predictive power than other comparable ARIMA models.
 
@@ -204,9 +205,9 @@ legend('topleft',
        col = c('black','red','blue'), lty = 1,cex=0.8,lwd=c(2,1,1))
 ```
 
-We observe that the ARIMA(1,1,5) model appears to fit the data fairly well. However, using so many moving-average terms might be causing over-fitting, leading us to believe this is a model better used for inference than prediction. We also notice that Loess smoothing indicates that **mean Democratic support for the midterms has been potentially declining since around December.** 
+We observe that the ARIMA(1,1,5) model appears to fit the data fairly well. However, using so many moving-average terms might be causing over-fitting, leading us to believe this is a model better used for inference than prediction. We also notice that Loess smoothing indicates that **mean Democratic support for the midterms potentially declined from December to the end of February.** 
 
-# Notes on Question (2)
+# Response to Question Two
 
 To answer our second question about useful information regarding cycles and patterns in our time series, we look again to the generic ballot data for Democratic midterm support.
 
@@ -228,11 +229,11 @@ dom_freq_2 = round(spec$freq[which(spec$freq>0.09 & spec$freq < .15)[which.max(s
 dom_cycle_2 = round(1/spec$freq[which(spec$freq>0.09 & spec$freq < .15)[which.max(spec$spec[which(spec$freq>0.09 & spec$freq < .15)])]],3)
 ```
 
-We see that the dominant frequency (from the smoothed periodogram) is `r dom_freq_2` cycles per day, i.e. `r dom_cycle` days per cycle. However, using the bar in the upper-right of the periodogram for point-wise 95% confidence intervals, we see that this cycle might just be due to chance variation. 
+We see that the dominant frequency (from the smoothed periodogram) is `r dom_freq_2` cycles per day, i.e. `r dom_cycle` days per cycle. However, using the bar in the upper-right of the periodogram for point-wise 95% confidence intervals, we see that this cycle might not be statistically significant. 
 
 A more compelling cycle occurs at frequency `r dom_freq_2` cycles per day, i.e. `r dom_cycle_2` days per cycle. We find that using the pointwise confidence interval for the tip of this peak gives support to the idea that this peak may not be due to chance variation.
 
-Potential explanations for this dominant cycle of about `r round(dom_cycle_2)` days could be (1) the persistence of news stories and/or (2) the importance of feedback loops in how we perceive support for political parties. In (1), positive news stories for Democrats may tend to persist for about 10 days, or at least their effects on Democratic midterm support last this long. In (2), a short-run news story causes a brief negative effect on Democratic support in the polls which, in turn, becomes a short-run news story itself, creating further problems for Democratic midterm support.
+Potential explanations for this dominant cycle of about `r round(dom_cycle_2)` days could be (1) the persistence of news stories and/or (2) the importance of feedback loops in how we perceive support for political parties. In (1), positive news stories for Democrats may tend to persist for about 10 days, or at least their effects on Democratic midterm support last this long. In (2), a short-run news story causes a brief negative (or positive) effect on Democratic support in the polls which, in turn, becomes a short-run news story itself, creating further losses (or gains) for Democratic midterm support.
 
 # The Relationship b/t Midterm Polling and Trump Disapproval
 
@@ -281,7 +282,7 @@ legend('topleft',
        col = c('darkorange','blue'), lty = c(5,1),cex=0.8) 
 ```
 
-We notice that there's a much wider support gap between those who disapprove/approve of Trump and those who claim to be supporting/not supporting Democrats in the upcoming midterm elections. Thus is sensible since we might expect President Trump to be more polarizing than the average Democrat or average Republican (which is essentially a matter for the generic ballot question).
+We notice that there's a much wider support gap between those who disapprove/approve of Trump and those who claim to be supporting/not supporting Democrats in the upcoming midterm elections. This is sensible since we might expect President Trump to be more polarizing than the average Democrat or average Republican (which is essentially a matter for the generic ballot question).
 
 However, we do notice a relationship in the slopes of the estimated trends across time, with Trump's appearing slightly more extreme for fixed time intervals. When viewing the scatterplot of Trump's disapproval margin against Democratic support margin, we do in fact notice a positive association, however scattered: as Trump becomes more unpopular, Democratic midterm support on the generic ballot seems to increase:
 
@@ -299,16 +300,16 @@ Thus, we attempt to regress the Democratic midterm support margin on Trump's dis
 
 ## Selection
 
-First, we run an ordinary regression (i.e. acting as if the errors of our model are uncorrelated) and retain the residuals. The results are below
+First, we run an ordinary regression (i.e. acting as if the errors of our model are uncorrelated) and retain the residuals. The results are below.
 
 ```{r linreg, echo=TRUE ,include=TRUE,fig.align='center'}
-fitlinreg = lm(genbal_sub$dem_margin~genbal_sub$enddate+approve_sub$dis_margin)
+fitlinreg = lm(genbal_sub$dem_margin~approve_sub$dis_margin)
 summary(fitlinreg)
 res = fitlinreg$residuals
 acf(res,main='AutoCorrelation Plot of Residuals')
 ```
 
-Clearly seeing that the residuals of this linear regression indicate autocorrelated errors, rather than independent errors, we identify a proper ARMA model for these residuals. Again, we use AIC as our model selection criteria. Below are the AIC results for several ARMA($p,q$) models:
+From the sample autocorrelation plot above, we see that the residuals of this linear regression indicate autocorrelated errors, rather than independent errors. Thus, we identify a proper ARMA model for these errors. Again, we use AIC as our model selection criteria. Below are the AIC results for several ARMA($p,q$) models:
 
 ```{r aic_table2, echo=FALSE, message=FALSE, warning=FALSE}
 #Fit many ARIMA models, using AIC as model selection criteria
@@ -328,7 +329,7 @@ require(knitr)
 kable(dat_aic_table,digits=2)
 ```
 
-We see that an **MA(4) model shold suffice for our model errors**, since this model type provides us with low AIC. Thus, our linear regression model using a Trump disapproval covariate and MA(5) errors is as follows:
+We see that an **MA(4) model shold suffice for our model errors**, since this model type provides us with low AIC. Thus, our linear regression model using a Trump disapproval covariate and MA(4) errors is as follows:
 \begin{align*}
 DEM_i &= \beta_0 +  \beta_1TRUMP_i + \epsilon_i,\qquad i=1,2,\dots ,N\\
 \epsilon_i &= w_i + \psi_1w_{i-1} + \psi_2 w_{i-2} + \psi_3 w_{i-3} + \psi_4 w_{i-4}\\
@@ -354,7 +355,7 @@ We observe that, due to the relatively small standard errors, 95% confidence int
 
 While we omit the diagnostics for this model, we note that investigation of the sample autocorrelation plot, QQ-plot, and residual v. fitted plot, all indicate that an **IID Gaussian white noise process for $\boldsymbol{w_1,w_2,\dots,w_N}$ is appropriate**. 
 
-# Notes on Question (3)
+# Response to Question Three
 
 Here, we tackle our final question of interest. There does, indeed, appear to be a relationship between Donald Trump's national disapproval rating and Democratic midterm support on the generic ballot. From the section above, we noted that a likelihood-ratio test rejects the null detrended model in favor of the model that uses Trump's disapproval ratings as a model covariate.
 
@@ -372,7 +373,7 @@ legend('topleft',
        col = c('blue','red'), lty = c(1,3),lwd = c(1,2),cex=0.8) 
 ```
 
-We observe that the regression model with MA(4) errors appears to fit the data well and can safely be used for inference. Thus, in general, we find reasonable evidence for Trump's disapproval being an explainer of the variation in Democratic midterm support.
+We observe that the regression model with MA(4) errors appears to fit the data well and can safely be used for inference. Thus, we find reasonable evidence for Trump's disapproval being an explainer of the variation in Democratic midterm support.
 
 # Conclusions
 
@@ -388,8 +389,10 @@ We set out to answer three questions, as noted in section 2. Here, we summarize 
 
 [1] Enten, Harry. "Here's The Best Tool We Have For Understanding How The Midterms Are Shaping Up." FiveThirtyEight, FiveThirtyEight, 5 June 2017, [fivethirtyeight.com/features/heres-the-best-tool-we-have-for-understanding-how-the-midterms-are-shaping-up/](fivethirtyeight.com/features/heres-the-best-tool-we-have-for-understanding-how-the-midterms-are-shaping-up/).
 
-[2] Silver, Nate. "FiveThirtyEight's Pollster Ratings." FiveThirtyEight, 5 Aug. 2016, [projects.fivethirtyeight.com/pollster-ratings/](projects.fivethirtyeight.com/pollster-ratings/).
+[2] Ipsos Public Affairs. Core Political Data, 2018, [www.ipsos.com/sites/default/files/ct/news/documents/2018-02/2018_reuters_tracking_-_core_political_02_28_2018.pdf](www.ipsos.com/sites/default/files/ct/news/documents/2018-02/2018_reuters_tracking_-_core_political_02_28_2018.pdf).
 
-[3] Silver, Nate. "Are Democrats Or Republicans Winning The Race For Congress?" FiveThirtyEight, 2 Mar. 2018, [projects.fivethirtyeight.com/congress-generic-ballot-polls/?ex_cid=rrpromo](projects.fivethirtyeight.com/congress-generic-ballot-polls/?ex_cid=rrpromo).
+[3] Silver, Nate. "FiveThirtyEight's Pollster Ratings." FiveThirtyEight, 5 Aug. 2016, [projects.fivethirtyeight.com/pollster-ratings/](projects.fivethirtyeight.com/pollster-ratings/).
 
-[4] Silver, Nate. "How Popular Is Donald Trump?" FiveThirtyEight, 2 Mar. 2018, [projects.fivethirtyeight.com/trump-approval-ratings/?ex_cid=rrpromo](projects.fivethirtyeight.com/trump-approval-ratings/?ex_cid=rrpromo).
+[4] Silver, Nate. "Are Democrats Or Republicans Winning The Race For Congress?" FiveThirtyEight, 2 Mar. 2018, [projects.fivethirtyeight.com/congress-generic-ballot-polls/?ex_cid=rrpromo](projects.fivethirtyeight.com/congress-generic-ballot-polls/?ex_cid=rrpromo).
+
+[5] Silver, Nate. "How Popular Is Donald Trump?" FiveThirtyEight, 2 Mar. 2018, [projects.fivethirtyeight.com/trump-approval-ratings/?ex_cid=rrpromo](projects.fivethirtyeight.com/trump-approval-ratings/?ex_cid=rrpromo).

@@ -1,0 +1,27 @@
+\contentsline {subsection}{\numberline {9.1}Partially observed Markov processes (POMP) models}{1}{subsection.9.1}
+\contentsline {subsubsection}{\numberline {9.1.1}Discrete time Markov processes}{2}{subsubsection.9.1.1}
+\contentsline {subsubsection}{\numberline {9.1.2}Question: Write the joint distribution in terms of the one-step transition densities}{3}{subsubsection.9.1.2}
+\contentsline {subsubsection}{\numberline {9.1.3}Question: Show that a causal Gaussian AR(1) process is a Markov process.}{3}{subsubsection.9.1.3}
+\contentsline {subsubsection}{\numberline {9.1.4}Time homogeneous transitions and stationarity}{3}{subsubsection.9.1.4}
+\contentsline {subsubsection}{\numberline {9.1.5}The measurement model}{4}{subsubsection.9.1.5}
+\contentsline {subsection}{\numberline {9.2}Four basic calculations for working with POMP models}{4}{subsection.9.2}
+\contentsline {subsubsection}{\numberline {9.2.1}Prediction}{5}{subsubsection.9.2.1}
+\contentsline {subsubsection}{\numberline {9.2.2}Filtering}{5}{subsubsection.9.2.2}
+\contentsline {subsubsection}{\numberline {9.2.3}Smoothing}{5}{subsubsection.9.2.3}
+\contentsline {subsubsection}{\numberline {9.2.4}The likelihood}{5}{subsubsection.9.2.4}
+\contentsline {subsubsection}{\numberline {9.2.5}The prediction and filtering formulas}{6}{subsubsection.9.2.5}
+\contentsline {subsubsection}{\numberline {9.2.6}Question: Give a detailed derivation of {[}MP4{]}, {[}MP5{]} and {[}MP6{]}, being careful to note when you use the Markov property {[}MP1{]}.}{7}{subsubsection.9.2.6}
+\contentsline {subsubsection}{\numberline {9.2.7}Computation of the likelihood}{7}{subsubsection.9.2.7}
+\contentsline {subsubsection}{\numberline {9.2.8}The smoothing formulas}{7}{subsubsection.9.2.8}
+\contentsline {subsubsection}{\numberline {9.2.9}Question: Show how {[}MP8{]}, {[}MP9{]} and {[}MP10{]} follow from the basic properties of conditional densities combined with the Markov property.}{8}{subsubsection.9.2.9}
+\contentsline {subsubsection}{\numberline {9.2.10}Un-normalized filtering and smoothing}{8}{subsubsection.9.2.10}
+\contentsline {subsection}{\numberline {9.3}Linear Gaussian POMP (LG-POMP) models}{8}{subsection.9.3}
+\contentsline {subsubsection}{\numberline {9.3.1}The general LG-POMP model}{9}{subsubsection.9.3.1}
+\contentsline {subsection}{\numberline {9.4}The LG-POMP representation of a Gaussian ARMA}{9}{subsection.9.4}
+\contentsline {subsection}{\numberline {9.5}The basic structural model and its LG-POMP representation}{10}{subsection.9.5}
+\contentsline {subsection}{\numberline {9.6}Spline smoothing and its LG-POMP representation}{11}{subsection.9.6}
+\contentsline {subsubsection}{\numberline {9.6.1}Question: Constructing a linear Gaussian POMP (LG-POMP) model from {[}SS2{]}.}{12}{subsubsection.9.6.1}
+\contentsline {subsubsection}{\numberline {9.6.2}Question: Why do we use \(\Delta ^2 X_n=\epsilon _n\) for our smoothing model?}{13}{subsubsection.9.6.2}
+\contentsline {subsection}{\numberline {9.7}The Kalman filter}{13}{subsection.9.7}
+\contentsline {subsubsection}{\numberline {9.7.1}Review of the multivariate normal distribution}{13}{subsubsection.9.7.1}
+\contentsline {subsubsection}{\numberline {9.7.2}Question: Add details to the derivations of {[}KF3--6{]}}{15}{subsubsection.9.7.2}
