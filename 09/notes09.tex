@@ -1,0 +1,1302 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{eurosym}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={9 Introduction to partially observed Markov process models},
+            pdfauthor={Edward Ionides},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{9 Introduction to partially observed Markov process models}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{Edward Ionides}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \predate{\centering\large\emph}
+  \postdate{\par}
+  \date{2/27/2018}
+
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\newcommand\prob{\mathbb{P}}
+\newcommand\E{\mathbb{E}}
+\newcommand\var{\mathrm{Var}}
+\newcommand\cov{\mathrm{Cov}}
+\newcommand\loglik{\ell}
+\newcommand\R{\mathbb{R}}
+\newcommand\data[1]{#1^*}
+\newcommand\params{\, ; \,}
+\newcommand\transpose{\scriptsize{T}}
+\newcommand\eqspace{\quad\quad}
+\newcommand\myeq[1]{\eqspace \displaystyle #1}
+\newcommand\lik{\mathscr{L}}
+\newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
+\newcommand\ar{\phi}
+\newcommand\ma{\psi}
+\newcommand\AR{\Phi}
+\newcommand\MA{\Psi}
+\newcommand\ev{u}
+\newcommand\given{{\, | \,}}
+\newcommand\equals{{=\,}}
+\newcommand\matA{\mathbb{A}}
+\newcommand\matB{\mathbb{B}}
+\newcommand\matH{\mathbb{H}}
+\newcommand\covmatX{\mathbb{U}}
+\newcommand\covmatY{\mathbb{V}}
+
+
+
+
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Objectives
+
+\begin{itemize}
+\item
+  Develop a framework for thinking about models that consist of a
+  stochastic dynamic system observed with noise.
+\item
+  In the linear Gaussian case, develop matrix operations to find an
+  exact and computationally fast algorithm for the likelihood function.
+  This algorithm is called the \textbf{Kalman filter}.
+\item
+  Understand how the Kalman filter is used to compute the likelihood for
+  ARMA models.
+\item
+  See how the Kalman filter also facilitates forecasting and estimation
+  of the state of the unobserved process.
+\item
+  Start to investigate the general nonlinear filtering equations.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Partially observed Markov processes (POMP)
+models}\label{partially-observed-markov-processes-pomp-models}
+
+\begin{itemize}
+\item
+  Uncertainty and variability are ubiquitous features of processes in
+  the biological and social sciences. A physical system obeying Newton's
+  laws is fully predictable, but complex systems are in practice not
+  perfectly predictable---we can only forecast weather reliably in the
+  near future.
+\item
+  Basic time series model of deterministic trend plus colored noise
+  imply perfect reproducibility and (so far as the deterministic trend
+  model can be extrapolated) forecasts that remain acurate far into the
+  future.
+\item
+  To model variability and unpredictability in low frequency components,
+  we may wish to specify a random process model for how the system
+  evolves. We could call this a ``stochastic trend'' approach, though
+  that is an oxymoron since we've defined trend to be expected value.
+\item
+  As in the deterministic signal plus noise model, we will model the
+  observations as random variables conditional on the trajectory of the
+  latent process.
+\item
+  The model for how the latent Markov process evolves is therefore
+  called a \textbf{latent process model} or a \textbf{hidden process
+  model} to acknowledge that we are modeling a process that we suppose
+  cannot directly be observed. It is also sometimes called a
+  \textbf{state process} since we may think of the latent process as
+  representing the indirectly measured state of some system.
+\item
+  A standard class of latent process models is characterized by the
+  requirement that the future evolution of the system depends only on
+  the current state, plus randomness introduced in future. A model of
+  this type is called a \textbf{Markov chain}, or, if the process is
+  defined in continuous time rather than just at discrete time points, a
+  \textbf{Markov process}. We will use the term Markov process for both
+  discrete and continous time.
+\item
+  \textbf{Partial observations} here mean either or both of (i)
+  measurement noise; (ii) entirely unmeasured latent variables. Both
+  these features are present in many systems.
+\item
+  To specify a \textbf{partially observed Markov process} (POMP) model,
+  we will need to specify a latent Markov process model. We must also
+  then specify how the \textbf{observation process model} is supposed to
+  generate the data given the latent process.
+\item
+  In a POMP model, the latent Markov process model can also be called
+  the \textbf{state process model} or the \textbf{hidden process model}.
+\item
+  Often, much of the scientific interest is in understanding what models
+  for the behavior of this latent process are consistent with the data.
+\item
+  A good model for the underlying, but imperfectly observed, dynamics of
+  a system can also lead to a skillful forecast.
+\item
+  We are going to introduce a general framework for specifying POMP
+  models. This generality will give us the flexibility to develop models
+  and methods appropriate to a range of applications.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Discrete time Markov
+processes}\label{discrete-time-markov-processes}
+
+\begin{itemize}
+\tightlist
+\item
+  A time series model \(X_{0:N}\) is a \textbf{Markov process} model if
+  the conditional densities satisfy the \textbf{Markov property} that,
+  for all \(n\in 1:N\).
+\end{itemize}
+
+{[}MP1{]}
+\(\eqspace f_{X_n|X_{1:n-1}}(x_n\given x_{1:n-1}) = f_{X_n|X_{n-1}}(x_n\given x_{n-1})\),
+
+\begin{itemize}
+\item
+  We suppose that the random process \(X_n\) occurs at time \(t_n\) for
+  \(n\in 0:N\), so the discrete time process corresponds to time points
+  in continuous time.
+\item
+  We have \textbf{initialized} the Markov process model at a time
+  \(t_0\), although we will suppose that data are collected only at
+  times \(t_{1:N}\).
+
+  \begin{itemize}
+  \item
+    The initialization model could be deterministic (a fixed value) or a
+    random variable.
+  \item
+    Formally, a fixed initial value is a special case of a discrete
+    distribution having a point mass with probability one at the fixed
+    value. Therefore, fixed initial values are covered in our framework
+    since we use probability density functions to describe both discrete
+    and continuous probability distributions.
+  \item
+    Mathematically, a probability mass function (for discrete
+    distributions) is a probability density with respect to a
+    \href{https://en.wikipedia.org/wiki/Counting_measure}{counting
+    measure}. We don't have to get sidetracked on to that topic, but it
+    is worth noting that there is a proper mathematical justification
+    for treating a probability mass function as a type of probability
+    density function.
+  \item
+    It is not important whether to adopt the convention that the Markov
+    process model is intialized at time \(t_1\) or at some previous time
+    \(t_0\). Here, we follow the choice to use \(t_0\).
+  \end{itemize}
+\item
+  The probability density function
+  \(f_{X_n|X_{n-1}}(x_n\given x_{n-1})\) is called the \textbf{one-step
+  transition density} of the Markov process.
+\item
+  In words, the Markov property says that the next step taken by a
+  Markov process follows the one-step transition density based on the
+  current state, whatever the previous history of the process.
+\item
+  For a POMP model, the full joint distribution of the latent process is
+  entirely specified by the one-step transition densities, as we will
+  show below. Therefore, we also call
+  \(f_{X_n|X_{n-1}}(x_n\given x_{n-1})\) the \textbf{process model}.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Question: Write the joint distribution in terms of the
+one-step transition
+densities}\label{question-write-the-joint-distribution-in-terms-of-the-one-step-transition-densities}
+
+\begin{itemize}
+\tightlist
+\item
+  Use {[}MP1{]} to derive an expression for the joint distribution of a
+  Markov process as a product of the one-step transition densities,
+\end{itemize}
+
+{[}MP2{]}
+\(\eqspace f_{X_{0:N}}(x_{0:N}) = f_{X_0}(x_0)\prod_{n=1}^N f_{X_n|X_{n-1}}(x_n\given x_{n-1})\).
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Question: Show that a causal Gaussian AR(1) process is a
+Markov
+process.}\label{question-show-that-a-causal-gaussian-ar1-process-is-a-markov-process.}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Time homogeneous transitions and
+stationarity}\label{time-homogeneous-transitions-and-stationarity}
+
+\begin{itemize}
+\item
+  In general, the one step transition probability density in a POMP
+  model can depend on \(n\).
+\item
+  A latent process model \(X_{0:N}\) is \textbf{time-homogeneous} if the
+  one step transition probability density does not depend on \(n\),
+  i.e., if there is a conditional density \(f(y\given x)\) such that,
+  for all \(n\in 1:N\),
+  \[  f_{X_n|X_{n-1}}(x_n\given x_{n-1})= f(x_n\given x_{n-1}).\]
+\item
+  If \(X_{0:N}\) is stationary then it is time homogeneous.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Why? Go back to the definitions and show this from first principles.
+  \end{itemize}
+\item
+  Time homogeneity does not necessarily imply stationarity.
+
+  \begin{itemize}
+  \item
+    Find a counter-example.
+  \item
+    What has to be added to time homogeneity to get stationarity?
+  \end{itemize}
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{The measurement model}\label{the-measurement-model}
+
+\begin{itemize}
+\item
+  We model the observation process random variables \(Y_{1:N}\).
+\item
+  For state space models, we will generally write the data as
+  \(\data{y_{1:N}}\).
+\item
+  We model the measurement at time \(t_n\) to depend only on the value
+  of the latent process at time \(t_n\), conditionally independent of
+  all other latent process and observation process variables. Formally,
+  this assumption is,
+\end{itemize}
+
+{[}MP3{]}
+\(\eqspace f_{Y_n|X_{0:N},Y_{1:n-1},Y_{n+1:N}}(y_n\given x_{0:N},y_{1:n-1},y_{n+1:N}) = f_{Y_n|X_n}(y_n\given x_{n})\).
+
+\begin{itemize}
+\item
+  We call \(f_{Y_n|X_n}(y_n\given x_{n})\) the \textbf{measurement
+  model}.
+\item
+  In general, the measurement model can depend on \(n\).
+\item
+  The measurement model is \textbf{time-homogeneous} if there is a
+  conditional probability density function \(g(y\given x)\) such that,
+  for all \(n\in 1:N\),
+  \[ f_{Y_n|X_n}(y_n\given x_{n})= g(y_n\given x_n).\]
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Four basic calculations for working with POMP
+models}\label{four-basic-calculations-for-working-with-pomp-models}
+
+\begin{itemize}
+\item
+  Many time series models in science, engineering and industry can be
+  written as POMP models.
+\item
+  A reason that POMP models form a useful tool for statistical work is
+  that there are convenient recursive formulas to carry out following
+  four basic calculations.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Prediction}\label{prediction}
+
+\begin{itemize}
+\item
+  One-step prediction of the latent process at time \(t_{n+1}\) given
+  data up to time \(t_n\) involves finding
+  \[ f_{X_{n+1}|Y_{1:n}}(x_{n+1}\given \data{y_{1:n}}).\]
+\item
+  We may want to carry out prediction (also called forecasting) more
+  than one time step ahead. However, unless specified otherwise, the
+  prediction calculation will be one-step prediction.
+\item
+  One-step prediction turns out to be closely related to computing the
+  likelihood function, and therefore central to statistical inference.
+\item
+  We have required our prediction to be a conditional probability
+  density, not a point estimate. In the context of forecasting, this is
+  called a \textbf{probabilistic forecast}, and has advantages over a
+  point estimate forecast. What are they? Are there any disadvantages to
+  probabilistic forecasting?
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Filtering}\label{filtering}
+
+\begin{itemize}
+\item
+  The filtering calculation at time \(t_n\) is to find the conditional
+  distribution of the latent process \(X_n\) given currently available
+  data, \(\data{y_{1:n}}\).
+\item
+  Filtering therefore involves calculating
+  \[f_{X_{n}|Y_{1:n}}(x_n\given \data{y_{1:n}}).\]
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Smoothing}\label{smoothing}
+
+\begin{itemize}
+\item
+  In the context of a POMP model, smoothing involves finding the
+  conditional distribution of \(X_n\) given all the data,
+  \(\data{y_{1:N}}\).
+\item
+  So, the smoothing calculation is
+  \[f_{X_{n}|Y_{1:N}}(x_n\given \data{y_{1:N}}).\]
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{The likelihood}\label{the-likelihood}
+
+\begin{itemize}
+\item
+  The model may depend on a parameter vector \(\theta\).
+\item
+  Since we haven't explicitly written this dependence above, the
+  likelihood calculation is to evaluate the joint density of \(Y_{1:N}\)
+  at the data, \[f_{Y_{1:N}}(\data{y_{1:N}}).\]
+\item
+  If we can compute this for any value of \(\theta\), we can perform
+  numerical optimization to get a maximum likelihood estimate, compute
+  profile likelihood confidence intervals, carry out likelihood ratio
+  tests, and make AIC comparisons.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{The prediction and filtering
+formulas}\label{the-prediction-and-filtering-formulas}
+
+\begin{itemize}
+\tightlist
+\item
+  One-step prediction of the latent process at time \(t_{n}\) given data
+  up to time \(t_{n-1}\) can be computed in terms of the filtering
+  problem at time \(t_{n-1}\), via the \textbf{prediction formula} for
+  \(n\in 1:N\),
+\end{itemize}
+
+{[}MP4{]}
+\(\eqspace \displaystyle f_{X_{n}|Y_{1:n-1}}(x_{n}\given \data{y_{1:n-1}})\)
+
+\(\eqspace \eqspace \displaystyle = \int f_{X_{n-1}|Y_{1:n-1}}(x_{n-1}\given \data{y_{1:n-1}}) f_{X_{n}|X_{n-1}}(x_{n}\given x_{n-1})\, dx_{n-1}\).
+
+\begin{itemize}
+\item
+  To make this formula work for \(n=1\), we need the convention that
+  \(1:k\) is the empty set when \(k=0\). Conditioning on an empty
+  collection of random variables is the same as not conditioning at all!
+  In this case, we have by definition that
+  \[ f_{X_{0}|Y_{1:0}}(x_{0}\given \data{y_{1:0}}) = f_{X_0}(x_0).\] In
+  other words, the filtering calcuation at time \(t_0\) is the initial
+  density for the latent process. This makes sense, since at time
+  \(t_0\) we have no data to condition on.
+\item
+  To see why the prediction formula is true, we can view it is an
+  application of a general identity for joint continuous random
+  variables \(X\), \(Y\), \(Z\),
+  \[ f_{X|Y}(x\given y)= \int f_{XZ|Y}(x,z\given y)\, dz,\] which is a
+  condition form of the basic identity that integrating out a joint
+  distribution gives a marginal distribution.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Filtering at time \(t_n\) can be computed by combining the new
+  information in the datapoint \(\data{y_{n}}\) with the calculation of
+  the one-step prediction of the latent process at time \(t_{n}\) given
+  data up to time \(t_{n-1}\). This is carried out via the
+  \textbf{filtering formula} for \(n\in 1:N\),
+\end{itemize}
+
+{[}MP5{]}
+\(\eqspace \displaystyle f_{X_{n}|Y_{1:n}}(x_{n}\given \data{y_{1:n}}) = \frac{ f_{X_{n}|Y_{1:n-1}}(x_{n}\given \data{y_{1:n-1}})\, f_{Y_n|X_n}(\data{y_n}\given x_n) }{ f_{Y_{n}|Y_{1:n-1}}(\data{y_n}\given \data{y_{1:n-1}}) }\).
+
+\begin{itemize}
+\tightlist
+\item
+  The denominator in the filtering formula {[}MP5{]} is the
+  \textbf{conditional likelihood} of \(\data{y_{n}}\) given
+  \(\data{y_{1:n-1}}\). It can be computed in terms of the one-step
+  prediction density, via the \textbf{conditional likelihood formula},
+\end{itemize}
+
+{[}MP6{]}
+\(\eqspace \displaystyle f_{Y_{n}|Y_{1:n-1}}(\data{y_n}\given \data{y_{1:n-1}}) = \int f_{X_{n}|Y_{1:n-1}}(x_{n}\given \data{y_{1:n-1}})\, f_{Y_n|X_n}(\data{y_n}\given x_n)\, dx_n\).
+
+\begin{itemize}
+\item
+  To make this formula work for \(n=1\), we again take advantage of the
+  convention that \(1:k\) is the empty set when \(k=0\).
+\item
+  To see why the filtering formula is true, we can apply the identity
+  for joint continuous random variables \(X\), \(Y\), \(Z\),
+  \[f_{X|YZ}(x\given y,z)= \frac{ f_{Y|XZ}(y\given x,z)\, f_{X|Z}(x\given z)}{f_{Y|Z}(y\given z)}.\]
+  This is a conditional form of the Bayes formula, which in turn is
+  closely related to a conditional form of the basic definition of the
+  conditional probability density function,
+  \[f_{X|YZ}(x\given y,z)= \frac{f_{XY|Z}(x,y\given z)}{f_{Y|Z}(y\given z)}.\]
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  The prediction and filtering formulas are \textbf{recursive}. If they
+  can be computed for time \(t_n\) then they provide the foundation for
+  the following computation at time \(t_{n+1}\).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Question: Give a detailed derivation of {[}MP4{]},
+{[}MP5{]} and {[}MP6{]}, being careful to note when you use the Markov
+property
+{[}MP1{]}.}\label{question-give-a-detailed-derivation-of-mp4-mp5-and-mp6-being-careful-to-note-when-you-use-the-markov-property-mp1.}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Computation of the
+likelihood}\label{computation-of-the-likelihood}
+
+\begin{itemize}
+\tightlist
+\item
+  The likelihood of the entire dataset, \(\data{y_{1:N}}\) can be found
+  from {[}MP6{]}, using the identity
+\end{itemize}
+
+{[}MP7{]}
+\(\eqspace\displaystyle f_{Y_{1:N}}(\data{y_{1:N}}) = \prod_{n=1}^N f_{Y_{n}|Y_{1:n-1}}(\data{y_n}\given \data{y_{1:n-1}})\).
+
+\begin{itemize}
+\item
+  Yet again, this formula {[}MP7{]} requires the convention that \(1:k\)
+  is the empty set when \(k=0\), so the first term in the product is
+  \[f_{Y_{1}|Y_{1:0}}(\data{y_1}\given \data{y_{1:0}}) = 
+  f_{Y_{1}}(\data{y_1}).\]
+\item
+  If our model has an unknown parameter \(\theta\), the likelihood
+  identity {[}MP7{]} lets us evaluate the log likelihood function,
+  \[\loglik(\theta)=\log f_{Y_{1:N}}(\data{y_{1:N}}\params\theta).\]
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{The smoothing formulas}\label{the-smoothing-formulas}
+
+\begin{itemize}
+\item
+  Smoothing is less fundamental for likelihood-based inference than
+  filtering and one-step prediction.
+\item
+  Nevertheless, sometimes we want to compute the smoothing density, so
+  let's obtain some necessary formulas.
+\item
+  The filtering and prediction formulas are recursions forwards in time
+  (we use the solution at time \(t_{n-1}\) to carry out the computation
+  at time \(t_{n}\)).
+\item
+  There are similar \textbf{backwards recursion formulas},
+\end{itemize}
+
+{[}MP8{]}
+\(\eqspace f_{Y_{n:N}|X_{n}}(\data{y_{n:N}}\given x_n)= f_{Y_n|X_n}(\data{y_n}\given x_n) f_{Y_{n+1:N}|X_{n}}(\data{y_{n+1:N}}\given x_n)\).
+
+{[}MP9{]}
+\(\eqspace \displaystyle f_{Y_{n+1:N}|X_{n}}(\data{y_{n+1:N}}\given x_n)\)
+\(\eqspace\eqspace\displaystyle = \int f_{Y_{n+1:N}|X_{n+1}}(\data{y_{n+1:N}}\given x_{n+1}) \, f_{X_{n+1}|X_n}(x_{n+1}\given x_n)\, dx_{n+1}\).
+
+\begin{itemize}
+\tightlist
+\item
+  The forwards and backwards recursion formulas together allow us to
+  compute the \textbf{smoothing formula},
+\end{itemize}
+
+{[}MP10{]}
+\(\myeq{ f_{X_{n}|Y_{1:N}}(x_n\given \data{y_{1:N}}) = \frac{ f_{X_{n}|Y_{1:n-1}}(x_{n}\given \data{y_{1:n-1}}) \, f_{Y_{n:N}|X_{n}}(\data{y_{n:N}}\given x_n) }{ f_{Y_{n:N}|Y_{1:n-1}}(\data{y_{n:N}}\given \data{y_{1:n-1}}) } }\).
+
+\subsubsection{Question: Show how {[}MP8{]}, {[}MP9{]} and {[}MP10{]}
+follow from the basic properties of conditional densities combined with
+the Markov
+property.}\label{question-show-how-mp8-mp9-and-mp10-follow-from-the-basic-properties-of-conditional-densities-combined-with-the-markov-property.}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Un-normalized filtering and
+smoothing}\label{un-normalized-filtering-and-smoothing}
+
+\begin{itemize}
+\item
+  Some common Monte Carlo algorithms (Markov chain Monte Carlo and
+  self-normalized importance sampling) need probability density
+  functions only up to an unknown constant factor. These algorithms
+  depend on ratios of densities, for which a constant factor cancels out
+  and so does not have to be computed.
+\item
+  In some analytic and numeric computations, it is helpful to avoid
+  calculating a normalizing constant for a density, since it can be
+  worked out later using the property that the probability density
+  function must integrate to 1.
+\item
+  The denominators
+  \(f_{Y_{n}|Y_{1:n-1}}(\data{y_n}\given \data{y_{1:n-1}})\) and
+  \(f_{Y_{n:N}|Y_{1:n-1}}(\data{y_{n:N}}\given \data{y_{1:n-1}})\), in
+  equations {[}MP5{]} and {[}MP10{]} respectively, may sometimes be hard
+  to compute.
+\item
+  When we are only interested in computing the filtering and smoothing
+  densities up to an unknown constant, we can simplify {[}MP5{]} and
+  {[}MP10{]} using the proportionality relationship \(\propto\). This
+  gives,
+\end{itemize}
+
+{[}MP5\(^\prime\){]}
+\(\myeq{ f_{X_{n}|Y_{1:n}}(x_{n}\given \data{y_{1:n}}) \propto f_{X_{n}|Y_{1:n-1}}(x_{n}\given \data{y_{1:n-1}})\, f_{Y_n|X_n}(\data{y_n}\given x_n) }\),
+
+{[}MP10\(^\prime\){]}
+\(\myeq{ f_{X_{n}|Y_{1:N}}(x_n\given \data{y_{1:N}}) \propto f_{X_{n}|Y_{1:n-1}}(x_{n}\given \data{y_{1:n-1}}) \, f_{Y_{n:N}|X_{n}}(\data{y_{n:N}}\given x_n) }\).
+
+\begin{itemize}
+\tightlist
+\item
+  Note that the normalizing ``constant'' in equations {[}MP5{]} and
+  {[}MP10{]} does depend on \(\data{y_{1:N}}\). However, the data are
+  fixed constant values. The variable in both these equations is
+  \(x_n\).
+\end{itemize}
+
+\subsection{Linear Gaussian POMP (LG-POMP)
+models}\label{linear-gaussian-pomp-lg-pomp-models}
+
+\begin{itemize}
+\item
+  Linear Gaussian partially observed Markov process (LG-POMP) models
+  have many applications
+
+  \begin{itemize}
+  \item
+    Gassian ARMA models are LG-POMP models. The POMP recursion formulas
+    give a computationally efficient way to obtain the likelihood of a
+    Gaussian ARMA model.
+  \item
+    The computations for smoothing splines can be written as an LG-POMP
+    model. This gives a route to computationally efficient spline
+    smooothing.
+  \item
+    The so-called \textbf{Basic Structural Model} is an LG-POMP used for
+    econometric forecasting. It models a stochastic trend, seasonality,
+    and measurement error, in a framework with econometrically
+    interpretable parameters. By contrast, all but the simplest ARMA
+    models are usually \textbf{black box} methods, which may fit the
+    data but are not readily interpretable.
+  \item
+    LG-POMP models are widely used in engineering, especially for
+    control applications.
+  \item
+    In all scientific and engineering applications, if your situation is
+    not too far from linear and Gaussian, you save a lot of effort if an
+    LG-POMP model is appropriate. General nonlinear POMP models usually
+    involve intensive Monte Carlo computation.
+  \end{itemize}
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{The general LG-POMP
+model}\label{the-general-lg-pomp-model}
+
+\begin{itemize}
+\item
+  Suppose the latent process, \(X_{0:N}\), takes vector values with
+  dimension \(d_X\).
+\item
+  Suppose the observation process, \(\{Y_n\}\), takes vector values with
+  dimension \(d_Y\).
+\item
+  A general mean zero LG-POMP model is specified by
+
+  \begin{itemize}
+  \item
+    A sequence of \(d_X\times d_X\) matrices, \(\matA_{1:N}\),
+  \item
+    A sequence of \(d_X\times d_X\) covariance matrices,
+    \(\covmatX_{0:N}\),
+  \item
+    A sequence of \(d_Y\times d_X\) matrices, \(\matB_{1:N}\)
+  \item
+    A sequence of \(d_Y\times d_Y\) covariance matrices,
+    \(\covmatY_{1:N}\).
+  \end{itemize}
+\item
+  We initialize with \(X_0\sim N[0,\covmatX_0]\) and then define the
+  entire LG-POMP model by a recursion for \(n\in 1:N\),
+\end{itemize}
+
+{[}LG1{]} \(\eqspace X_{n} = \matA_n X_{n-1} + \epsilon_n\),
+\(\eqspace \epsilon_n\sim N[0,\covmatX_n]\),
+
+{[}LG2{]} \(\eqspace Y_{n} = \matB_n X_n + \eta_n\),
+\(\eqspace \eta_n\sim N[0,\covmatY_n]\).
+
+\begin{itemize}
+\tightlist
+\item
+  Often, but not always, we will have a \textbf{time-homogeneous}
+  LG-POMP model, with \(\matA_n=\matA\), \(\;\matB_n=\matB\),
+  \(\;\covmatX_n=\covmatX\) and \(\covmatY_n=\covmatY\) for
+  \(n\in 1:N\).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{The LG-POMP representation of a Gaussian
+ARMA}\label{the-lg-pomp-representation-of-a-gaussian-arma}
+
+\begin{itemize}
+\tightlist
+\item
+  Suppose \(\{Y_n\}\) is a Gaussian ARMA(p,q) model with noise process
+  \(\omega_n\sim N[0,\sigma^2]\) and specification
+\end{itemize}
+
+{[}LG3{]}
+\(\eqspace\displaystyle Y_n = \sum_{j=1}^p \ar_j Y_{n-j} + \omega_n + \sum_{k=1}^q \ma_q \omega_{n-k}.\)
+
+\begin{itemize}
+\item
+  Set \(r=\max(p,q+1)\) so that \(\{Y_n\}\) is also ARMA(r,r-1).
+\item
+  Our LG-POMP representation has \(d_X=r\), with
+  \[\matB_n = \matB = (1,0,0,\dots,0)\] and
+  \[\covmatY_n = \covmatY = 0.\]
+\item
+  Therefore, \(Y_n\) is the first component of \(X_n\), observed without
+  measurement error.
+\item
+  Now, define \[ X_n = \left(\begin{array}{l}
+  Y_n \\
+  \ar_2 Y_{n-1} + \dots + \ar_r Y_{n-r+1} + \ma_1 \omega_n + \dots +\ma_{r-1} \omega_{n-r+2}
+  \\
+  \ar_3 Y_{n-1} + \dots + \ar_r Y_{n-r+1} + \ma_2 \omega_n + \dots +\ma_{r-1} \omega_{n-r+3}
+  \\
+  \vdots
+  \\
+  \ar_r Y_{n-1} + \ma_{r-1} \omega_t
+  \end{array}\right)\]
+\item
+  We can check that the ARMA equation {[}LG3{]} corresponds to the
+  matrix equation \[ X_{n} = \matA X_{n-1} + \left(\begin{array}{l}
+  1 \\
+  \ma_1\\
+  \ma_2\\
+  \vdots\\
+  \ma_{r-1}
+  \end{array}\right) \omega_n.
+  \] where \[
+  \matA = 
+  \left(\begin{array}{ccccc}
+  \ar_1 & 1 & 0 & \ldots & 0 \\
+  \ar_2 & 0 & 1 &       & 0 \\
+  \vdots & \vdots& \ddots & \\
+  \ar_{r-1} & 0 & & 1 \\
+  \ar_{r} & 0 \ldots & 0
+  \end{array}\right).\] This is in the form of a time-homogenous
+  LG-POMP, with \(\matA\), \(\matB\) and \(\covmatY\) defined above, and
+  \[\covmatX_n = \covmatX = \sigma^2 (1, \ma_1,\ma_2,\dots,\ma_{r-1})^{\transpose}(1, \ma_1,\ma_2,\dots,\ma_{r-1}).\]
+\item
+  There are other LG-POMP representations giving rise to the same ARMA
+  model.
+\item
+  When only one component of a latent process is observed, any model
+  giving rise to the same observed component is indistinguishable from
+  the data.
+\item
+  Here, the LG-POMP model has order \(r^2\) parameters and the ARMA
+  model has order \(r\) parameters, so we might expect there are many
+  ways to parameterize the ARMA model as a special case of the much
+  larger LG-POMP model.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{The basic structural model and its LG-POMP
+representation}\label{the-basic-structural-model-and-its-lg-pomp-representation}
+
+\begin{itemize}
+\item
+  The \textbf{basic structural model} is an econometric model used for
+  forecasting.
+\item
+  The basic stuctural model supposes that the observation process
+  \(Y_{1:N}\) is the sum of a \textbf{level} (\(L_n\)), a \textbf{trend}
+  (\(T_n\)) describing the rate of change of the level, and a monthly
+  \textbf{seasonal component} (\(S_n\)). The model supposes that all
+  these quantities are perturbed with Gaussian white noise at each time
+  point. So, we have the following model equations
+\end{itemize}
+
+\(\begin{array}{lrcl} \mbox{[BSM1]} \eqspace & Y_n &=& L_n + S_n + \epsilon_n \\ \mbox{[BSM2]} \eqspace & L_{n} &=& L_{n-1} + T_{n-1} + \xi_n \\ \mbox{[BSM3]} \eqspace & T_{n} &=& T_{n-1} + \zeta_n \\ \mbox{[BSM4]} \eqspace & S_{n} &=& -\sum_{k=1}^{11} S_{n-k} + \eta_n \end{array}\)
+
+\begin{itemize}
+\item
+  We suppose \(\epsilon_n\sim N[0,\sigma^2_\epsilon]\),
+  \(\xi_n\sim N[0,\sigma^2_\xi]\), \(\zeta_n\sim N[0,\sigma^2_\zeta]\),
+  and \(\eta_n\sim N[0,\sigma^2_\eta]\).
+\item
+  The \textbf{local linear trend} model is the basic structural model
+  without the seasonal component, \(\{S_n\}\)
+\item
+  The \textbf{local level model} is the basic structural model without
+  either the seasonal component, \(\{S_n\}\), or the trend component,
+  \(\{T_n\}\). The local level model is therefore a random walk observed
+  with measurement error.
+\item
+  To complete the model, we need to specify initial values. This is not
+  fully explained in the documentation of the R implementation of the
+  basic structural model, \texttt{StructTS}. We could go through the
+  source code to find out what it does.
+\item
+  Incidentally, \texttt{?StructTS} does give some advice which resonates
+  with our experience earlier in the course that optimization for ARMA
+  models is often imperfect.
+
+  ``Optimization of structural models is a lot harder than many of the
+  references admit. For example, the
+  Ã¢Â\euro{}Â˜AirPassengersÃ¢Â\euro{}Â™ data are considered in Brockwell
+  \& Davis (1996): their solution appears to be a local maximum, but
+  nowhere near as good a fit as that produced by
+  Ã¢Â\euro{}Â˜StructTSÃ¢Â\euro{}Â™. It is quite common to find fits with
+  one or more variances zero, and this can include sigma\^{}2\_eps.''
+\item
+  To put {[}BSM1-4{]} in the form of an LG-POMP model, we set
+\end{itemize}
+
+{[}BSM5{]}
+\(\eqspace X_n = (L_n,T_n,S_n, S_{n-1}, S_{n-2}, \dots,S_{n-10})^{\transpose}\).
+
+\begin{itemize}
+\tightlist
+\item
+  Then, we have
+\end{itemize}
+
+{[}BSM6{]} \(\eqspace Y_n = (1,0,1,0,0,\dots, 0) X_n + \epsilon_n\),
+
+\(\displaystyle  \left(\begin{array}{l} L_{n} \\ T_{n} \\ S_{n} \\ S_{n-1}\\ S_{n-2} \\  \vdots \\ S_{n-10} \end{array}\right) = \left(\begin{array}{ccccccc} 1 & 1 & 0 & 0 & 0 & \ldots & 0 \\ 0 & 1 & 0 & 0 & 0 & \ldots & 0 \\ 0 & 0 & -1 & -1 & -1 & \ldots & -1\\ 0 & 0 & 1 & 0 & 0 & \ldots & 0 \\ 0 & 0 & 0 & 1 & 0 & \ldots & 0 \\ \vdots & & &\ddots & \ddots & \ddots & \vdots \\ 0 & 0 & 0 &\ldots & 0 & 1 & 0 \end{array}\right) \left(\begin{array}{l} L_{n-1} \\ T_{n-1} \\ S_{n-1} \\ S_{n-2}\\ S_{n-3} \\  \vdots \\ S_{n-11} \end{array}\right) + \left(\begin{array}{l} \xi_n \\ \zeta_n \\ \eta_n \\ 0 \\ 0 \\  \vdots \\ 0 \end{array}\right).\)
+
+\begin{itemize}
+\tightlist
+\item
+  From {[}BSM5{]} and {[}BSM6{]}, we can read off the matrices
+  \(\matA\), \(\matB\), \(\covmatX\) and \(\covmatY\) in the LG-POMP
+  representation of the basic structural model.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Spline smoothing and its LG-POMP
+representation}\label{spline-smoothing-and-its-lg-pomp-representation}
+
+\begin{itemize}
+\item
+  Spline smoothing is a standard method to smooth scatter plots and time
+  plots.
+\item
+  For example, \texttt{smooth.spline} in R.
+\item
+  A \textbf{smoothing spline} for an equally spaced time series
+  \(\data{y_{1:N}}\) collected at times \(t_{1:N}\) is the sequence
+  \(x_{1:N}\) minimizing the \textbf{penalized sum of squares (PSS)},
+  which is defined as
+\end{itemize}
+
+{[}SS1{]}
+\(\myeq{  \mathrm{PSS}(x_{1:N}\params\lambda)  = \sum_{n=1}^N(\data{y_n}-x_n)^2 + \lambda\sum_{n=3}^N(\Delta^2 x_n)^2 }\).
+
+\begin{itemize}
+\item
+  The spline is defined for all times, but here we are only concerned
+  with its value at the times \(t_{1:N}\).
+\item
+  Here, \(\Delta x_n = (1-B)x_n = x_n - x_{n-1}.\)
+\item
+  The \textbf{smoothing parameter}, \(\lambda\), penalizes \(x_{1:N}\)
+  to prevent the spline from interpolating the data.
+\item
+  If \(\lambda=0\), the spline will go through each data point, i.e,
+  \(x_{1:N}\) will interpolate \(\data{y_{1:N}}\).
+\item
+  If \(\lambda=\infty\), the spline will be the ordinary least squares
+  regression fit, \[ x_n = \alpha + \beta n,\] since
+  \(\Delta^2(\alpha + \beta n) = 0\).
+\item
+  Now consider the model,
+\end{itemize}
+
+{[}SS2{]}
+\(\eqspace \begin{array}{rclcl} X_n &=& 2X_{n-1}-X_{n-2} + \epsilon_n, & & \epsilon_n\sim \mathrm{iid}\; N[0,\sigma^2/\lambda]\\ Y_n &=& X_n + \eta_n & & \eta_n\sim \mathrm{iid}\; N[0,\sigma^2]. \end{array}\)
+
+\begin{itemize}
+\tightlist
+\item
+  Note that \(\Delta^2 X_n = \epsilon_n\).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Question: Constructing a linear Gaussian POMP (LG-POMP)
+model from
+{[}SS2{]}.}\label{question-constructing-a-linear-gaussian-pomp-lg-pomp-model-from-ss2.}
+
+\begin{itemize}
+\tightlist
+\item
+  Note that \(\{X_n,Y_n\}\) defined in {[}SS2{]} is not quite an LG-POMP
+  model. However, we can use \(\{X_n\}\) and \(\{Y_n\}\) to build an
+  LG-POMP model. How?
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\item
+  The joint density of \(X_{1:N}\) and \(Y_{1:N}\) in {[}SS2{]} can be
+  written as
+  \[ f_{X_{1:N}Y_{1:N}}(x_{1:N},y_{1:N})= f_{X_{1:N}}(x_{1:N}) \, f_{Y_{1:N}|X_{1:N}}(y_{1:N}\given x_{1:N}).\]
+\item
+  Taking logs,
+  \[ \log f_{X_{1:N}Y_{1:N}}(x_{1:N},y_{1:N})= \log f_{X_{1:N}}(x_{1:N}) + \log f_{Y_{1:N}|X_{1:N}}(y_{1:N}\given x_{1:N}).\]
+\item
+  Suppose that initial conditions are irrelevant (they could be either
+  unknown parameters or an improper Gaussian distribution with infinite
+  variance). Then, noting that \(\{\Delta^2 X_{n}, n\in 1:N\}\) and
+  \(\{Y_n-X_n, n\in 1:N\}\) are collections of independent Normal random
+  variables with mean zero and variances \(\sigma^2/\lambda\) and
+  \(\sigma^2\) respectively, we have
+\end{itemize}
+
+{[}SS3{]}
+\(\myeq{ \log f_{X_{1:N}Y_{1:N}}(x_{1:N},y_{1:N} \params \sigma,\lambda) = \frac{-1}{2\sigma^2} \sum_{n=1}^N(y_n-x_n)^2 +\frac{-\lambda}{2\sigma^2} \sum_{n=3}^N(\Delta^2 x_n)^2 + C }\).
+
+\begin{itemize}
+\item
+  In {[}SS3{]}, \(C\) is a constant that depends on \(\sigma\) and
+  \(\lambda\) but not on \(x_{1:N}\) or \(y_{1:N}\).
+\item
+  Comparing {[}SS3{]} with {[}SS1{]}, we see that maximizing the density
+  \(f_{X_{1:N}Y_{1:N}}(x_{1:N},\data{y_{1:N}} \params \sigma,\lambda)\)
+  as a function of \(x_{1:N}\) is the same problem as finding the
+  smoothing spline by minimizing the penalized sum of squares in
+  {[}SS1{]}.
+\item
+  For a Gaussian density, the mode (i.e., the maximum of the density) is
+  equal to the expected value. Therefore, we have
+\end{itemize}
+
+\begin{eqnarray}
+\arg\min_{x_{1:N}} \mathrm{PSS}(x_{1:N}\params\lambda),
+&=& 
+\arg\max_{x_{1:N}} f_{X_{1:N}Y_{1:N}}(x_{1:N},\data{y_{1:N}}\params \sigma,\lambda),
+\\
+&=&
+\arg\max_{x_{1:N}} \frac{
+  f_{X_{1:N}Y_{1:N}}(x_{1:N},\data{y_{1:N}} \params \sigma,\lambda)
+}{
+  f_{Y_{1:N}}(\data{y_{1:N}} \params \sigma,\lambda)
+},
+\\
+&=& 
+\arg\max_{x_{1:N}} f_{X_{1:N}|Y_{1:N}}(x_{1:N}\given \data{y_{1:N}}\params \sigma,\lambda),
+\\
+&=& \E\big[X_{1:N}\given Y_{1:N}=\data{y_{1:N}} \params  \sigma,\lambda\big].
+\end{eqnarray}
+
+\begin{itemize}
+\item
+  The smoothing calculation for an LG-POMP model involves finding the
+  mean and variance of \(X_{n}\) given \(Y_{1:N}=\data{y_{1:N}}\).
+\item
+  We conclude that the smoothing problem for this LG-POMP model is the
+  same as the spline smoothing problem defined by {[}SS1{]}.
+\item
+  If you have experience using smoothing splines, this connection may
+  help you transfer that experience to POMP models.
+\item
+  Once you have experience with POMP models, this connection helps you
+  understand smoothers that are commonly used in many applications.
+\item
+  For example, we might propose that the smoothing parameter \(\lambda\)
+  could be selected by maximum likelihood for the POMP model.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{\texorpdfstring{Question: Why do we use
+\(\Delta^2 X_n=\epsilon_n\) for our smoothing
+model?}{Question: Why do we use \textbackslash{}Delta\^{}2 X\_n=\textbackslash{}epsilon\_n for our smoothing model?}}\label{question-why-do-we-use-delta2-x_nepsilon_n-for-our-smoothing-model}
+
+\begin{itemize}
+\item
+  Seeing that the smoothing spline arrives from the particular choice of
+  LG-POMP model in equation {[}SS2{]} could make you wonder why we
+  choose that model.
+\item
+  Any ideas?
+\item
+  Even if this LG-POMP model is sometimes reasonable, presumably there
+  are other occasions when a different LG-POMP model would be a superior
+  choice for smoothing.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{The Kalman filter}\label{the-kalman-filter}
+
+\begin{itemize}
+\item
+  We find exact versions of the prediction, filtering and smoothing
+  formulas {[}MP4--10{]} for the linear Gaussian partially observed
+  Markov process (LG-POMP) model {[}LG1,LG2{]}.
+\item
+  In the linear Gaussian case, the conditional probability density
+  functions in {[}MP4--10{]} are specified by the conditional mean and
+  conditional variance.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Review of the multivariate normal
+distribution}\label{review-of-the-multivariate-normal-distribution}
+
+\begin{itemize}
+\item
+  A random variable \(X\) taking values in \(\R^{d_X}\) is
+  \textbf{multivariate normal} with mean \(\mu_X\) and variance
+  \(\Sigma_X\) if we can write \[X = \matH Z + \mu_X,\] where \(Z\) is a
+  vector of \(d_X\) independent identically distributed \(N[0,1]\)
+  random variables and \(\matH\) is a \(d_X\times d_X\) matrix square
+  root of \(\Sigma_X\), i.e., \[\matH\matH^{\transpose} = \Sigma_X.\]
+\item
+  The choice of \(\matH\) is not unique, and a matrix square root of
+  this type exists for any covariance matrix. Mathematically, this is
+  true because covariance matrices are
+  \href{https://en.wikipedia.org/wiki/Positive-definite_matrix\#Positive-semidefinite}{positive
+  semi-definite}.
+\item
+  We write \(X\sim N\big[\mu_X,\Sigma_X\big]\).
+\item
+  \(X\sim N\big[\mu_X,\Sigma_X\big]\) has a probability density function
+  if and only if \(\Sigma_X\) is invertible. This density is given by
+  \[f_X(x) = \frac{1}{(2\pi)^{d_X/2}|\Sigma_X|}
+  \exp
+    \left\{-
+   \frac{ (x - \mu_X)\, \big[\Sigma_X\big]^{-1} \, (x - \mu_X)^{\transpose}}{2}
+    \right\}.
+  \]
+\item
+  \(X\) and \(Y\) are \textbf{jointly multivariate normal} if the
+  combined vector \[W=\left(\begin{array}{l}
+  X \\
+  Y
+  \end{array}\right)\] is multivariate normal. In this case, we write \[
+  \mu_W = \left(\begin{array}{l}
+  \mu_X \\
+  \mu_Y
+  \end{array}\right),
+  \eqspace
+  \Sigma_W = \left(\begin{array}{cc}
+  \Sigma_X & \Sigma_{XY}\\
+  \Sigma_{YX} & \Sigma_Y
+  \end{array}\right),\] where
+  \[\Sigma_{XY}= \cov(X,Y) = \E\big[(X-\mu_X)(Y-\mu_Y)^{\transpose}\big].\]
+\item
+  For jointly multivariate normal random variables \(X\) and \(Y\), we
+  have the useful property that the conditional distribution of \(X\)
+  given \(Y=y\) is multivariate normal, with conditional mean and
+  variance
+\end{itemize}
+
+{[}KF1{]}
+
+\begin{eqnarray}
+\mu_{X|Y}(y) &=& \mu_X + \Sigma_{XY}\Sigma_Y^{-1}\big(y-\mu_Y\big),
+\\
+\Sigma_{X|Y} &=& \Sigma_X - \Sigma_{XY}\Sigma_Y^{-1}\Sigma_{YX}.
+\end{eqnarray}
+
+\begin{itemize}
+\item
+  We write this as
+  \[ X\given Y=y \sim N\big[\mu_{X|Y}(y),\Sigma_{X|Y}\big]. \]
+\item
+  In general, the conditional variance of \(X\) given \(Y=y\) will
+  depend on \(y\) (remind yourself of the definition of conditional
+  variance). In the special case where \(X\) and \(Y\) are jointly
+  multivariate normal, this conditional variance happens not to depend
+  on the value of \(y\).
+\item
+  If \(\Sigma_Y\) is not invertible, to make {[}KF1{]} work we have to
+  interpret \(\Sigma_Y^{-1}\) as a
+  \href{https://en.wikipedia.org/wiki/Generalized_inverse}{generalized
+  inverse}.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  To write the Kalman filter, we define the following notation,
+\end{itemize}
+
+{[}KF2{]}
+\(\eqspace \begin{array}{lcl} X_{n}\given Y_{1:n-1}\equals y_{1:n-1} &\sim& N\big[ \mu_{n}^P(y_{1:n-1}),\Sigma_n^P\big], \\ X_n\given Y_{1:n}\equals y_{1:n} &\sim& N\big[ \mu_n^F(y_{1:n-1}),\Sigma_n^F\big], \\ X_n\given Y_{1:N}\equals y_{1:N} &\sim& N\big[ \mu_n^S(y_{1:N}),\Sigma_n^S\big]. \end{array}\)
+
+\begin{itemize}
+\tightlist
+\item
+  To relate this notation to the general POMP recursion formulas, given
+  data \(\data{y_{1:N}}\), we define the following terminology:
+\end{itemize}
+
+\(\mu_n^P(\data{y_{1:n-1}})=\E\big[X_n\given Y_{1:n-1}\equals \data{y_{1:n-1}}\big]\)
+is the \textbf{one-step prediction mean} for time \(t_n\). It is an
+arbitrary decision we have made to call this the prediction for time
+\(t_n\) (the time for which the prediction is being made) rather than
+for time \(t_{n-1}\) (the time at which the prediction for time \(t_n\)
+becomes available).
+
+\(\Sigma_n^P(\data{y_{1:n-1}})=\var\big(X_n\given Y_{1:n-1}\equals \data{y_{1:n-1}}\big)\)
+is the \textbf{one-step prediction variance} for time \(t_n\). To make
+this terminology work for general POMP models as well as for LG-POMP
+models, we have included the dependence on \(\data{y_{1:n-1}}\).
+
+\(\mu_n^F(\data{y_{1:n}})=\E\big[X_n\given Y_{1:n}\equals \data{y_{1:n}}\big]\)
+is the \textbf{filter mean} for time \(t_n\).
+
+\(\Sigma_n^F(\data{y_{1:n}})=\var\big(X_n\given Y_{1:n}\equals \data{y_{1:n}}\big)\)
+is the \textbf{filter variance} for time \(t_n\).
+
+\(\mu_n^S(\data{y_{1:N}})=\E\big[X_n\given Y_{1:N}\equals \data{y_{1:N}}\big]\)
+is the \textbf{smoothing mean} for time \(t_n\).
+
+\(\Sigma_n^S(\data{y_{1:N}})=\var\big(X_n\given Y_{1:N}\equals \data{y_{1:N}}\big)\)
+is the \textbf{smoothing variance} for time \(t_n\).
+
+\begin{itemize}
+\item
+  We have defined the above quantities as estimates rather than
+  estimators. For example, we could define the filter mean estimator to
+  be the function which is evaluated at the data to give the filter
+  mean.
+\item
+  From the results for linear combinations of Normal random variables,
+  we get the Kalman filter and prediction recursions:
+\end{itemize}
+
+{[}KF3{]}
+\(\myeq{  \mu_{n+1}^P(y_{1:n}) = \matA_{n+1} \mu_{n}^F(y_{1:n}) }\),
+
+{[}KF4{]}
+\(\myeq{  \Sigma_{n+1}^P = \matA_{n+1} \Sigma_{n}^F \matA_{n+1}^{\transpose} + \covmatX_{n+1} }\).
+
+{[}KF5{]}
+\(\myeq{  \Sigma_{n}^F = \big([\Sigma_n^P]^{-1} + \matB_n^{\transpose}\covmatY_n^{-1}\matB_n\big)^{-1} }\).
+
+{[}KF6{]}
+\(\myeq{  \mu_{n}^F(y_{1:n}) = \mu_{n}^P(y_{1:n-1}) + \Sigma_n^F \matB^{\transpose}_n\covmatY_n^{-1}\big\{y_n - \matB_n\mu_n^P(y_{1:n-1})\big\} }\).
+
+\begin{itemize}
+\item
+  These equations are easy to code, and quick to compute unless the
+  dimension of the latent space is very large. In numerical weather
+  forecasting, with careful programming, they are solved with latent
+  variables having dimension \(d_X\approx 10^7\).
+\item
+  A similar computation gives backward Kalman recursions. Putting the
+  forward and backward Kalman recursions together, as in {[}MP10{]}, is
+  called \textbf{Kalman smoothing}.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsubsection{Question: Add details to the derivations of
+{[}KF3--6{]}}\label{question-add-details-to-the-derivations-of-kf36}
+
+\begin{itemize}
+\item
+  The prediction recursions {[}KF3--4{]} are relatively easy to
+  demonstrate, but it is a good exercise to go through the algebra to
+  your own satisfaction.
+\item
+  A useful trick for the algebra is to notice that the conditioning
+  identities {[}KF1{]} for joint Gaussian random variables continue to
+  hold if left and right are both conditioned on some additional jointly
+  Gaussian variable, such as \(Y_{1:n-1}\).
+\item
+  {[}KF5--6{]} can be deduced by completing the square in an expression
+  for the joint density,
+  \(f_{X_nY_n|Y_{1:n-1}}(x_n,y_n\given y_{1:n-1})\) and noticing that
+  the marginal density of \(X_n\) given \(Y_{1:n}\) is proportional to
+  the joint density, with a normalizing constant that must allow the
+  marginal density to integrate to one.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+
+\end{document}

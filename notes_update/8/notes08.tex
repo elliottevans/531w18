@@ -491,12 +491,12 @@ filter}\label{extracting-business-cycles-a-band-pass-filter}
 
 \begin{itemize}
 \item
-  For the unemployment data, high frequency variation might be
-  considered ``noise'' and low frequency variation might be considered
-  trend.
+  For the unemployment data, \hl{high frequency variation might be
+  considered ``noise''} and \hl{low frequency variation might be considered
+  trend.}
 \item
-  A band of mid-range frequencies might be considered to correspond to
-  the business cycle.
+  A band of \hl{mid-range frequencies might be considered to correspond to
+  the business cycle}.
 \item
   Let's build a smoothing operation in the time domain to extract
   business cycles, and then look at its frequency response function.
@@ -514,6 +514,8 @@ filter}\label{extracting-business-cycles-a-band-pass-filter}
 
 \begin{center}\includegraphics{figure/intro-cycles-1} \end{center}
 
+\todo[inline]{Here, u\_low is low-frequency component and u\_hi is high-frequency component. High-frequency variation is found from doing a very \textit{local} smooth. Low-frequency comp. is found from doing a less local smooth.}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{spec_cycle <-}\StringTok{ }\KeywordTok{spectrum}\NormalTok{(}\KeywordTok{ts.union}\NormalTok{(u1_ts,u_cycles),}
@@ -529,6 +531,9 @@ filter}\label{extracting-business-cycles-a-band-pass-filter}
 \end{Shaded}
 
 \begin{center}\includegraphics{figure/intro-freq_response-1} \end{center}
+
+\todo[inline]{Note that the frequency response plot above is on a log-scale. The frequency units are in cycles/per year.}
+
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
