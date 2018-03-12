@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.12.9)  7 MAR 2018 11:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.12.9)  12 MAR 2018 11:11
 entering extended mode
 **./notes09.tex
 (notes09.tex
@@ -1383,54 +1383,54 @@ LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 928.
 
 [11] [12]
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1143
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1142
 .
 
 [13]
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1158
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1157
 .
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1176
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1175
 .
 
 [14]
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1268
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1269
 .
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1271
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1272
 .
 
 
-LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1274
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 1275
 .
 
 
-Underfull \hbox (badness 1231) in paragraph at lines 1306--1312
+Underfull \hbox (badness 1231) in paragraph at lines 1309--1315
 []\T1/lmr/m/n/10 (+20) [KF5--6] can be de-duced by com-plet-ing the square in a
 n ex-pres-sion for the joint den-sity,
  []
 
-[15]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1319.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1319.
+[15] [16]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1322.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1322.
  (notes09.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1319.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1319.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1322.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1322.
 
 Package rerunfilecheck Info: File `notes09.out' has not changed.
 (rerunfilecheck)             Checksum: E776682645413734F8F6F4FD67935260;1983.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1319.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1322.
  ) 
 Here is how much of TeX's memory you used:
- 23246 strings out of 493334
- 406828 string characters out of 3139246
- 497948 words of memory out of 72000000
+ 23249 strings out of 493334
+ 406875 string characters out of 3139246
+ 498044 words of memory out of 72000000
  26199 multiletter control sequences out of 15000+200000
- 63799 words of font info for 101 fonts, out of 3000000 for 9000
+ 63765 words of font info for 101 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,11n,80p,669b,835s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/M
@@ -1438,23 +1438,22 @@ iKTeX 2.9/fonts/enc/dvips/lm/lm-mathex.enc}{C:/Program Files/MiKTeX 2.9/fonts/e
 nc/dvips/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm
 .enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program 
 Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ts1.enc}<C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/eurosym/feymr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
-blic/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pf
-b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmex10.pfb><C:/Program Fil
-es/MiKTeX 2.9/fonts/type1/public/lm/lmmi10.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/lm/lmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm
-/lmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/public/lm/lmr5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
-lic/lm/lmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri12.pfb><
-C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/lm/lmsy5.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmt
-t10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10
-.pfb>
-Output written on notes09.pdf (15 pages, 349394 bytes).
+ts/type1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/l
+m/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmex10.pfb><C:/
+Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi10.pfb><C:/Program Files/MiK
+TeX 2.9/fonts/type1/public/lm/lmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/lm/lmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/lm/lmr5.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/public/lm/lmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/l
+mri12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy5.pfb><C:/Program Files/MiKTeX 
+2.9/fonts/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
+blic/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/sym
+bols/msbm10.pfb>
+Output written on notes09.pdf (16 pages, 342451 bytes).
 PDF statistics:
- 231 PDF objects out of 1000 (max. 8388607)
- 53 named destinations out of 1000 (max. 500000)
+ 234 PDF objects out of 1000 (max. 8388607)
+ 56 named destinations out of 1000 (max. 500000)
  8261 words of extra memory for PDF output out of 10000 (max. 10000000)
 

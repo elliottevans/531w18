@@ -810,8 +810,8 @@ ARMA}\label{the-lg-pomp-representation-of-a-gaussian-arma}
   \(\omega_n\sim N[0,\sigma^2]\) and specification
 \end{itemize}
 
-{[}LG3{]}
-\(\eqspace\displaystyle Y_n = \sum_{j=1}^p \ar_j Y_{n-j} + \omega_n + \sum_{k=1}^q \ma_q \omega_{n-k}.\)
+$$[LG3]
+\eqspace\displaystyle Y_n = \sum_{j=1}^p \ar_j Y_{n-j} + \omega_n + \sum_{k=1}^q \ma_q \omega_{n-k}.$$
 
 \begin{itemize}
 \item
@@ -888,7 +888,7 @@ representation}\label{the-basic-structural-model-and-its-lg-pomp-representation}
   point. So, we have the following model equations
 \end{itemize}
 
-\(\begin{array}{lrcl} \mbox{[BSM1]} \eqspace & Y_n &=& L_n + S_n + \epsilon_n \\ \mbox{[BSM2]} \eqspace & L_{n} &=& L_{n-1} + T_{n-1} + \xi_n \\ \mbox{[BSM3]} \eqspace & T_{n} &=& T_{n-1} + \zeta_n \\ \mbox{[BSM4]} \eqspace & S_{n} &=& -\sum_{k=1}^{11} S_{n-k} + \eta_n \end{array}\)
+\begin{align*} \mbox{[BSM1]} \eqspace  Y_n &= L_n + S_n + \epsilon_n \\ \mbox{[BSM2]} \eqspace  L_{n} &= L_{n-1} + T_{n-1} + \xi_n \\ \mbox{[BSM3]} \eqspace  T_{n} &= T_{n-1} + \zeta_n \\ \mbox{[BSM4]} \eqspace S_{n} &= -\sum_{k=1}^{11} S_{n-k} + \eta_n \end{align*}
 
 \begin{itemize}
 \item
@@ -915,17 +915,17 @@ representation}\label{the-basic-structural-model-and-its-lg-pomp-representation}
 
   ``Optimization of structural models is a lot harder than many of the
   references admit. For example, the
-  Ã¢Â\euro{}Â˜AirPassengersÃ¢Â\euro{}Â™ data are considered in Brockwell
+ AirPassenger data are considered in Brockwell
   \& Davis (1996): their solution appears to be a local maximum, but
   nowhere near as good a fit as that produced by
-  Ã¢Â\euro{}Â˜StructTSÃ¢Â\euro{}Â™. It is quite common to find fits with
+  StructTS. It is quite common to find fits with
   one or more variances zero, and this can include sigma\^{}2\_eps.''
 \item
   To put {[}BSM1-4{]} in the form of an LG-POMP model, we set
 \end{itemize}
 
-{[}BSM5{]}
-\(\eqspace X_n = (L_n,T_n,S_n, S_{n-1}, S_{n-2}, \dots,S_{n-10})^{\transpose}\).
+$$[BSM5]
+\eqspace X_n = (L_n,T_n,S_n, S_{n-1}, S_{n-2}, \dots,S_{n-10})^{\transpose}.$$
 
 \begin{itemize}
 \tightlist
@@ -933,9 +933,8 @@ representation}\label{the-basic-structural-model-and-its-lg-pomp-representation}
   Then, we have
 \end{itemize}
 
-{[}BSM6{]} \(\eqspace Y_n = (1,0,1,0,0,\dots, 0) X_n + \epsilon_n\),
-
-\(\displaystyle  \left(\begin{array}{l} L_{n} \\ T_{n} \\ S_{n} \\ S_{n-1}\\ S_{n-2} \\  \vdots \\ S_{n-10} \end{array}\right) = \left(\begin{array}{ccccccc} 1 & 1 & 0 & 0 & 0 & \ldots & 0 \\ 0 & 1 & 0 & 0 & 0 & \ldots & 0 \\ 0 & 0 & -1 & -1 & -1 & \ldots & -1\\ 0 & 0 & 1 & 0 & 0 & \ldots & 0 \\ 0 & 0 & 0 & 1 & 0 & \ldots & 0 \\ \vdots & & &\ddots & \ddots & \ddots & \vdots \\ 0 & 0 & 0 &\ldots & 0 & 1 & 0 \end{array}\right) \left(\begin{array}{l} L_{n-1} \\ T_{n-1} \\ S_{n-1} \\ S_{n-2}\\ S_{n-3} \\  \vdots \\ S_{n-11} \end{array}\right) + \left(\begin{array}{l} \xi_n \\ \zeta_n \\ \eta_n \\ 0 \\ 0 \\  \vdots \\ 0 \end{array}\right).\)
+$$[BSM6] \eqspace Y_n = (1,0,1,0,0,\dots, 0) X_n + \epsilon_n,$$
+$$\displaystyle  \left(\begin{array}{l} L_{n} \\ T_{n} \\ S_{n} \\ S_{n-1}\\ S_{n-2} \\  \vdots \\ S_{n-10} \end{array}\right) = \left(\begin{array}{ccccccc} 1 & 1 & 0 & 0 & 0 & \ldots & 0 \\ 0 & 1 & 0 & 0 & 0 & \ldots & 0 \\ 0 & 0 & -1 & -1 & -1 & \ldots & -1\\ 0 & 0 & 1 & 0 & 0 & \ldots & 0 \\ 0 & 0 & 0 & 1 & 0 & \ldots & 0 \\ \vdots & & &\ddots & \ddots & \ddots & \vdots \\ 0 & 0 & 0 &\ldots & 0 & 1 & 0 \end{array}\right) \left(\begin{array}{l} L_{n-1} \\ T_{n-1} \\ S_{n-1} \\ S_{n-2}\\ S_{n-3} \\  \vdots \\ S_{n-11} \end{array}\right) + \left(\begin{array}{l} \xi_n \\ \zeta_n \\ \eta_n \\ 0 \\ 0 \\  \vdots \\ 0 \end{array}\right).$$
 
 \begin{itemize}
 \tightlist
@@ -965,8 +964,8 @@ representation}\label{spline-smoothing-and-its-lg-pomp-representation}
   which is defined as
 \end{itemize}
 
-{[}SS1{]}
-\(\myeq{  \mathrm{PSS}(x_{1:N}\params\lambda)  = \sum_{n=1}^N(\data{y_n}-x_n)^2 + \lambda\sum_{n=3}^N(\Delta^2 x_n)^2 }\).
+$$[SS1]
+\myeq{  \mathrm{PSS}(x_{1:N}\params\lambda)  = \sum_{n=1}^N(\data{y_n}-x_n)^2 + \lambda\sum_{n=3}^N(\Delta^2 x_n)^2 }.$$
 
 \begin{itemize}
 \item
@@ -1034,8 +1033,8 @@ model from
   \(\sigma^2\) respectively, we have
 \end{itemize}
 
-{[}SS3{]}
-\(\myeq{ \log f_{X_{1:N}Y_{1:N}}(x_{1:N},y_{1:N} \params \sigma,\lambda) = \frac{-1}{2\sigma^2} \sum_{n=1}^N(y_n-x_n)^2 +\frac{-\lambda}{2\sigma^2} \sum_{n=3}^N(\Delta^2 x_n)^2 + C }\).
+$$[SS3]
+\myeq{ \log f_{X_{1:N}Y_{1:N}}(x_{1:N},y_{1:N} \params \sigma,\lambda) = \frac{-1}{2\sigma^2} \sum_{n=1}^N(y_n-x_n)^2 +\frac{-\lambda}{2\sigma^2} \sum_{n=3}^N(\Delta^2 x_n)^2 + C }.$$
 
 \begin{itemize}
 \item
@@ -1181,10 +1180,10 @@ distribution}\label{review-of-the-multivariate-normal-distribution}
   variance
 \end{itemize}
 
-{[}KF1{]}
+
 
 \begin{eqnarray}
-\mu_{X|Y}(y) &=& \mu_X + \Sigma_{XY}\Sigma_Y^{-1}\big(y-\mu_Y\big),
+{[}KF1{]}\eqspace \mu_{X|Y}(y) &=& \mu_X + \Sigma_{XY}\Sigma_Y^{-1}\big(y-\mu_Y\big),
 \\
 \Sigma_{X|Y} &=& \Sigma_X - \Sigma_{XY}\Sigma_Y^{-1}\Sigma_{YX}.
 \end{eqnarray}
@@ -1215,6 +1214,8 @@ distribution}\label{review-of-the-multivariate-normal-distribution}
 \item
   To write the Kalman filter, we define the following notation,
 \end{itemize}
+
+\todo[inline]{P for prediction, F for filtering, S for smoothing.}
 
 {[}KF2{]}
 \(\eqspace \begin{array}{lcl} X_{n}\given Y_{1:n-1}\equals y_{1:n-1} &\sim& N\big[ \mu_{n}^P(y_{1:n-1}),\Sigma_n^P\big], \\ X_n\given Y_{1:n}\equals y_{1:n} &\sim& N\big[ \mu_n^F(y_{1:n-1}),\Sigma_n^F\big], \\ X_n\given Y_{1:N}\equals y_{1:N} &\sim& N\big[ \mu_n^S(y_{1:N}),\Sigma_n^S\big]. \end{array}\)
@@ -1258,7 +1259,7 @@ is the \textbf{smoothing variance} for time \(t_n\).
   mean.
 \item
   From the results for linear combinations of Normal random variables,
-  we get the Kalman filter and prediction recursions:
+  we get the Kalman filter and prediction recursions (reference LG1 and LG2):
 \end{itemize}
 
 {[}KF3{]}
@@ -1272,6 +1273,8 @@ is the \textbf{smoothing variance} for time \(t_n\).
 
 {[}KF6{]}
 \(\myeq{  \mu_{n}^F(y_{1:n}) = \mu_{n}^P(y_{1:n-1}) + \Sigma_n^F \matB^{\transpose}_n\covmatY_n^{-1}\big\{y_n - \matB_n\mu_n^P(y_{1:n-1})\big\} }\).
+
+\todo[inline]{Combining LG1 and LG2 with KF1 gives us KF3-KF6.}
 
 \begin{itemize}
 \item
