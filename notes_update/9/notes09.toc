@@ -23,5 +23,5 @@
 \contentsline {subsubsection}{\numberline {9.6.1}Question: Constructing a linear Gaussian POMP (LG-POMP) model from {[}SS2{]}.}{12}{subsubsection.9.6.1}
 \contentsline {subsubsection}{\numberline {9.6.2}Question: Why do we use \(\Delta ^2 X_n=\epsilon _n\) for our smoothing model?}{13}{subsubsection.9.6.2}
 \contentsline {subsection}{\numberline {9.7}The Kalman filter}{13}{subsection.9.7}
-\contentsline {subsubsection}{\numberline {9.7.1}Review of the multivariate normal distribution}{13}{subsubsection.9.7.1}
+\contentsline {subsubsection}{\numberline {9.7.1}Review of the multivariate normal distribution}{14}{subsubsection.9.7.1}
 \contentsline {subsubsection}{\numberline {9.7.2}Question: Add details to the derivations of {[}KF3--6{]}}{15}{subsubsection.9.7.2}
