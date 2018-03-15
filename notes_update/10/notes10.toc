@@ -1,0 +1,25 @@
+\contentsline {subsection}{\numberline {10.1}Time series analysis via nonlinear partially observed Markov process (NL-POMP) models}{1}{subsection.10.1}
+\contentsline {subsubsection}{\numberline {10.1.1}Six problems of \href {http://dx.doi.org/10.1126/science.1062226}{Bjornstad and Grenfell (Science, 2001)}}{1}{subsubsection.10.1.1}
+\contentsline {subsubsection}{\numberline {10.1.2}Applications of NL-POMP models}{2}{subsubsection.10.1.2}
+\contentsline {subsection}{\numberline {10.2}An algorithmic approach to inference for POMP models}{2}{subsection.10.2}
+\contentsline {subsubsection}{\numberline {10.2.1}What does it mean for statistical methodology to be simulation-based?}{3}{subsubsection.10.2.1}
+\contentsline {subsection}{\numberline {10.3}The \textbf {pomp} \textbf {R} package for POMP models}{3}{subsection.10.3}
+\contentsline {subsection}{\numberline {10.4}Example: the Ricker model}{4}{subsection.10.4}
+\contentsline {subsubsection}{\numberline {10.4.1}A deterministic version of the Ricker model.}{4}{subsubsection.10.4.1}
+\contentsline {subsubsection}{\numberline {10.4.2}Adding stochasticity to the Ricker equation}{4}{subsubsection.10.4.2}
+\contentsline {subsubsection}{\numberline {10.4.3}Question: does adding Gaussian noise mean we have a Gaussian latent process model?}{4}{subsubsection.10.4.3}
+\contentsline {subsubsection}{\numberline {10.4.4}Adding measurement error to the Ricker model}{5}{subsubsection.10.4.4}
+\contentsline {subsubsection}{\numberline {10.4.5}Writing the Ricker model as a POMP model}{5}{subsubsection.10.4.5}
+\contentsline {subsubsection}{\numberline {10.4.6}Working with the Ricker model in \textbf {pomp}.}{5}{subsubsection.10.4.6}
+\contentsline {subsubsection}{\numberline {10.4.7}Question: What is a generic function?}{7}{subsubsection.10.4.7}
+\contentsline {subsection}{\numberline {10.5}Inference algorithms in \textbf {pomp}}{15}{subsection.10.5}
+\contentsline {subsection}{\numberline {10.6}Building a custom \texttt {pomp} object}{16}{subsection.10.6}
+\contentsline {subsubsection}{\numberline {10.6.1}Add construction of the deterministic skeleton here}{18}{subsubsection.10.6.1}
+\contentsline {subsubsection}{\numberline {10.6.2}A note on terminology}{18}{subsubsection.10.6.2}
+\contentsline {subsubsection}{\numberline {10.6.3}Adding in the process model simulator}{19}{subsubsection.10.6.3}
+\contentsline {subsubsection}{\numberline {10.6.4}Adding in the measurement model and parameters}{20}{subsubsection.10.6.4}
+\contentsline {subsection}{\numberline {10.7}Exercises}{21}{subsection.10.7}
+\contentsline {subsubsection}{\numberline {10.7.1}Ricker model parameters}{21}{subsubsection.10.7.1}
+\contentsline {subsubsection}{\numberline {10.7.2}Reformulating the Ricker model}{21}{subsubsection.10.7.2}
+\contentsline {subsubsection}{\numberline {10.7.3}Beverton-Holt}{21}{subsubsection.10.7.3}
+\contentsline {subsection}{\numberline {10.8}References}{21}{subsection.10.8}
