@@ -1,17 +1,20 @@
 ---
-title: "10. Statistical methodology for nonlinear partially observed Markov process models"
+title: "10 Statistical methodology for nonlinear partially observed Markov process models"
 author: "Edward Ionides"
 date: "3/12/2018"
 output:
+  pdf_document: 
+    keep_tex: yes
+    toc: yes
+    toc_depth: 2
   html_document:
     theme: flatly
     toc: yes
     toc_depth: 2
     number_sections: true
     pandoc_args: [
-      "--number-offset=11"
-    ]
-bibliography: notes10.bib
+      "--number-offset=10"
+      ]
 csl: ecology.csl
 ---
 
@@ -28,7 +31,6 @@ csl: ecology.csl
 \newcommand\eqspace{\quad\quad}
 \newcommand\myeq[1]{\eqspace \displaystyle #1}
 \newcommand\lik{\mathscr{L}}
-\newcommand\loglik{\ell}
 \newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
 \newcommand\ar{\phi}
 \newcommand\ma{\psi}
@@ -43,11 +45,6 @@ csl: ecology.csl
 \newcommand\covmatX{\mathbb{U}}
 \newcommand\covmatY{\mathbb{V}}
 
-
-
-Licensed under the Creative Commons attribution-noncommercial license, http://creativecommons.org/licenses/by-nc/3.0/.
-Please share and remix noncommercially, mentioning its origin.  
-![CC-BY_NC](cc-by-nc.png)
 
 ```{r knitr-opts,include=FALSE,cache=FALSE,purl=FALSE}
 library(pomp)
@@ -332,10 +329,10 @@ upper case POMP is a class of models.
 ### Writing the Ricker model as a POMP model
 
 * For our standard definition of a POMP model $(X_{0:N},Y_{0:N})$, we can check that equations [R2] and [R3] together with the parameter $P_0$ define a POMP model with
-$$\begin{eqnarray}
+\begin{eqnarray}
 X_n &=& P_n \\
 Y_n &=& Y_n 
-\end{eqnarray}.$$
+\end{eqnarray}.
 
 * Following the usual POMP paradigm, $P_n$ is a true but unknown population density at time $t_n$.
 
