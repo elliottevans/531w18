@@ -1,0 +1,184 @@
+---
+title: "STATS 531 HW 7"
+author: "Elliott Evans"
+date: "3/26/2018"
+header-includes:
+   - \usepackage{amsmath}
+   - \usepackage{amssymb}
+   - \usepackage{amsthm}
+output:
+  html_document:
+    theme: flatly
+    toc: yes
+  pdf_document:
+    toc: yes
+csl: ecology.csl
+---
+
+\newcommand{\DEF}{\overset{\text{def}}{=}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\IND}{\mathbbm{1}}
+\newcommand{\var}{\text{Var}}
+\newcommand{\cov}{\text{Cov}}
+\newcommand{\logit}{\text{logit}}
+\newcommand{\n}{\newline}
+\newcommand\loglik{\ell}
+\newcommand\R{\mathbb{R}}
+\newcommand\data[1]{#1^*}
+\newcommand\estimate[1]{\data{#1}}
+\newcommand\params{\, ; \,}
+\newcommand\transpose{\scriptsize{T}}
+\newcommand\eqspace{\quad\quad\quad}
+\newcommand\lik{\mathscr{L}}
+\newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
+\newcommand\ar{\phi}
+\newcommand\ma{\psi}
+
+-----------
+
+## Question 7.1. Reformulating the Ricker model.
+Below, we load the data and reformulate the Ricker model so that the scaling of $P_n$ is explicit:
+$$P_{n+1} = rP_n \exp\left(-\frac{P_n}{k}\right).$$
+We also modify the measurement model so that the data is modeled as $Y_n\,|\,P_n\sim \text{Negbin}(\phi P_n,\psi)$. Notice the oscillatory behavior in the population density trajectory.
+
+```{r read_data, echo=T, warning=F, fig.align="center"}
+library(pomp)
+library(ggplot2)
+
+dat = read.csv("https://ionides.github.io/531w18/10/parus.csv")
+
+parus = pomp(dat,times='year',t0=1959)
+
+#Create skeleton
+skel = Csnippet("
+        DN=r*N*exp(-N/k);
+")
+
+#Create pomp object
+parus = pomp(parus,skeleton=map(skel),paramnames=c("r","k"),statenames=c("N"))
+
+traj = trajectory(parus,params=c(N.0=1,r=8,k=1),as.data.frame=TRUE)
+
+par(mfrow=c(1,2))
+#Plot data
+plot(dat,type='l',xlab = 'Year',ylab='Population',main='Parus Data',bty='n')
+#Plot the deterministic trajectory
+plot(traj$N~traj$time,type='l',bty='n',ylab='Population Density (N)',xlab='Year',main='Trajectory\nN.0=1, r=8, k=1')
+```
+
+Below, after simulating from a few choices of parameters, we present a simulation showing further oscillatory behavior.
+
+```{r next, echo=T, warning=F, fig.align="center"}
+#Add stochasticity to ricker equation
+stochStep <- Csnippet("
+  e = rnorm(0,sigma);
+  N = r*N*exp(-N/k+e);
+")
+parus = pomp(parus,
+             rprocess=discrete.time.sim(step.fun=stochStep,delta.t=1),
+             paramnames=c("r","k","sigma"),
+             statenames=c("N","e"))
+
+sim = simulate(parus,
+               params=c(N.0=1,e.0=0,r=8,k=1,sigma=0.5),
+               as.data.frame=TRUE,states=TRUE)
+plot(N~time,data=sim,type='l',xlab='Year',ylab='N',
+      main='Population Density Trajectory & Simulations')
+lines(N~time,data=traj,type='l',col='blue')
+
+#Modify measurement model to reflect negative binomial distribution
+rmeas = Csnippet("pop = rnbinom(phi*N*psi/(1-psi),psi);")
+dmeas = Csnippet("lik = dnbinom(pop,phi*N*psi/(1-psi),psi,give_log);")
+
+parus = pomp(parus,
+             rmeasure=rmeas,
+             dmeasure=dmeas,
+             statenames=c("N"),
+             paramnames=c("phi","psi"))
+
+#One simulation from set of parameters showing oscillatory behavior
+coef(parus) = c(N.0=100,e.0=0,r=6,k=125,sigma=0.01,phi=1,psi=0.1)
+sims = simulate(parus,nsim=1,as.data.frame=TRUE,include.data=TRUE)
+ggplot(data=sims,mapping=aes(x=time,y=pop))+geom_line()+
+  facet_wrap(~sim)+ggtitle('Population Simulation Using Ricker Model')
+```
+
+## Question 7.2. Coding a new model.
+
+We construct a new pomp object using the Beverton-Holt model, 
+$$P_{n+1}=\frac{aP_n}{1+bP_n}\epsilon_n, $$
+where $a$ and $b$ are parameters and $\epsilon_t\sim\text{Lognormal}\left(-\frac{1}{2}\sigma^2,\sigma^2\right)$.
+
+
+```{r next2, echo=T, warning=F, fig.align="center"}
+parus = pomp(dat,times='year',t0=1959)
+
+#Create skeleton
+skel = Csnippet("
+        DN=a*N/(1+b*N);
+")
+
+#Create pomp object
+parus = pomp(parus,skeleton=map(skel),paramnames=c("a","b"),statenames=c("N"))
+
+traj2 = trajectory(parus,params=c(N.0=1,a=6,b=3),as.data.frame=TRUE)
+
+par(mfrow=c(1,2))
+#Plot data
+plot(dat,type='l',xlab = 'Year',ylab='Population',main='Parus Data',bty='n')
+#Plot the deterministic trajectory
+plot(traj2$N~traj$time,type='l',bty='n',ylab='Population Density (N)',xlab='Year',main='Trajectory\nN.0=1, a=6, b=3')
+```
+
+```{r next3, echo=T, warning=F, fig.align="center"}
+stochStep <- Csnippet("
+  e = rlnorm((-1)*sigma*sigma/2,sigma);
+  N = a*N*e/(1+b*N);
+")
+parus = pomp(parus,
+             rprocess=discrete.time.sim(step.fun=stochStep,delta.t=1),
+             paramnames=c("a","b","sigma"),
+             statenames=c("N","e"))
+
+sim = simulate(parus,
+               params=c(N.0=1,e.0=0,a=6,b=3,sigma=0.5),
+               as.data.frame=TRUE,states=TRUE)
+plot(N~time,data=sim,type='l',xlab='Year',ylab='N',
+      main='Population Density Trajectory & Simulations')
+lines(N~time,data=traj2,type='l',col='blue')
+```
+
+
+```{r next4, echo=T, warning=F, fig.align="center"}
+#Modify measurement model to reflect negative binomial distribution
+rmeas = Csnippet("pop = rnbinom(phi*N*psi/(1-psi),psi);")
+dmeas = Csnippet("lik = dnbinom(pop,phi*N*psi/(1-psi),psi,give_log);")
+
+parus = pomp(parus,
+             rmeasure=rmeas,
+             dmeasure=dmeas,
+             statenames=c("N"),
+             paramnames=c("phi","psi"))
+
+#One simulation from set of parameters showing oscillatory behavior
+coef(parus) = c(N.0=100,e.0=0,a=400,b=2,sigma=0.5,phi=1,psi=0.06)
+sims = simulate(parus,nsim=1,as.data.frame=TRUE,include.data=TRUE)
+ggplot(data=sims,mapping=aes(x=time,y=pop))+geom_line()+
+  facet_wrap(~sim)+ggtitle('Population Simulation Using Beverton-Holt Model')
+```
+
+The key difference between our Ricker model and our Beverton-Holt model is in the model for the population density. The ricker model gives a trajectory that oscillates while the Beverton-Holt model gives a trajectory that increases, and then hits a ceiling at around 1962 (given the chosen parameters). However, the simulations for the measurements do not appear to be drastically different, with both models showing quite a bit of variation between 100 and 350, as we see in the population simulations.
+
+
+## Question 7.3. How long did this homework take?
+
+Downloading the Pomp package was relatively simple on my windows machine and didn't take long (perhaps 5 minutes). Coding the models and running the simulations took about 45 minutes.
+
+## Sources
+ - The W16 solutions were used to check work.
+ 
+## Please Explain
+ - Is there a specific situation where we would want to use the Beverton-Holt model over the Ricker model?
