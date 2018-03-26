@@ -1,0 +1,25 @@
+\contentsline {subsection}{Time series analysis via nonlinear partially observed Markov process (NL-POMP) models}{1}{section*.2}
+\contentsline {subsubsection}{Six problems of \href {http://dx.doi.org/10.1126/science.1062226}{Bjornstad and Grenfell (Science, 2001)}}{1}{section*.3}
+\contentsline {subsubsection}{Applications of NL-POMP models}{2}{section*.4}
+\contentsline {subsection}{An algorithmic approach to inference for POMP models}{2}{section*.5}
+\contentsline {subsubsection}{What does it mean for statistical methodology to be simulation-based?}{3}{section*.6}
+\contentsline {subsection}{The \textbf {pomp} \textbf {R} package for POMP models}{3}{section*.7}
+\contentsline {subsection}{Example: the Ricker model}{4}{section*.8}
+\contentsline {subsubsection}{A deterministic version of the Ricker model.}{4}{section*.9}
+\contentsline {subsubsection}{Adding stochasticity to the Ricker equation}{4}{section*.10}
+\contentsline {subsubsection}{Question: does adding Gaussian noise mean we have a Gaussian latent process model?}{4}{section*.11}
+\contentsline {subsubsection}{Adding measurement error to the Ricker model}{5}{section*.12}
+\contentsline {subsubsection}{Writing the Ricker model as a POMP model}{5}{section*.13}
+\contentsline {subsubsection}{Working with the Ricker model in \textbf {pomp}.}{5}{section*.14}
+\contentsline {subsubsection}{Question: What is a generic function?}{7}{section*.15}
+\contentsline {subsection}{Inference algorithms in \textbf {pomp}}{15}{section*.16}
+\contentsline {subsection}{Building a custom \texttt {pomp} object}{16}{section*.17}
+\contentsline {subsubsection}{Add construction of the deterministic skeleton here}{18}{section*.18}
+\contentsline {subsubsection}{A note on terminology}{18}{section*.19}
+\contentsline {subsubsection}{Adding in the process model simulator}{19}{section*.20}
+\contentsline {subsubsection}{Adding in the measurement model and parameters}{20}{section*.21}
+\contentsline {subsection}{Exercises}{21}{section*.22}
+\contentsline {subsubsection}{Ricker model parameters}{21}{section*.23}
+\contentsline {subsubsection}{Reformulating the Ricker model}{21}{section*.24}
+\contentsline {subsubsection}{Beverton-Holt}{21}{section*.25}
+\contentsline {subsection}{References}{21}{section*.26}

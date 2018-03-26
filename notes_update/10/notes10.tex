@@ -841,6 +841,8 @@ function?}\label{question-what-is-a-generic-function}
 ##  $ sim : Ord.factor w/ 10 levels "1"<"2"<"3"<"4"<..: 1 1 1 1 1 1 1 1 1 1 ...
 \end{verbatim}
 
+\todo[inline]{In above df, gives you observation process and state (latent) process. In pomp terminolog, N is the latent process, Y is the observed process}
+
 Also,
 
 \begin{Shaded}
@@ -913,6 +915,8 @@ Also,
 ## 44.70118  0.30000 10.00000  1.00000  7.00000  0.00000
 \end{verbatim}
 
+\todo[inline]{In output above, N.0 is the initial value of the state (latent) process}
+
 \begin{itemize}
 \item
   These are the parameters at which the simulations and deterministic
@@ -931,7 +935,7 @@ Also,
 \end{Shaded}
 
 \begin{center}\includegraphics{figure/intro-unnamed-chunk-5-1} \end{center}
-
+\todo[inline]{New set of parameters creates state process that converges to an equilibrium population density.}
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{x <-}\StringTok{ }\KeywordTok{simulate}\NormalTok{(ricker,}\DataTypeTok{params=}\NormalTok{theta)}
@@ -940,6 +944,12 @@ Also,
 \end{Shaded}
 
 \begin{center}\includegraphics{figure/intro-unnamed-chunk-5-2} \end{center}
+
+\todo[inline]{Here, the dynamics are pushing this to a stable process.}
+
+\todo[inline]{Adding noise to a stable process doesn't have long-term effects (as in above). However, for the many gg-plots above, we have unstable processes.}
+
+\todo[inline]{Note that in dynamics we have (1) chaotic cycles (i.e. unstable) and (2) stable cycles. In (1), a small difference in initial conditions leads to larger differences later. Here, sample paths are divergent, viewed as a function of initial conditions. In (2), there exists an equilibrium or stable limit cycle.}
 
 \begin{itemize}
 \tightlist
@@ -958,6 +968,8 @@ Also,
 ##     r sigma   phi     c   N.0   e.0 
 ##  39.0   1.0  10.0   1.0   0.5   0.0
 \end{verbatim}
+
+\todo[inline]{The c parameter above is in front of $-P_n$ in the Ricker equation in R2. Here, it's just 1.}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1091,6 +1103,8 @@ Also,
 \end{Shaded}
 
 \begin{center}\includegraphics{figure/intro-pfilter1-1} \end{center}
+
+\todo[inline]{ess -- effective sample size (from MCMC). The CLL is the conditional log-likelihood: $f_{Y_n|Y_{1:n-1}}$ for $n=1,\cdots, N$}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1232,6 +1246,8 @@ prior to the beginning of the data. Plot it:
 \subsubsection{Add construction of the deterministic skeleton
 here}\label{add-construction-of-the-deterministic-skeleton-here}
 
+\todo[inline]{skel = Csnippet(``DN=r*N*exp(-N);")}
+
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -1241,7 +1257,20 @@ here}\label{add-construction-of-the-deterministic-skeleton-here}
 \begin{itemize}
 \item
   If we know the state, \(x(t_0)\), of the system at time \(t_0\), it
-  makes sense to speak about the entire trajectory of the system for all
+  makes sense to speak about the entire trequire(pomp)
+  \#\# Loading required package: pomp
+  require(ggplot2)
+  \#\# Loading required package: ggplot2
+  dat <- read.csv("http://ionides.github.io/531w16/notes11/parus.csv")
+  set.seed(2016)
+  parus<-pomp(dat,times="year",t0=1959)
+  plot(parus)
+  
+  
+  skel<-Csnippet("DN=r*N*exp(-N/k);")
+  parus<-pomp(parus,skeleton=skel,skeleton.type='map',paramnames=c("r","k"),statenames=c("N"))
+  traj<-trajectory(parus,params=c(N.0=1,r=12,k=1),as.data.frame=TRUE)
+  ggplot(data=traj,aes(x=time,y=N))+geom\_line()rajectory of the system for all
   \(t>t_0\).
 \item
   This is true whether we are thinking of the system as deterministic or
