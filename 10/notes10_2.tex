@@ -1153,7 +1153,8 @@ A real \textbf{pomp} data analysis begins with constructing one or more
 \texttt{pomp} objects to hold the data and the model or models under
 consideration. We'll illustrate this process a dataset of the abundance
 of the \href{https://en.wikipedia.org/wiki/Great_tit}{great tit
-(\emph{Parus major})} in Wytham Wood, near Oxford {[}@mccleery91{]}.
+(\emph{Parus major})} in Wytham Wood, near Oxford (McCleery and Perrins
+1991).
 
 Download and plot the data:
 
@@ -1221,8 +1222,62 @@ prior to the beginning of the data. Plot it:
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\subsubsection{Add construction of the deterministic skeleton
-here}\label{add-construction-of-the-deterministic-skeleton-here}
+\subsubsection{Adding in the deterministic
+skeleton}\label{adding-in-the-deterministic-skeleton}
+
+We can add the Ricker model deterministic skeleton to the \texttt{parus}
+\texttt{pomp} object. Since the Ricker model is a discrete-time model,
+its skeleton is a map that takes \(P_n\) to \(P_{n+1}\) according to the
+Ricker model equation \[
+P_{n+1} = r\,P_{n}\,\exp(-P_{n}).
+\] We provide this to \texttt{pomp} in the form of a \texttt{Csnippet},
+a little snippet of C code that performs the computation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{skel <-}\StringTok{ }\KeywordTok{Csnippet}\NormalTok{(}\StringTok{"DN = r*N*exp(-N);"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We then add this to the \texttt{pomp} object:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{parus <-}\StringTok{ }\KeywordTok{pomp}\NormalTok{(parus,}\DataTypeTok{skeleton=}\KeywordTok{map}\NormalTok{(skel),}\DataTypeTok{statenames=}\StringTok{"N"}\NormalTok{,}\DataTypeTok{paramnames=}\StringTok{"r"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Note that we have to inform \textbf{pomp} as to which of the variables
+we've referred to in \texttt{skel} is a state variable
+(\texttt{statenames}) and which is a parameter (\texttt{paramnames}).
+
+With just the skeleton defined, we are in a position to compute the
+trajectories of the deterministic skeleton at any point in parameter
+space. For example,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{traj <-}\StringTok{ }\KeywordTok{trajectory}\NormalTok{(parus,}\DataTypeTok{params=}\KeywordTok{c}\NormalTok{(}\DataTypeTok{N.0=}\DecValTok{1}\NormalTok{,}\DataTypeTok{r=}\DecValTok{12}\NormalTok{), }\DataTypeTok{as.data.frame=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{traj,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{time,}\DataTypeTok{y=}\NormalTok{N))}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{figure/intro-parus-first-traj-1} \end{center}
+
+It may be interesting to note how different the dynamics become if the
+skeleton is considered as the derivative of a differential equation
+rather than as a discrete time map. It is harder to get chaotic dynamics
+in a continuous time system.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{parus2 <-}\StringTok{ }\KeywordTok{pomp}\NormalTok{(parus,}\DataTypeTok{skeleton=}\KeywordTok{vectorfield}\NormalTok{(skel),}\DataTypeTok{statenames=}\StringTok{"N"}\NormalTok{,}\DataTypeTok{paramnames=}\StringTok{"r"}\NormalTok{)}
+\NormalTok{traj2 <-}\StringTok{ }\KeywordTok{trajectory}\NormalTok{(parus2,}\DataTypeTok{params=}\KeywordTok{c}\NormalTok{(}\DataTypeTok{N.0=}\DecValTok{1}\NormalTok{,}\DataTypeTok{r=}\DecValTok{12}\NormalTok{),}\DataTypeTok{as.data.frame=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{traj2,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{time,}\DataTypeTok{y=}\NormalTok{N))}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{figure/intro-parus-first-traj-vector-1} \end{center}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -1462,6 +1517,13 @@ in Infectious Diseases, 2015, 2016 \& 2017.
 \subsection{References}\label{references}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{refs}{}
+\hypertarget{ref-mccleery91}{}
+McCleery, R. H., and C. M. Perrins. 1991. Effects of predation on the
+numbers of great tits \emph{Parus major}. Pages 129--147 \emph{in} Bird
+population studies. relevence to conservation and management. Oxford
+University Press, Oxford.
 
 
 \end{document}

@@ -1,10 +1,10 @@
 \documentclass[]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
 \usepackage{bm}
 \usepackage{soul}
 \usepackage[color=yellow]{todonotes}
+\usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
@@ -545,7 +545,7 @@ model}\label{writing-the-ricker-model-as-a-pomp-model}
   .
 \item
   Following the usual POMP paradigm, \hl{$P_n$ is a true but unknown
-  population density at time $t_n$.}
+  population density at time $t_n$}.
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -841,7 +841,7 @@ function?}\label{question-what-is-a-generic-function}
 ##  $ sim : Ord.factor w/ 10 levels "1"<"2"<"3"<"4"<..: 1 1 1 1 1 1 1 1 1 1 ...
 \end{verbatim}
 
-\todo[inline]{In above df, gives you observation process and state (latent) process. In pomp terminolog, N is the latent process, Y is the observed process}
+\todo[inline]{In above df, gives you observation process and state (latent) process. In pomp terminology, N is the latent process, Y is the observed process}
 
 Also,
 
@@ -854,7 +854,7 @@ Also,
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{figure/intro-unnamed-chunk-4-1} \end{center}
+\begin{center}\scalebox{0.8}{\includegraphics{figure/intro-unnamed-chunk-4-1}} \end{center}
 
 \begin{itemize}
 \tightlist
@@ -935,7 +935,9 @@ Also,
 \end{Shaded}
 
 \begin{center}\includegraphics{figure/intro-unnamed-chunk-5-1} \end{center}
+
 \todo[inline]{New set of parameters creates state process that converges to an equilibrium population density.}
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{x <-}\StringTok{ }\KeywordTok{simulate}\NormalTok{(ricker,}\DataTypeTok{params=}\NormalTok{theta)}
@@ -1175,7 +1177,8 @@ A real \textbf{pomp} data analysis begins with constructing one or more
 \texttt{pomp} objects to hold the data and the model or models under
 consideration. We'll illustrate this process a dataset of the abundance
 of the \href{https://en.wikipedia.org/wiki/Great_tit}{great tit
-(\emph{Parus major})} in Wytham Wood, near Oxford {[}@mccleery91{]}.
+(\emph{Parus major})} in Wytham Wood, near Oxford (McCleery and Perrins
+1991).
 
 Download and plot the data:
 
@@ -1243,10 +1246,62 @@ prior to the beginning of the data. Plot it:
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\subsubsection{Add construction of the deterministic skeleton
-here}\label{add-construction-of-the-deterministic-skeleton-here}
+\subsubsection{Adding in the deterministic
+skeleton}\label{adding-in-the-deterministic-skeleton}
 
-\todo[inline]{skel = Csnippet(``DN=r*N*exp(-N);")}
+We can add the Ricker model deterministic skeleton to the \texttt{parus}
+\texttt{pomp} object. Since the Ricker model is a discrete-time model,
+its skeleton is a map that takes \(P_n\) to \(P_{n+1}\) according to the
+Ricker model equation \[
+P_{n+1} = r\,P_{n}\,\exp(-P_{n}).
+\] We provide this to \texttt{pomp} in the form of a \texttt{Csnippet},
+a little snippet of C code that performs the computation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{skel <-}\StringTok{ }\KeywordTok{Csnippet}\NormalTok{(}\StringTok{"DN = r*N*exp(-N);"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We then add this to the \texttt{pomp} object:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{parus <-}\StringTok{ }\KeywordTok{pomp}\NormalTok{(parus,}\DataTypeTok{skeleton=}\KeywordTok{map}\NormalTok{(skel),}\DataTypeTok{statenames=}\StringTok{"N"}\NormalTok{,}\DataTypeTok{paramnames=}\StringTok{"r"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Note that we have to inform \textbf{pomp} as to which of the variables
+we've referred to in \texttt{skel} is a state variable
+(\texttt{statenames}) and which is a parameter (\texttt{paramnames}).
+
+With just the skeleton defined, we are in a position to compute the
+trajectories of the deterministic skeleton at any point in parameter
+space. For example,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{traj <-}\StringTok{ }\KeywordTok{trajectory}\NormalTok{(parus,}\DataTypeTok{params=}\KeywordTok{c}\NormalTok{(}\DataTypeTok{N.0=}\DecValTok{1}\NormalTok{,}\DataTypeTok{r=}\DecValTok{12}\NormalTok{), }\DataTypeTok{as.data.frame=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{traj,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{time,}\DataTypeTok{y=}\NormalTok{N))}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\scalebox{0.8}{\includegraphics{figure/intro-parus-first-traj-1}} \end{center}
+
+It may be interesting to note how different the dynamics become if the
+skeleton is considered as the derivative of a differential equation
+rather than as a discrete time map. It is harder to get chaotic dynamics
+in a continuous time system.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{parus2 <-}\StringTok{ }\KeywordTok{pomp}\NormalTok{(parus,}\DataTypeTok{skeleton=}\KeywordTok{vectorfield}\NormalTok{(skel),}\DataTypeTok{statenames=}\StringTok{"N"}\NormalTok{,}\DataTypeTok{paramnames=}\StringTok{"r"}\NormalTok{)}
+\NormalTok{traj2 <-}\StringTok{ }\KeywordTok{trajectory}\NormalTok{(parus2,}\DataTypeTok{params=}\KeywordTok{c}\NormalTok{(}\DataTypeTok{N.0=}\DecValTok{1}\NormalTok{,}\DataTypeTok{r=}\DecValTok{12}\NormalTok{),}\DataTypeTok{as.data.frame=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{traj2,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{time,}\DataTypeTok{y=}\NormalTok{N))}\OperatorTok{+}\KeywordTok{geom_line}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\scalebox{0.8}{\includegraphics{figure/intro-parus-first-traj-vector-1}} \end{center}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -1257,20 +1312,7 @@ here}\label{add-construction-of-the-deterministic-skeleton-here}
 \begin{itemize}
 \item
   If we know the state, \(x(t_0)\), of the system at time \(t_0\), it
-  makes sense to speak about the entire trequire(pomp)
-  \#\# Loading required package: pomp
-  require(ggplot2)
-  \#\# Loading required package: ggplot2
-  dat <- read.csv("http://ionides.github.io/531w16/notes11/parus.csv")
-  set.seed(2016)
-  parus<-pomp(dat,times="year",t0=1959)
-  plot(parus)
-  
-  
-  skel<-Csnippet("DN=r*N*exp(-N/k);")
-  parus<-pomp(parus,skeleton=skel,skeleton.type='map',paramnames=c("r","k"),statenames=c("N"))
-  traj<-trajectory(parus,params=c(N.0=1,r=12,k=1),as.data.frame=TRUE)
-  ggplot(data=traj,aes(x=time,y=N))+geom\_line()rajectory of the system for all
+  makes sense to speak about the entire trajectory of the system for all
   \(t>t_0\).
 \item
   This is true whether we are thinking of the system as deterministic or
@@ -1287,6 +1329,9 @@ here}\label{add-construction-of-the-deterministic-skeleton-here}
   trajectory determined by the specified parameters. When we want to
   speak about sample paths of a stochastic process, we use the term
   \emph{simulation}.
+
+  \todo[inline]{For a stochastic latent process, we ``simulate a sample path" whereas for a deterministic latent process, we ``solve for the trajectory."}  
+
 \item
   Accordingly, the \texttt{simulate} command always returns individual
   sample paths from the POMP. In particular, we avoid ``simulating a set
@@ -1499,6 +1544,13 @@ in Infectious Diseases, 2015, 2016 \& 2017.
 \subsection{References}\label{references}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{refs}{}
+\hypertarget{ref-mccleery91}{}
+McCleery, R. H., and C. M. Perrins. 1991. Effects of predation on the
+numbers of great tits \emph{Parus major}. Pages 129--147 \emph{in} Bird
+population studies. relevence to conservation and management. Oxford
+University Press, Oxford.
 
 
 \end{document}

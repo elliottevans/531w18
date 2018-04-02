@@ -14,12 +14,8 @@ output:
     number_sections: true
     pandoc_args: [
       "--number-offset=10"
-<<<<<<< HEAD
       ]
-=======
-    ]
 bibliography: notes10.bib
->>>>>>> 09bec0bb2023a36657426bd8cf717be67ec47d2a
 csl: ecology.csl
 ---
 

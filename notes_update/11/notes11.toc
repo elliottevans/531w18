@@ -1,0 +1,19 @@
+\contentsline {subsection}{\numberline {11.1}Compartment models}{1}{subsection.11.1}
+\contentsline {subsection}{\numberline {11.2}Compartment models in epidemiology: the SIR model and its generalizations}{2}{subsection.11.2}
+\contentsline {subsection}{\numberline {11.3}The \emph {ordinary differential equation} (ODE) interpretation of the SIR model}{3}{subsection.11.3}
+\contentsline {subsection}{\numberline {11.4}The simple continuous-time Markov chain interpretation of the SIR model}{3}{subsection.11.4}
+\contentsline {subsubsection}{\numberline {11.4.1}Question: What is the link between little \(o\) notation and the derivative?}{4}{subsubsection.11.4.1}
+\contentsline {subsection}{\numberline {11.5}Exercises}{4}{subsection.11.5}
+\contentsline {subsubsection}{\numberline {11.5.1}From Markov chain to ODE}{4}{subsubsection.11.5.1}
+\contentsline {subsection}{\numberline {11.6}Euler's method for ordinary differential equations (ODEs)}{4}{subsection.11.6}
+\contentsline {subsection}{\numberline {11.7}Some comments on using continuous-time models and discretized approximations}{5}{subsection.11.7}
+\contentsline {subsection}{\numberline {11.8}Euler's method for a discrete SIR model}{5}{subsection.11.8}
+\contentsline {subsection}{\numberline {11.9}Exercises}{6}{subsection.11.9}
+\contentsline {subsubsection}{\numberline {11.9.1}Theoretical exercise: Compartment models via stochastic differential equations (SDEs)}{6}{subsubsection.11.9.1}
+\contentsline {subsubsection}{\numberline {11.9.2}Conceptual exercise: Euler's method vs Gillspie's algorithm}{7}{subsubsection.11.9.2}
+\contentsline {subsection}{\numberline {11.10}Compartmental models in \textbf {pomp}.}{7}{subsection.11.10}
+\contentsline {subsection}{\numberline {11.11}Exercises}{11}{subsection.11.11}
+\contentsline {subsubsection}{\numberline {11.11.1}Explore the SIR model}{11}{subsubsection.11.11.1}
+\contentsline {subsubsection}{\numberline {11.11.2}The SEIR model}{11}{subsubsection.11.11.2}
+\contentsline {subsubsection}{\numberline {11.11.3}Rethinking the boarding-school flu data}{11}{subsubsection.11.11.3}
+\contentsline {subsection}{References}{12}{section*.3}
