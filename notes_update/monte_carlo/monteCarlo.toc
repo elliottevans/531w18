@@ -1,0 +1,9 @@
+\contentsline {subsection}{Our context: Monte Carlo methods for POMP models.}{1}{section*.2}
+\contentsline {subsection}{The fundamental theorem of Monte Carlo integration}{1}{section*.3}
+\contentsline {subsection}{Importance sampling}{2}{section*.4}
+\contentsline {subsection}{Simulation techniques for general distributions}{3}{section*.5}
+\contentsline {subsubsection}{The transformation method}{4}{section*.6}
+\contentsline {subsubsection}{The rejection method}{4}{section*.7}
+\contentsline {paragraph}{The rejection method for uniform random variables on arbitrary sets}{4}{section*.8}
+\contentsline {paragraph}{The rejection method for dominated densities}{5}{section*.9}
+\contentsline {paragraph}{Acknowledgement: These notes derive from \href {http://kingaa.github.io/sbied/pfilter/monteCarlo.html}{notes by Aaron King}.}{6}{section*.10}

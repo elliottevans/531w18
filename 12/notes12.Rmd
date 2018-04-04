@@ -1,8 +1,13 @@
 ---
-title: "12. Practical likelihood-based inference for POMP models"
+title: "12 Practical likelihood-based inference for POMP models"
+always_allow_html: TRUE
 author: "Edward Ionides"
 date: "4/1/2018"
 output:
+  pdf_document: 
+    keep_tex: yes
+    toc: yes
+    toc_depth: 2
   html_document:
     theme: flatly
     toc: yes
@@ -10,16 +15,14 @@ output:
     number_sections: true
     pandoc_args: [
       "--number-offset=12"
-    ]
-bibliography: notes12.bib
+      ]
 csl: ecology.csl
-
+bibliography: notes12.bib
 ---
 
 
 \newcommand\prob{\mathbb{P}}
 \newcommand\E{\mathbb{E}}
-\newcommand\var{\mathrm{Var}}
 \newcommand\cov{\mathrm{Cov}}
 \newcommand\loglik{\ell}
 \newcommand\R{\mathbb{R}}
@@ -28,8 +31,7 @@ csl: ecology.csl
 \newcommand\transpose{\scriptsize{T}}
 \newcommand\eqspace{\quad\quad}
 \newcommand\myeq[1]{\eqspace \displaystyle #1}
-\newcommand\lik{\mathscr{L}}
-\newcommand\loglik{\ell}
+\newcommand\lik{\mathcal{L}}
 \newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
 \newcommand\ar{\phi}
 \newcommand\ma{\psi}
@@ -43,13 +45,6 @@ csl: ecology.csl
 \newcommand\matH{\mathbb{H}}
 \newcommand\covmatX{\mathbb{U}}
 \newcommand\covmatY{\mathbb{V}}
-
-
-
-Licensed under the Creative Commons attribution-noncommercial license, http://creativecommons.org/licenses/by-nc/3.0/.
-Please share and remix noncommercially, mentioning its origin.  
-![CC-BY_NC](cc-by-nc.png)
-
 
 \newcommand\expect[1]{\mathbb{E}\left[{#1}\right]}
 \newcommand\var[1]{\mathrm{Var}\left[{#1}\right]}
@@ -191,13 +186,13 @@ ggplot(data=y,
  
 * We can imagine using [Monte Carlo integration](./monteCarlo.html#monte-carlo-integration) for computing the likelihood of a state space model,
 
-$$\begin{eqnarray}
+\begin{eqnarray}
 \lik(\theta)
 &=&
 f_{Y_{1:N}}(\data{y_{1:N}}\params\theta)
 \\
 &=& \! \int_{x_{0:N}} \!\! f_{X_0}(x_0\params\theta)\prod_{n=1}^{N}\!f_{Y_n|X_n}(\data{y_n}\given x_n\params \theta)\, f_{X_n|X_{n-1}}(x_n|x_{n-1}\params\theta)\, dx_{0:N}.
-\end{eqnarray}$$
+\end{eqnarray}
 
 * Specifically, if we have some probabilistic means of proposing trajectories for the unobserved state process, then we could just generate a large number of these and approximate $\lik(\theta)$ by its Monte Carlo estimate.
 
@@ -212,11 +207,11 @@ $$G_{j}= g_{X_0}(X_{0,j})\prod_{n=1}^N g_{X_n|X_{n-1}}(X_{n,j}\given X_{n-1,j}).
 $$F_{j}= f_{X_0}(X_{0,j}\params\theta)\prod_{n=1}^N f_{X_n|X_{n-1}}(X_{n,j}\given X_{n-1,j}\params\theta).$$
 
 * For each trajectory, we can compute the measurement likelihood of that trajectory, i.e., the measurement density 
-$$\begin{eqnarray} 
+\begin{eqnarray} 
 &&f_{Y_{1:N}|X_{1:N}}(\data{y_{1:N}}\given X_{1:N,j}\params\theta)
 \\
 &&\quad =\prod_{n=1}^{N} f_{Y_n|X_n}(\data{y_n}\given X_{n,j}\params\theta).
-\end{eqnarray}$$
+\end{eqnarray}
 Then the [Monte Carlo importance sampling theorem](monteCarlo.html#importance-sampling) gives us
 $$\lik(\theta) \approx \frac{1}{J}\,\sum_{j=1}^{J}\!
 f_{Y_{1:N}|X_{1:N}}(\data{y_{1:N}}\given X_{1:N,j}\params\theta)
@@ -267,7 +262,8 @@ pomp(bsflu,times="day",t0=0,
      rprocess=euler.sim(sir_step,delta.t=1/5),
      initializer=sir_init,rmeasure=rmeas,dmeasure=dmeas,
      zeronames="H",statenames=c("H","S","I","R"),
-     paramnames=c("Beta","gamma","rho","N")) -> sir
+     paramnames=c("Beta","gamma","rho","N"),
+     cdir = getwd()) -> sir
 ```
 
 * Let's generate a bunch of simulated trajectories at some particular point in parameter space.
@@ -310,7 +306,7 @@ ell <- apply(ell,1,sum); summary(exp(ell)); logmeanexp(ell,se=TRUE)
 
 * We proceed by factorizing the likelihood in a different way:
 
-$$\begin{eqnarray}
+\begin{eqnarray}
 \lik(\theta)&=&f_{Y_{1:N}}(y^*_{1:N}\params \theta)
 \\
 &=&
@@ -318,27 +314,27 @@ $$\begin{eqnarray}
 \\
 &=&
 \prod_{n}\,\int f_{Y_n|X_n}(y^*_n|x_n\params\theta)\,f_{X_n|Y_{1:n-1}}(x_n|y^*_{1:n-1}\params\theta)\, dx_{n}.
-\end{eqnarray}$$
+\end{eqnarray}
 
 * The Markov property leads to the prediction formula:
 
-$$\begin{eqnarray}
+\begin{eqnarray}
 &&f_{X_n|Y_{1:n-1}}(x_n|y^*_{1:n-1}\params \theta) 
 \\
 &&\quad
 = \int_{x_{n-1}} \! f_{X_n|X_{n-1}}(x_n|x_{n-1}\params\theta)\, f_{X_{n-1}|Y_{1:n-1}}(x_{n-1}\given y^*_{1:n-1}\params \theta) \, dx_{n-1}.
-\end{eqnarray}$$
+\end{eqnarray}
 
 * Bayes' theorem gives the filtering formula:
 
-$$\begin{eqnarray}
+\begin{eqnarray}
 &&f_{X_n|Y_{1:n}}(x_n|y^*_{1:n}\params \theta)
 \\
 &&\quad = f_{X_n|Y_n,Y_{1:n-1}}(x_n|y^*_n,y^*_{1:n-1}\params \theta) 
 \\
 &&\quad =\frac{f_{Y_n|X_n}(y^*_{n}|x_{n}\params\theta)\,f_{X_n|Y_{1:n-1}}(x_{n}|y^*_{1:n-1}\params\theta)}{\int
 f_{Y_n|X_n}(y^*_{n}|u_{n}\params\theta)\,f_{X_n|Y_{1:n-1}}(u_{n}|y^*_{1:n-1}\params\theta)\, du_n}.
-\end{eqnarray}$$
+\end{eqnarray}
 
 * This suggests that we keep track of two key distributions.
 We'll refer to the distribution of $X_n | Y_{1:n-1}\equals y^*_{1:n-1}$ as the **prediction distribution** at time $t_n$ and
@@ -357,28 +353,28 @@ $$X_{n,j}^{P} \sim \mathrm{process}(X_{n-1,j}^{F},\theta), \qquad j=1,\dots,J.$$
 $$w_{n,j}=f_{Y_n|X_n}(y^*_{n}|X^P_{n,j}\params\theta).$$
 
 4. The Monte Carlo principle tells us that the conditional likelihood
-$$\begin{eqnarray}
+\begin{eqnarray}
 \lik_n(\theta) &=& f_{Y_n|Y_{1:n-1}}(y^*_n|y^*_{1:n-1}\params\theta)
 \\
 &=& 
 \int
 f_{Y_n|X_n}(y^*_{n}|x_{n}\params\theta)\,f_{X_n|Y_{1:n-1}}(x_{n}|y^*_{1:n-1}\params\theta)\, dx_n
 \end{eqnarray}
-$$
+
 is approximated by
 $$\hat\lik_n(\theta)  \approx \frac{1}{N}\,\sum_j\, f_{Y_n|X_n}(y^*_{n}|X_{n,j}^{P}\params\theta).$$
 
 5. We can iterate this procedure through the data, one step at a time, alternately simulating and resampling, until we reach $n=N$.
 
 6. The full log likelihood then has approximation
-$$\begin{eqnarray}\loglik(\theta) 
+\begin{eqnarray}\loglik(\theta) 
 &=& \log{\lik(\theta)} 
 \\
 &=& \sum_n \log{\lik_n(\theta)}
 \\
 &\approx& \sum_n\log\hat\lik_n(\theta).
 \end{eqnarray}
-$$
+
 
 * The above procedure is known as the **sequential Monte Carlo** (SMC) algorithm or the **particle filter**.
 
@@ -855,7 +851,8 @@ bsflu2 <- pomp(
   obsnames = bsflu_obsnames,
   statenames=bsflu_statenames,
   paramnames=bsflu_paramnames,
-  initializer=Csnippet(bsflu_initializer)
+  initializer=Csnippet(bsflu_initializer),
+  cdir=getwd()
 )
 plot(bsflu2)
 ```
