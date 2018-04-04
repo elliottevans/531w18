@@ -3,11 +3,16 @@ title: "Monte Carlo Methods"
 author: "Edward Ionides"
 date: "2016-03-23"
 output:
+  pdf_document: 
+    keep_tex: yes
+    toc: yes
+    toc_depth: 2
   html_document:
     theme: flatly
     toc: yes
-bibliography: notes13.bib
-csl: ../ecology.csl
+    toc_depth: 2
+    number_sections: true
+csl: ecology.csl
 ---
 
 \newcommand\prob{\mathbb{P}}
@@ -21,7 +26,7 @@ csl: ../ecology.csl
 \newcommand\transpose{\scriptsize{T}}
 \newcommand\eqspace{\quad\quad}
 \newcommand\myeq[1]{\eqspace \displaystyle #1}
-\newcommand\lik{\mathscr{L}}
+\newcommand\lik{\mathcal{L}}
 \newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
 \newcommand\given{{\, | \,}}
 \newcommand\equals{{=\,}}
@@ -31,10 +36,6 @@ csl: ../ecology.csl
 \newcommand\dimY{\mathrm{dim}(Y)}
 
 -----------------------------------
-
-Licensed under the Creative Commons attribution-noncommercial license, http://creativecommons.org/licenses/by-nc/3.0/.
-Please share and remix noncommercially, mentioning its origin.  
-![CC-BY_NC](cc-by-nc.png)
 
 Produced in R version `r getRversion()`.
 
@@ -101,13 +102,13 @@ stopifnot(packageVersion("pomp")>="0.69-1")
 Let's consider a general POMP model.
 As before, let $\data{y_{1:N}}$ be the data, and let the model consist of a latent process $X_{0:N}$ and an observable process $Y_{1:N}$.
 Then the likelihood function is
-$$\begin{eqnarray}
+\begin{eqnarray}
 \lik(\theta)
 &=&
 f_{Y_{1:N}}(\data{y_{1:N}}\params\theta)
 \\
 &=&\int_{x_0}\cdots\int_{x_N}\! f_{X_0}(x_0\params\theta)\prod_{n=1}^{N}\!f_{Y_n|X_n}(\data{y_n}\given x_n\params \theta)\, f_{X_n|X_{n-1}}(x_n|x_{n-1}\params\theta)\, dx_0\dots dx_N.
-\end{eqnarray}$$
+\end{eqnarray}
 i.e., computation of the likelihood requires integrating (or summing, for a discrete model) over all possible values of the unobserved latent process at each time point.
 This is very hard to do, in general.
 
@@ -235,11 +236,11 @@ Specifically, if the tails of $g$ are lighter than those of $f$, the Monte Carlo
 * A basic fact is that, if $X\!\sim\!f$, then $F(X)\!\sim\!\mathrm{uniform}(0,1)$.
 <br>
 Proof: If $f(X)>0$, then 
-$$\begin{eqnarray}
+\begin{eqnarray}
 \prob[F(X)\,\le\,u] &=& \prob[X\,<\,F^{-1}(u)] 
 \\
 &=& F\big(F^{-1}(u)\big) = u.
-\end{eqnarray}$$
+\end{eqnarray}
 
 * This suggests that, if we can compute $F^{-1}$, we use the following algorithm to generate $X\!\sim\!f$:
 
@@ -283,13 +284,13 @@ $$X \sim \mathrm{uniform}(D).$$
 * If we know how to generate $Y\!\sim\!\mathrm{uniform}(U)$, then we can simply do so until ${Y}\in{D}$, at which point we take $X=Y$.
 
 * Since for any $A\subset{D}$, 
-$$\begin{eqnarray}
+\begin{eqnarray}
 \prob[X\in A] &=& \prob[Y\in A |Y\in D]
 \\ 
 &=& \frac{\mathrm{area}(A)}{\mathrm{area}(U)}\Big{/}\frac{\mathrm{area}(D)}{\mathrm{area}(U)} 
 \\
 &=& \frac{\mathrm{area}(A)}{\mathrm{area}(D)},
-\end{eqnarray}$$
+\end{eqnarray}
 it follows that $Y\!\sim\!\mathrm{uniform}(D)$.
 
 * Consider an analogy to throwing darts. If the darts are thrown in such a way as to be equally likely to land anywhere in $U$, then those that do land in $D$ are equally likely to land anywhere in $D$.
@@ -389,6 +390,4 @@ par(op)
 
 #### Acknowledgement: These notes derive from [notes by Aaron King](http://kingaa.github.io/sbied/pfilter/monteCarlo.html).
 
-
-## References
 

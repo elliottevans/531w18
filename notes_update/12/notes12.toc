@@ -1,0 +1,32 @@
+\contentsline {subsection}{\numberline {12.1}Theory of the particle filter}{1}{subsection.12.1}
+\contentsline {subsubsection}{\numberline {12.1.1}Indirect specification of the statistical model via a simulation procedure}{1}{subsubsection.12.1.1}
+\contentsline {subsubsection}{\numberline {12.1.2}Special case: a deterministic unobserved state process}{2}{subsubsection.12.1.2}
+\contentsline {subsection}{\numberline {12.2}Likelihood for stochastic models by direct simulation}{3}{subsection.12.2}
+\contentsline {subsection}{\numberline {12.3}The particle filter}{6}{subsection.12.3}
+\contentsline {subsection}{\numberline {12.4}Sequential Monte Carlo in \textbf {pomp}}{7}{subsection.12.4}
+\contentsline {subsection}{\numberline {12.5}The graph of the likelihood function: The likelihood surface}{9}{subsection.12.5}
+\contentsline {subsubsection}{\numberline {12.5.1}Exercise: Write down the definition of a likelihood slice in mathematical notation.}{9}{subsubsection.12.5.1}
+\contentsline {subsubsection}{\numberline {12.5.2}Exercise: Note that a likelihood slice is different from a likelihood profile}{9}{subsubsection.12.5.2}
+\contentsline {subsubsection}{\numberline {12.5.3}Exercise: Likelihood slices}{11}{subsubsection.12.5.3}
+\contentsline {subsubsection}{\numberline {12.5.4}Exercise: 2D likelihood slice}{12}{subsubsection.12.5.4}
+\contentsline {subsection}{\numberline {12.6}Maximizing the likelihood using the particle filter}{12}{subsection.12.6}
+\contentsline {subsubsection}{\numberline {12.6.1}Causal, mechanistic interpretation of parameter estimates}{12}{subsubsection.12.6.1}
+\contentsline {subsubsection}{\numberline {12.6.2}Likelihood maximization for the boarding school flu example}{13}{subsubsection.12.6.2}
+\contentsline {subsection}{\numberline {12.7}An iterated filtering algorithm (IF2)}{13}{subsection.12.7}
+\contentsline {subsubsection}{\numberline {12.7.1}IF2 algorithm pseudocode}{14}{subsubsection.12.7.1}
+\contentsline {subsubsection}{\numberline {12.7.2}Choosing the algorithmic settings for IF2}{14}{subsubsection.12.7.2}
+\contentsline {subsection}{\numberline {12.8}Applying IF2 to a boarding school influenza outbreak}{15}{subsection.12.8}
+\contentsline {subsubsection}{\numberline {12.8.1}Running a particle filter}{18}{subsubsection.12.8.1}
+\contentsline {subsubsection}{\numberline {12.8.2}Caching computations in Rmarkdown}{19}{subsubsection.12.8.2}
+\contentsline {paragraph}{\texttt {stew} and \texttt {bake}}{20}{section*.7}
+\contentsline {subsection}{\numberline {12.9}A local search of the likelihood surface}{20}{subsection.12.9}
+\contentsline {subsection}{\numberline {12.10}A global search of the likelihood surface using randomized starting values}{22}{subsection.12.10}
+\contentsline {subsection}{\numberline {12.11}Diagnosing success or failure of the maximization procedure}{24}{subsection.12.11}
+\contentsline {subsubsection}{\numberline {12.11.1}Question: Interpret the diagnostics}{25}{subsubsection.12.11.1}
+\contentsline {subsection}{\numberline {12.12}Exercises}{26}{subsection.12.12}
+\contentsline {subsubsection}{\numberline {12.12.1}Exercise: Construct a profile likelihood}{26}{subsubsection.12.12.1}
+\contentsline {subsubsection}{\numberline {12.12.2}Exercise: Check the model source code}{26}{subsubsection.12.12.2}
+\contentsline {subsubsection}{\numberline {12.12.3}Exercise: Assessing and improving algorithmic parameters}{27}{subsubsection.12.12.3}
+\contentsline {subsubsection}{\numberline {12.12.4}Exercise: Finding sharp peaks in the likelihood surface}{27}{subsubsection.12.12.4}
+\contentsline {subsubsection}{\numberline {12.12.5}Exercise: Adding a latent class}{27}{subsubsection.12.12.5}
+\contentsline {subsection}{References}{28}{section*.8}
