@@ -723,10 +723,10 @@ stochastic simulator for the unobserved state process. We've seen that
 there are several ways of approximating the process just described for
 numerical purposes. An attractive option here is to model the number
 moving from one compartment to the next over a very short time interval
-as a binomial random variable. In particular, we model the number,
-\(\dlta{N_{SI}}\), moving from S to I over interval \(\dlta{t}\) as
-\[\dlta{N_{SI}} \sim \dist{Binomial}{S,1-e^{-\lambda\dlta{t}}},\] and
-the number moving from I to R as
+as a binomial random variable. \hl{In particular, we model the number,
+$\dlta{N_{SI}}$, moving from S to I over interval $\dlta{t}$ as}
+\[\dlta{N_{SI}} \sim \dist{Binomial}{S,1-e^{-\lambda\dlta{t}}},\] \hl{and
+the number moving from I to R as}
 \[\dlta{N_{IR}} \sim \dist{Binomial}{I,1-e^{-\gamma\dlta{t}}}.\]
 
 A \texttt{Csnippet} that encodes such a simulator is as follows:

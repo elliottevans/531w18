@@ -447,6 +447,7 @@ f_{Y_{1:N}}(\data{y_{1:N}}\params\theta)
 \item
   The \hl{likelihood appears to be very low, but the error in the estimate
   is very high and therefore the estimated likelihood is very imprecise}.
+\todo[inline]{Above, demeasure with log=TRUE provides the log-likelihood. We see this since $exp(ell) \approx 5.37e-102\implies ell = \ln(5.37e-102)\approx -233$ }
 \item
   We are going to need very many simulations to get an estimate of the
   likelihood sufficiently precise to be of any use in parameter
@@ -574,8 +575,8 @@ is approximated by
 
 \begin{itemize}
 \item
-  The above procedure is known as the \textbf{sequential Monte Carlo}
-  (SMC) algorithm or the \textbf{particle filter}.
+  The above procedure is known as the \hl{\textbf{sequential Monte Carlo}
+  (SMC) algorithm or the \textbf{particle filter}}.
 \item
   Good references for further reading include Kitagawa (1987),
   Arulampalam et al. (2002) and the book edited by Doucet et al. (2001).
@@ -907,11 +908,11 @@ example}\label{likelihood-maximization-for-the-boarding-school-flu-example}
 
 \begin{itemize}
 \item
-  We saw above that the default parameter set for the `bsflu' pomp
-  object is not particularly close to the MLE.
+  We saw above that the \hl{default parameter set for the `bsflu' pomp
+  object is not particularly close to the MLE}.
 \item
-  One way to find the MLE is to try optimizing the estimated likelihood,
-  computed by the particle filter, directly.
+  \hl{One way to find the MLE is to try optimizing the estimated likelihood,
+  computed by the particle filter, directly.}
 \item
   There are many optimization algorithms to choose from, and many
   implemented in R.
@@ -922,8 +923,8 @@ example}\label{likelihood-maximization-for-the-boarding-school-flu-example}
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  The particle filter gives us a stochastic estimate of the likelihood.
-  We can reduce this variability by making the number of particles,
+  The \hl{particle filter gives us a stochastic estimate of the likelihood.}
+  We can \hl{reduce this variability by making the number of particles},
   \texttt{Np}, larger. However, we cannot make it go away. If we use a
   deterministic optimizer (i.e., one that assumes the objective function
   is evaluated deterministically), then we must control this variability
@@ -970,8 +971,8 @@ example}\label{likelihood-maximization-for-the-boarding-school-flu-example}
   recycled as starting parameters for a new particle filter with a
   smaller random walk variance.
 \item
-  Theoretically, this procedure converges toward the region of parameter
-  space maximizing the maximum likelihood.
+  \hl{Theoretically, this procedure converges toward the region of parameter
+  space maximizing the maximum likelihood.}
 \item
   Empirically, we can test this claim on examples.
 \end{itemize}
@@ -1074,6 +1075,7 @@ IF2}\label{choosing-the-algorithmic-settings-for-if2}
   Perturbations are usually chosen to be Gaussian, with \(\sigma_m\)
   being a scale factor for iteration \(m\):
   \[h_n(\theta|\varphi;\sigma) \sim N[\varphi, \sigma^2_m V_n].\]
+  \todo[inline]{This is the perturbtion density}
 \item
   \(V_n\) is usually taken to be diagonal,
   \[ V_n = \left( \begin{array}{ccccc}
@@ -1103,9 +1105,9 @@ IF2}\label{choosing-the-algorithmic-settings-for-if2}
   thermodynamic analogy popularized by
   \href{https://en.wikipedia.org/wiki/Simulated_annealing}{simulated
   annealing}. As \(\sigma_m\) becomes small, the system cools toward a
-  ``freezing point''. If the algorithm is working sucessfully, the
+  ``freezing point''. \hl{If the algorithm is working sucessfully, the
   freezing point should be close to the lowest-energy state of the
-  system, i.e., the MLE.
+  system, i.e., the MLE.}
 \item
   It is generally helpful for optimization to provide transformations of
   the parameters so that (on the estimation scale) they are real-valued
@@ -1146,8 +1148,8 @@ outbreak}\label{applying-if2-to-a-boarding-school-influenza-outbreak}
 \item
   For a relatively simple epidemiological example of IF2, we consider
   fitting a stochastic SIR model to an influenza outbreak in a British
-  boarding school (Anonymous 1978). Reports consist of the number of
-  children confined to bed for each of the 14 days of the outbreak. The
+  boarding school (Anonymous 1978). \hl{Reports consist of the number of
+  children confined to bed for each of the 14 days of the outbreak.} The
   total number of children at the school was 763, and a total of 512
   children spent time away from class. Only one adult developed
   influenza-like illness, so adults are omitted from the data and model.
@@ -1162,10 +1164,10 @@ outbreak}\label{applying-if2-to-a-boarding-school-influenza-outbreak}
 
 \begin{itemize}
 \item
-  Our model is a variation on a basic SIR Markov chain, with state
-  \(X(t)=(S(t),I(t),R_1(t),R_2(t),R_3(t) )\) giving the number of
+  Our model is a variation on a basic SIR Markov chain, with \hl{state
+  $X(t)=(S(t),I(t),R_1(t),R_2(t),R_3(t) )$ giving the number of
   individuals in the susceptible and infectious categories, and three
-  stages of recovery.
+  stages of recovery.}
 \item
   The recovery stages, \(R_1\), \(R_2\) and \(R_3\), are all modeled to
   be non-contagious.
@@ -1181,11 +1183,11 @@ outbreak}\label{applying-if2-to-a-boarding-school-influenza-outbreak}
 \item
   The observation on day \(n\) of the observed epidemic (with \(n=1\)
   being 22 January) consists of the numbers of children who are
-  bed-confined and convalescent.
+  \hl{bed-confined} and \hl{convalescent}.
 \item
-  These measurements are modeled as \(Y_n=(B_n,C_n)\) with
-  \(B_n\sim\mathrm{Poisson}(\rho R_1(t_n))\) and
-  \(C_n\sim\mathrm{Poisson}(\rho R_2(t_n))\).
+  These measurements are modeled as \hl{$Y_n=(B_n,C_n)$ with
+  $B_n\sim\mathrm{Poisson}(\rho R_1(t_n))$ and
+  $C_n\sim\mathrm{Poisson}(\rho R_2(t_n))$.}
 \item
   Here, \(\rho\) is a reporting rate corresponding to the chance of
   being symptomatic.
@@ -1199,11 +1201,11 @@ outbreak}\label{applying-if2-to-a-boarding-school-influenza-outbreak}
   \(t_0=0\). All other individuals are modeled to be initially
   susceptible.
 \item
-  Our Markov transmission model is that each individual in \(S\)
-  transitions to \(I\) at rate \(\beta I(t)\); each individual in \(I\)
-  transitions at rate \(\mu_I\) to \(R_1\). Subsequently, the individual
-  moves from \(R_1\) to \(R_2\) at rate \(\mu_{R_1}\), and finally from
-  \(R_2\) to \(R_3\) at rate \(\mu_{R_2}\).
+  Our Markov \hl{transmission model is that each individual in $S$
+  transitions to $I$ at rate $\beta I(t)$; each individual in $I$
+  transitions at rate $\mu_I$ to $R_1$. Subsequently, the individual
+  moves from $R_1$ to $R_2$ at rate $\mu_{R_1}$, and finally from
+  $R_2$ to $R_3$ at rate $\mu_{R_2}$}.
 \item
   Therefore, \(1/\mu_I\) is the mean infectious time prior to
   bed-confinement; \(1/R_1\) is the mean duration of bed-confinement for
@@ -1245,9 +1247,9 @@ variables:
 ## [1] "B" "C"
 \end{verbatim}
 
-We do not need a representation of \(R_3\) since the total population
-size is fixed at \(P=763\) and hence
-\(R_3(t)=P-S(t)-I(t)-R_1(t)-R_2(t)\). Now, we write the model code:
+\hl{We do not need a representation of $R_3$ since the total population
+size is fixed at $P=763$ and hence
+$R_3(t)=P-S(t)-I(t)-R_1(t)-R_2(t)$}. Now, we write the model code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1292,6 +1294,8 @@ size is fixed at \(P=763\) and hence
 \end{Highlighting}
 \end{Shaded}
 
+\todo[inline]{The dt above is $\Delta t$ (see notes 11.10) }
+
 We can now build the new \texttt{bsflu} pomp object.
 
 \begin{Shaded}
@@ -1319,6 +1323,8 @@ We can now build the new \texttt{bsflu} pomp object.
 \KeywordTok{plot}\NormalTok{(bsflu2)}
 \end{Highlighting}
 \end{Shaded}
+
+\todo[inline]{The delta.t choice is somewhat arbitrary. It 1/12 just means that the euler method will take 12 steps between time points. We don't want it to be any smaller than it needs to be. The smaller we make this, the longer the computation time.}
 
 \begin{center}\includegraphics{figure/notes12-pomp_bsflu-1} \end{center}
 
@@ -1458,8 +1464,8 @@ Rmarkdown}\label{caching-computations-in-rmarkdown}
 
 \begin{itemize}
 \item
-  It is not unusual for computations in a POMP analysis to take hours to
-  run on many cores.
+  \hl{It is not unusual for computations in a POMP analysis to take hours to
+  run on many cores.}
 \item
   The computations for a final version of a manuscript may take days.
 \item
@@ -1564,6 +1570,7 @@ surface}\label{a-local-search-of-the-likelihood-surface}
   Let's carry out a local search using \texttt{mif2} around this
   previously identified MLE. For that, we need to set the \texttt{rw.sd}
   and \texttt{cooling.fraction.50} algorithmic parameters:
+\todo[inline]{Below, \%d.rda, runlevel is inserting the runlevel parameter into the character string}
 \end{itemize}
 
 \begin{Shaded}
