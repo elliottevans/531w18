@@ -15,11 +15,11 @@
 \contentsline {subsection}{\numberline {12.7}An iterated filtering algorithm (IF2)}{13}{subsection.12.7}
 \contentsline {subsubsection}{\numberline {12.7.1}IF2 algorithm pseudocode}{14}{subsubsection.12.7.1}
 \contentsline {subsubsection}{\numberline {12.7.2}Choosing the algorithmic settings for IF2}{14}{subsubsection.12.7.2}
-\contentsline {subsection}{\numberline {12.8}Applying IF2 to a boarding school influenza outbreak}{15}{subsection.12.8}
-\contentsline {subsubsection}{\numberline {12.8.1}Running a particle filter}{18}{subsubsection.12.8.1}
-\contentsline {subsubsection}{\numberline {12.8.2}Caching computations in Rmarkdown}{19}{subsubsection.12.8.2}
-\contentsline {paragraph}{\texttt {stew} and \texttt {bake}}{20}{section*.7}
-\contentsline {subsection}{\numberline {12.9}A local search of the likelihood surface}{20}{subsection.12.9}
+\contentsline {subsection}{\numberline {12.8}Applying IF2 to a boarding school influenza outbreak}{16}{subsection.12.8}
+\contentsline {subsubsection}{\numberline {12.8.1}Running a particle filter}{19}{subsubsection.12.8.1}
+\contentsline {subsubsection}{\numberline {12.8.2}Caching computations in Rmarkdown}{20}{subsubsection.12.8.2}
+\contentsline {paragraph}{\texttt {stew} and \texttt {bake}}{20}{section*.11}
+\contentsline {subsection}{\numberline {12.9}A local search of the likelihood surface}{21}{subsection.12.9}
 \contentsline {subsection}{\numberline {12.10}A global search of the likelihood surface using randomized starting values}{22}{subsection.12.10}
 \contentsline {subsection}{\numberline {12.11}Diagnosing success or failure of the maximization procedure}{24}{subsection.12.11}
 \contentsline {subsubsection}{\numberline {12.11.1}Question: Interpret the diagnostics}{25}{subsubsection.12.11.1}
@@ -29,4 +29,4 @@
 \contentsline {subsubsection}{\numberline {12.12.3}Exercise: Assessing and improving algorithmic parameters}{27}{subsubsection.12.12.3}
 \contentsline {subsubsection}{\numberline {12.12.4}Exercise: Finding sharp peaks in the likelihood surface}{27}{subsubsection.12.12.4}
 \contentsline {subsubsection}{\numberline {12.12.5}Exercise: Adding a latent class}{27}{subsubsection.12.12.5}
-\contentsline {subsection}{References}{28}{section*.8}
+\contentsline {subsection}{References}{28}{section*.13}
