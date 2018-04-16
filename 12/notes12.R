@@ -5,8 +5,11 @@ options(
   encoding="UTF-8"
   )
 
+<<<<<<< HEAD
 setwd("~/Desktop/531w18/12")
 
+=======
+>>>>>>> 4754d2e7a0df31c5aac13b52da2291b505d96681
 ## ----prelims,echo=F,cache=F----------------------------------------------
 set.seed(594709947L)
 require(ggplot2)
@@ -204,7 +207,11 @@ bsflu2 <- pomp(
 plot(bsflu2)
 
 ## ----run_level-----------------------------------------------------------
+<<<<<<< HEAD
 run_level <- 1
+=======
+run_level <- 3
+>>>>>>> 4754d2e7a0df31c5aac13b52da2291b505d96681
 switch(run_level,
        {bsflu_Np=100; bsflu_Nmif=10; bsflu_Neval=10; bsflu_Nglobal=10; bsflu_Nlocal=10}, 
        {bsflu_Np=20000; bsflu_Nmif=100; bsflu_Neval=10; bsflu_Nglobal=10; bsflu_Nlocal=10}, 
@@ -338,4 +345,9 @@ class(mifs_global[[1]])
 class(c(mifs_global[[1]],mifs_global[[2]]))
 
 ## ----mifs_global_plot----------------------------------------------------
+<<<<<<< HEAD
 plot(mifs_global)
+=======
+plot(mifs_global)
+
+>>>>>>> 4754d2e7a0df31c5aac13b52da2291b505d96681

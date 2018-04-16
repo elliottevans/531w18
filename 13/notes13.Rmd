@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 title: "13 Time series models with covariates, and a case study of polio"
 always_allow_html: TRUE
 author: "Edward Ionides"
@@ -18,6 +19,21 @@ output:
       ]
 csl: ecology.csl
 bibliography: notes13.bib
+=======
+title: "13. Time series models with covariates, and a case study of polio"
+author: "Edward Ionides"
+date: "04/08/2018"
+output:
+  html_document:
+    theme: flatly
+    toc_depth: 2
+    toc: yes
+    pandoc_args: [
+      "--number-offset=13"
+    ]
+bibliography: notes13.bib
+csl: ecology.csl 
+>>>>>>> 4754d2e7a0df31c5aac13b52da2291b505d96681
 ---
 
 
@@ -32,7 +48,12 @@ bibliography: notes13.bib
 \newcommand\transpose{\scriptsize{T}}
 \newcommand\eqspace{\quad\quad}
 \newcommand\myeq[1]{\eqspace \displaystyle #1}
+<<<<<<< HEAD
 \newcommand\lik{\mathcal{L}}
+=======
+\newcommand\lik{\mathscr{L}}
+\newcommand\loglik{\ell}
+>>>>>>> 4754d2e7a0df31c5aac13b52da2291b505d96681
 \newcommand\profileloglik[1]{\ell^\mathrm{profile}_#1}
 \newcommand\ar{\phi}
 \newcommand\ma{\psi}
@@ -48,6 +69,13 @@ bibliography: notes13.bib
 \newcommand\covmatY{\mathbb{V}}
 
 
+<<<<<<< HEAD
+=======
+Licensed under the Creative Commons attribution-noncommercial license, http://creativecommons.org/licenses/by-nc/3.0/.
+Please share and remix noncommercially, mentioning its origin.  
+![CC-BY_NC](cc-by-nc.png)
+
+>>>>>>> 4754d2e7a0df31c5aac13b52da2291b505d96681
 ```{r opts,include=FALSE}
 library(knitr)
 prefix <- "sp500"
