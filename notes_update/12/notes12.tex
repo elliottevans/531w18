@@ -1570,7 +1570,7 @@ surface}\label{a-local-search-of-the-likelihood-surface}
   Let's carry out a local search using \texttt{mif2} around this
   previously identified MLE. For that, we need to set the \texttt{rw.sd}
   and \texttt{cooling.fraction.50} algorithmic parameters:
-\todo[inline]{Below, \%d.rda, runlevel is inserting the runlevel parameter into the character string}
+\todo[inline]{Below, \%d.rda, runlevel is inserting the runlevel parameter into the character string. This is the implementation of the IF2 algorithm in 12.7.1. Here, Np is $J$ in the pseudo code, }
 \end{itemize}
 
 \begin{Shaded}
@@ -1859,6 +1859,8 @@ procedure}\label{diagnosing-success-or-failure-of-the-maximization-procedure}
 \item
   Now, we can look at the diagnostics.
 \end{itemize}
+
+\todo[inline]{Below, in the top plot, there's consistency b/t the difference global searches.}
 
 \begin{figure}[h!]
 	\centering

@@ -5,6 +5,8 @@ options(
   encoding="UTF-8"
   )
 
+setwd("~/Desktop/531w18/12")
+
 ## ----prelims,echo=F,cache=F----------------------------------------------
 set.seed(594709947L)
 require(ggplot2)
@@ -202,7 +204,7 @@ bsflu2 <- pomp(
 plot(bsflu2)
 
 ## ----run_level-----------------------------------------------------------
-run_level <- 3
+run_level <- 1
 switch(run_level,
        {bsflu_Np=100; bsflu_Nmif=10; bsflu_Neval=10; bsflu_Nglobal=10; bsflu_Nlocal=10}, 
        {bsflu_Np=20000; bsflu_Nmif=100; bsflu_Neval=10; bsflu_Nglobal=10; bsflu_Nlocal=10}, 
@@ -337,4 +339,3 @@ class(c(mifs_global[[1]],mifs_global[[2]]))
 
 ## ----mifs_global_plot----------------------------------------------------
 plot(mifs_global)
-

@@ -22,11 +22,11 @@
 \contentsline {subsection}{\numberline {12.9}A local search of the likelihood surface}{21}{subsection.12.9}
 \contentsline {subsection}{\numberline {12.10}A global search of the likelihood surface using randomized starting values}{22}{subsection.12.10}
 \contentsline {subsection}{\numberline {12.11}Diagnosing success or failure of the maximization procedure}{24}{subsection.12.11}
-\contentsline {subsubsection}{\numberline {12.11.1}Question: Interpret the diagnostics}{25}{subsubsection.12.11.1}
+\contentsline {subsubsection}{\numberline {12.11.1}Question: Interpret the diagnostics}{26}{subsubsection.12.11.1}
 \contentsline {subsection}{\numberline {12.12}Exercises}{26}{subsection.12.12}
 \contentsline {subsubsection}{\numberline {12.12.1}Exercise: Construct a profile likelihood}{26}{subsubsection.12.12.1}
 \contentsline {subsubsection}{\numberline {12.12.2}Exercise: Check the model source code}{26}{subsubsection.12.12.2}
 \contentsline {subsubsection}{\numberline {12.12.3}Exercise: Assessing and improving algorithmic parameters}{27}{subsubsection.12.12.3}
 \contentsline {subsubsection}{\numberline {12.12.4}Exercise: Finding sharp peaks in the likelihood surface}{27}{subsubsection.12.12.4}
 \contentsline {subsubsection}{\numberline {12.12.5}Exercise: Adding a latent class}{27}{subsubsection.12.12.5}
-\contentsline {subsection}{References}{28}{section*.13}
+\contentsline {subsection}{References}{28}{section*.14}

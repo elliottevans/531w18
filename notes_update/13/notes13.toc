@@ -1,0 +1,20 @@
+\contentsline {subsection}{\numberline {13.1}Covariates in time series analysis}{1}{subsection.13.1}
+\contentsline {subsubsection}{\numberline {13.1.1}Covariates in linear time series analysis}{2}{subsubsection.13.1.1}
+\contentsline {subsubsection}{\numberline {13.1.2}Covariates in nonlinear POMP models}{2}{subsubsection.13.1.2}
+\contentsline {subsection}{\numberline {13.2}Case study: polio in Wisconsin}{3}{subsection.13.2}
+\contentsline {subsection}{\numberline {13.3}Building a pomp object for the polio model}{5}{subsection.13.3}
+\contentsline {subsection}{\numberline {13.4}Setting run levels to control computation time}{9}{subsection.13.4}
+\contentsline {subsubsection}{\numberline {13.4.1}Exercise: Choosing algorithmic parameters}{10}{subsubsection.13.4.1}
+\contentsline {subsection}{\numberline {13.5}Likelihood evaluation at an estimated MLE}{10}{subsection.13.5}
+\contentsline {subsubsection}{\numberline {13.5.1}Comparison of our implementation with Martinez-Bakker et al. (2015)}{11}{subsubsection.13.5.1}
+\contentsline {subsection}{\numberline {13.6}Simulation to investigate the fitted model: Local persistence}{11}{subsection.13.6}
+\contentsline {subsection}{\numberline {13.7}Local likelihood maximization}{12}{subsection.13.7}
+\contentsline {subsection}{\numberline {13.8}Global likelihood maximization}{14}{subsection.13.8}
+\contentsline {subsubsection}{\numberline {13.8.1}Benchmark likelihoods for non-mechanistic models}{16}{subsubsection.13.8.1}
+\contentsline {subsubsection}{\numberline {13.8.2}Mining previous investigations of the likelihood}{17}{subsubsection.13.8.2}
+\contentsline {subsection}{\numberline {13.9}Exercises}{18}{subsection.13.9}
+\contentsline {subsubsection}{\numberline {13.9.1}Exercise: Initial values}{18}{subsubsection.13.9.1}
+\contentsline {subsubsection}{\numberline {13.9.2}Exercise: Parameter estimation using randomized starting values.}{19}{subsubsection.13.9.2}
+\contentsline {subsubsection}{\numberline {13.9.3}Exercise: Demography and discrete time}{19}{subsubsection.13.9.3}
+\contentsline {subsubsection}{\numberline {13.9.4}Technical exercise: Diagnosing filtering and maximization convergence}{19}{subsubsection.13.9.4}
+\contentsline {subsection}{References}{24}{section*.2}
